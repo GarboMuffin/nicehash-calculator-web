@@ -57,6 +57,7 @@ const PROCESS_ARGS = [
   // basic args to output data that is parasable
   "--no-header",
   "--json-output",
+  "--user-agent=\"https://github.com/GarboMuffin/nicehash-calculator-web\"",
 
   // whattomine has a rpm of ~80 requests per minute i believe
   // this number isn't too great because of that but it makes developing faster

@@ -129,7 +129,6 @@
       }
     }
 
-
     // Set the last updated date
     const date = new Date(data.lastUpdated);
     lastUpdated.textContent = date.toLocaleString();
