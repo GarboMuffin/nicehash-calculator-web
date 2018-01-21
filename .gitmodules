@@ -1,0 +1,4 @@
+[submodule "nicehash-calculator"]
+	path = nicehash-calculator
+	url = https://github.com/GarboMuffin/nicehash-calculator
+	branch = rewrite
