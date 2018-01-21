@@ -6,7 +6,9 @@ if (process.env.NODE_ENV !== "production") {
   app.use(require("errorhandler")());
 }
 
-const server = app.listen(8080, () => {
+const config = require("./config");
+
+const server = app.listen(config.PORT, () => {
   const address = server.address();
   console.log(`Listening on ${address.address}:${address.port}`);
 });
