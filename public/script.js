@@ -8,6 +8,7 @@
   const table = document.getElementById("table");
   const lastUpdated = document.getElementById("last-updated");
   const waitMessage = document.getElementById("please-wait");
+  const missingDataMessage = document.getElementById("no-data");
 
   // How many decimals to have in most numbers
   const VALUE_PRECISION = 4;
@@ -116,12 +117,18 @@
       return row;
     };
 
-    // Add rows for every coin
-    const coins = data.coins;
-    for (const coin of coins) {
-      const row = createRow(coin);
-      table.appendChild(row);
+    // If the data doesn't have any coins or if the list has length 0 there is no data
+    if (!data.coins || data.coins.length === 0) {
+      missingDataMessage.style.display = "block";
+    } else {
+      // Add rows for every coin
+      const coins = data.coins;
+      for (const coin of coins) {
+        const row = createRow(coin);
+        table.appendChild(row);
+      }
     }
+
 
     // Set the last updated date
     const date = new Date(data.lastUpdated);
