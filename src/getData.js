@@ -1,4 +1,6 @@
 const chalk = require("chalk");
+const logger = require("./logger");
+const config = require("./config");
 
 const getNiceHashData = require("./getNiceHashData");
 
@@ -21,12 +23,12 @@ function updateData() {
     };
     niceHashData = data;
   }).catch((err) => {
-    console.error(chalk.red(" > Fatal error updating data:"));
-    console.error(err.stack);
+    logger.error(chalk.red(" > Fatal error updating data:"));
+    logger.error(err.stack);
   });
 }
 
-setInterval(updateData, 1000 * 60 * 30); // 30 minutes
+setInterval(updateData, config.REFRESH_TIME);
 updateData();
 
 module.exports = (req, res) => {

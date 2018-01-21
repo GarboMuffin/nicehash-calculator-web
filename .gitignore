@@ -2,3 +2,4 @@ node_modules/
 dist/
 shrinkwrap.yaml
 .env
+logs/

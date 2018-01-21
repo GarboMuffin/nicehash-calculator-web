@@ -1,5 +1,6 @@
 const childProcess = require("child_process");
 const chalk = require("chalk");
+const logger = require("./logger");
 
 const COINS = [
   // scrypt
@@ -68,6 +69,8 @@ module.exports = () => {
   return new Promise((resolve, reject) => {
     const result = [];
 
+    logger.info("Starting update");
+
     const getDir = () => {
       const dir = __dirname.split(/[/\\]/g);
       dir.pop();
@@ -87,22 +90,23 @@ module.exports = () => {
       try {
         data = JSON.parse(e.toString());
       } catch (err) {
-        console.error(chalk.red(" > Error parsing child process output:"));
-        console.error(err.stack);
+        logger.error(chalk.red(" > Error parsing child process output:"));
+        logger.error(err.stack);
         calculator.kill();
         reject();
       }
-      console.log(data);
+      logger.info(`Updated coin: ${data.coin.displayName} (${data.coin.abbreviation})`);
       result.push(data);
     });
 
     calculator.on("exit", (e) => {
+      logger.info("Ending update");
       resolve(result);
     });
 
     calculator.on("error", (e) => {
-      console.error(chalk.red(" > Child process error:"));
-      console.error(err.stack);
+      logger.error(chalk.red(" > Child process error:"));
+      logger.error(err.stack);
       reject();
     });
   });
