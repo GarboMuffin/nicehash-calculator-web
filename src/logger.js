@@ -11,7 +11,7 @@ module.exports = new winston.Logger({
   exitOnError: false,
   transports: [
     new winston.transports.DailyRotateFile({
-      level: process.env.ENV === "development" ? "debug" : "info",
+      level: "info",
       filename: "./logs/log-",
       datePattern: "yyyy-MM-dd",
     }),

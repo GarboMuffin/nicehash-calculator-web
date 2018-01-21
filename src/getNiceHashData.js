@@ -2,68 +2,13 @@ const childProcess = require("child_process");
 const chalk = require("chalk");
 const logger = require("./logger");
 
-const COINS = [
-  // scrypt
-  "litecoin",
-
-  // neoscrypt
-  "vivo",
-  "feathercoin",
-
-  // sha256
-  "bitcoin",
-  "bitcoincash",
-
-  // equihash
-  "zcash",
-  "zclassic",
-  "zencash",
-  "bitcoingold",
-  "hush",
-
-  // ethash
-  "ethereum",
-  "ethereumclassic",
-  "ubiq",
-  "expanse",
-  "music",
-
-  // cryptonight
-  "monero",
-  "electroneum",
-  "sumokoin",
-  "bytecoin",
-
-  // sia
-  "sia",
-
-  // decred
-  "decred",
-
-  // lyra2rev2
-  "verge",
-
-  // skunk
-  "altcommunity",
-
-  // pascal
-  "pascal",
-
-  // lbry
-  "lbry",
-];
-
 const PROCESS_ARGS = [
   // basic args to output data that is parasable
   "--no-header",
   "--json-output",
-  "--user-agent=\"https://github.com/GarboMuffin/nicehash-calculator-web\"",
+  "--user-agent=\"Make an issue if problems: github.com/GarboMuffin/nicehash-calculator-web\"",
 
-  // whattomine has a rpm of ~80 requests per minute i believe
-  // this number isn't too great because of that but it makes developing faster
-  "--sleep-time=500",
-
-  ...COINS,
+  // don't specify any coins to let it run through all the coins
 ];
 
 module.exports = () => {

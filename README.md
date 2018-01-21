@@ -1,5 +1,8 @@
 # [nicehash-calculator-web](https://nicehash.garbomuffin.com)
 
+This is the source code for a website that shows you the profitability of buying hashing power on NiceHash.
+If you're here for the site use the link above. (https://nicehash.garbomuffin.com)
+
 ## Cloning
 
 ```bash
@@ -10,7 +13,9 @@ $ git clone --recursive https://github.com/GarboMuffin/nicehash-calculator-web
 ## Setting things up
 
 ```bash
-# cd to where you cloned the repo
+# move to where you cloned the repo
+$ cd /path/to/repo
+
 # install the dependencies for the website
 $ npm install
 
@@ -26,6 +31,5 @@ $ npm run build
 
 ```bash
 $ node index
-Listening on :::8080
 ...
 ```

@@ -4,9 +4,25 @@
     <title>NiceHash Buyer Profitability Table</title>
     <meta tag="description" content="Table showing the profitability of buying hashing power on NiceHash.">
     <style>
+      /* basic link styles */
+      a {
+        color: blue;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      a:active {
+        color: red;
+      }
+
       td, th {
         padding: 3px;
         border: 1px solid black;
+      }
+
+      tr:nth-child(even) {
+        background-color: #EEE;
       }
 
       #no-data {
@@ -26,28 +42,23 @@
   <body>
     <div id="main">
       <h1>NiceHash Buyer Profitability Chart</h1>
-      <p>This website shows the profitability of buying hashing power on NiceHash.</p>
+      <noscript><h2>Please enable JavaScript.</h2></noscript>
 
+      <p>This website <b>**estimates**</b> the profitability of buying hashing power on NiceHash.</p>
       <p>
         Calculations are made using my WIP <a href="https://github.com/GarboMuffin/nicehash-calculator/tree/rewrite">nicehash-calculator rewrite</a>
-        (which uses <a href="https://whattomine.com/">WhatToMine</a>) with the arguments <code>--no-header --json-output [and a lot of coins]</code>.
-        The program is still a WIP but I believe it is stable enough.
+        (which uses <a href="https://whattomine.com/">WhatToMine</a>).
         <b>Fees are currently not accounted for.</b>
       </p>
-
-      <p>Suggest more coins, features, or bugs by making an issue in the repository linked above. (temporary)</p>
-
+      <p>Report bugs or suggest features by <a href="https://github.com/GarboMuffin/nicehash-calculator-web/issues/new">making an issue in this repository.</a></p>
       <p>This site design is hopefully temporary and I know it's ugly.</p>
-
-      <noscript>Please enable JavaScript.</noscript>
-
+      <p>The column you're probably most interested in is "% Change"</p>
       <p><b>Disclaimer: These results may not be accurate. I am not responsible for any losses that may come as a result of this site.</b></p>
 
       <p id="please-wait"><i>Please wait for the data to load...</i></p>
+      <p id="no-data"><b>There seems to be no data. Please wait a minute. (server probably restarted and waiting for nicehash-calculator to finish)</b></p>
 
-      <p id="no-data">There seems to be no data. Please wait a minute.</p>
-
-      <p>Last updated: <span id="last-updated">(wait for the thing to load)</span> (updated around every 10 minutes)</p>
+      <p>Last updated: <span id="last-updated">(wait for the thing to load)</span> (updated around every 15/20ish minutes)</p>
       <table id="table">
         <tr>
           <th>Coin Name</th>
@@ -58,6 +69,12 @@
           <th>% Change</th>
         </tr>
       </table>
+
+      <div>
+        You can view the raw data <a href="data.json">here</a>.
+        You're welcome to use that pretty much however you must.
+        (you should even be able to <code>fetch()</code> it from another domain)
+      </div>
     </div>
 
     <script src="script.js"></script>
