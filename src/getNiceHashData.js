@@ -1,14 +1,45 @@
 const childProcess = require("child_process");
 const chalk = require("chalk");
 
+const COINS = [
+  // coins
+  // scrypt
+  "litecoin",
+
+  // sha256
+  "bitcoin",
+  "bitcoincash",
+
+  // equihash
+  "zcash",
+  "zclassic",
+  "zencash",
+  "bitcoingold",
+
+  // ethash
+  "ethereum",
+  "ethereumclassic",
+  "ubiq",
+  "expanse",
+
+  // cryptonight
+  "monero",
+  "electroneum",
+
+  // sia
+  "sia",
+];
+
 const PROCESS_ARGS = [
   // basic args to output data that is parasable
   "--no-header",
   "--json-output",
 
-  // coins
-  "bitcoin",
-  "litecoin",
+  // whattomine has a rpm of ~80 requests per minute i believe
+  // this number isn't too great because of that but it makes developing faster
+  "--sleep-time=500",
+
+  ...COINS,
 ];
 
 module.exports = () => {
@@ -44,7 +75,6 @@ module.exports = () => {
     });
 
     calculator.on("exit", (e) => {
-      console.log("nicehash-calculator: exit");
       resolve(result);
     });
 

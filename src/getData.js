@@ -6,7 +6,15 @@ let niceHashData = {};
 
 function updateData() {
   getNiceHashData().then((rawNiceHashData) => {
-    const date = Date.now();
+    rawNiceHashData.sort((a, b) => {
+      const byAlgo = a.coin.niceHashAlgo - b.coin.niceHashAlgo;
+      if (byAlgo === 0) {
+        return a.coin.displayName - b.coin.displayName;
+      } else {
+        return byAlgo;
+      }
+    });
+    const date = new Date();
     const data = {
       lastUpdated: date,
       coins: rawNiceHashData,

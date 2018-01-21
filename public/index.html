@@ -3,12 +3,46 @@
   <head>
     <title>NiceHash Buyer Profitability Table</title>
     <meta tag="description" content="Table showing the profitability of buying hashing power on NiceHash.">
+    <style>
+      td, th {
+        padding: 3px;
+        border: 1px solid black;
+      }
+
+      /* TODO: basic styling */
+      .cell-green {
+        background-color: limegreen;
+      }
+
+      .cell-red {
+        background-color: red;
+      }
+    </style>
   </head>
 
   <body>
-    <noscript>Please enable JavaScript.</noscript>
-
     <div id="main">
+      <h1>NiceHash Buyer Profitability Chart</h1>
+      <p>This website shows the profitability of buying hashing power on NiceHash.</p>
+
+      <p>
+        Calculations are made using my WIP <a href="https://github.com/GarboMuffin/nicehash-calculator/tree/rewrite">nicehash-calculator (rewrite branch)</a>
+        (which uses <a href="https://whattomine.com/">WhatToMine</a>) with the arguments <code>--no-header --json-output [and a lot of coins]</code>.
+        The program is still a WIP but I believe it is stable enough.
+        <b>Fees are currently not accounted for.</b>
+      </p>
+
+      <p>Suggest more coins by making an issue in the repository linked above. (temporary)</p>
+
+      <p>This site design is hopefully temporary and I know it's ugly.</p>
+
+      <noscript>Please enable JavaScript.</noscript>
+
+      <p><b>Disclaimer: These results may not be accurate. I am not responsible for any losses that may come as a result of this site.</b></p>
+
+      <p id="please-wait"><i>Please wait for the data to load...</i></p>
+
+      <p>Last updated: <span id="last-updated">(wait for the thing to load)</span></p>
       <table id="table">
         <tr>
           <th>Coin Name</th>
