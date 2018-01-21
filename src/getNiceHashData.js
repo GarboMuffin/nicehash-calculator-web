@@ -2,9 +2,12 @@ const childProcess = require("child_process");
 const chalk = require("chalk");
 
 const COINS = [
-  // coins
   // scrypt
   "litecoin",
+
+  // neoscrypt
+  "vivo",
+  "feathercoin",
 
   // sha256
   "bitcoin",
@@ -15,19 +18,38 @@ const COINS = [
   "zclassic",
   "zencash",
   "bitcoingold",
+  "hush",
 
   // ethash
   "ethereum",
   "ethereumclassic",
   "ubiq",
   "expanse",
+  "music",
 
   // cryptonight
   "monero",
   "electroneum",
+  "sumokoin",
+  "bytecoin",
 
   // sia
   "sia",
+
+  // decred
+  "decred",
+
+  // lyra2rev2
+  "verge",
+
+  // skunk
+  "altcommunity",
+
+  // pascal
+  "pascal",
+
+  // lbry
+  "lbry",
 ];
 
 const PROCESS_ARGS = [
