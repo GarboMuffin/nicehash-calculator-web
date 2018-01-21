@@ -1,9 +1,20 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>NiceHash Buyer Profitability Table</title>
-    <meta tag="description" content="Table showing the profitability of buying hashing power on NiceHash.">
+    <title>NiceHash Buyer Profitability Chart</title>
+    <meta tag="description" content="Automatically calculates how profitable it is to buy hashing power on NiceHash in a convenient chart.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-77118590-9"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-77118590-9');
+    </script>
   </head>
 
   <body>
@@ -18,14 +29,15 @@
         <b>Fees are currently not accounted for.</b>
       </p>
       <p>Report bugs or suggest features by <a href="https://github.com/GarboMuffin/nicehash-calculator-web/issues/new">making an issue in this repository.</a></p>
-      <p>This site design is hopefully temporary and I know it's ugly.</p>
-      <p>The column you're probably most interested in is "% Change"</p>
       <p><b>Disclaimer: These results may not be accurate. I am not responsible for any losses that may come as a result of this site.</b></p>
 
-      <p id="please-wait"><i>Please wait for the data to load...</i></p>
-      <p id="no-data"><b>There seems to be no data. Please wait a minute. (server probably restarted and waiting for nicehash-calculator to finish)</b></p>
+      <p>Yellow coins are the most profitable coin of their algorithm. The % Change row is the row you probably care the most about.</p>
+
+      <hr>
 
       <p>Last updated: <span id="last-updated">(wait for the thing to load)</span> (updated around every 15/20ish minutes)</p>
+      <p id="please-wait"><i>Please wait for the data to load...</i></p>
+      <p id="no-data"><b>There seems to be no data. Please wait a minute. (server probably restarted and waiting for nicehash-calculator to finish)</b></p>
       <table id="table">
         <tr>
           <th>Coin Name</th>
@@ -33,9 +45,11 @@
           <th>Price</th>
           <th>Revenue</th>
           <th>Profit</th>
-          <th>% Change</th>
+          <th class="highlight">% Change</th>
         </tr>
       </table>
+
+      <hr>
 
       <div>
         You can view the raw data <a href="data.json">here</a>.
@@ -44,6 +58,8 @@
       </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

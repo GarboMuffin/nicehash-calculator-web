@@ -1,0 +1,65 @@
+td, th {
+  padding: 3px;
+  border: 1px solid black;
+}
+
+$gray: #EFEFEF;
+$darkgray: #DFDFDF;
+
+tr:nth-child(even) {
+  background-color: $gray;
+}
+tr:nth-child(even):hover {
+  background-color: $darkgray;
+}
+
+tr:nth-child(odd) {
+  background-color: #FFF;
+}
+tr:nth-child(odd):hover {
+  background-color: $gray;
+}
+
+$greenColor: #5fff5f;
+$greenHoverColor: #48e248;
+$redColor: #ff0000;
+$redHoverColor: #eb0000;
+$highlightColor: #ffffb5;
+$highlightHoverColor: #f0f0b7;
+
+.highlight, tr.highlight {
+  background-color: #ffffb5;
+}
+.highlight:hover, tr.highlight:hover {
+  background-color: $highlightHoverColor;
+}
+
+td.cell-green, th.cell-green {
+  background-color: $greenColor;
+}
+
+td.cell-red, th.cell-red {
+  background-color: $redColor;
+  color: white;
+}
+
+td.cell-green:hover, th.cell-green:hover {
+  background-color: $greenHoverColor;
+}
+td.cell-red:hover, th.cell-red:hover {
+  background-color: $redHoverColor;
+}
+
+tr:hover {
+  .highlight {
+    background-color: $highlightHoverColor;
+  }
+
+  .cell-green {
+    background-color: $greenHoverColor;
+  }
+
+  .cell-red {
+    background-color: $redHoverColor;
+  }
+}

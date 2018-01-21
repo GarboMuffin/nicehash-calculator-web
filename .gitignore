@@ -3,3 +3,7 @@ shrinkwrap.yaml
 .env
 logs/
 data.json
+
+# built with npm run build
+public/script.js
+public/style.css

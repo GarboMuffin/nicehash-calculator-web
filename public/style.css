@@ -1,44 +1,72 @@
-/* basic body styles */
-body {
-  /* font-family: sans-serif; */
-}
-
-/* basic link styles */
 a {
   color: blue;
   text-decoration: none;
 }
+
 a:hover {
   text-decoration: underline;
 }
+
 a:active {
   color: red;
 }
 
-/* table styles */
 td, th {
   padding: 3px;
   border: 1px solid black;
 }
+
 tr:nth-child(even) {
-  background-color: #EEE;
+  background-color: #EFEFEF;
 }
-tr:hover:nth-child(even) {
-  background-color: #DDD;
+
+tr:nth-child(even):hover {
+  background-color: #DFDFDF;
 }
-tr:hover {
-  background-color: #EEE;
+
+tr:nth-child(odd) {
+  background-color: #FFF;
 }
-.cell-green {
+
+tr:nth-child(odd):hover {
+  background-color: #EFEFEF;
+}
+
+.highlight, tr.highlight {
+  background-color: #ffffb5;
+}
+
+.highlight:hover, tr.highlight:hover {
+  background-color: #f0f0b7;
+}
+
+td.cell-green, th.cell-green {
   background-color: #5fff5f;
 }
-.cell-red {
+
+td.cell-red, th.cell-red {
   background-color: #ff0000;
   color: white;
 }
 
-.cell-percent-change {
-  /* font-weight: bold; */
+td.cell-green:hover, th.cell-green:hover {
+  background-color: #48e248;
+}
+
+td.cell-red:hover, th.cell-red:hover {
+  background-color: #eb0000;
+}
+
+tr:hover .highlight {
+  background-color: #f0f0b7;
+}
+
+tr:hover .cell-green {
+  background-color: #48e248;
+}
+
+tr:hover .cell-red {
+  background-color: #eb0000;
 }
 
 #no-data {

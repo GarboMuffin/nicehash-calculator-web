@@ -4,11 +4,18 @@
   "description": "Web interface for GarboMuffin/nicehash-calculator",
   "main": "index.js",
   "scripts": {
-    "start": "node index"
+    "start": "node index",
+    "build": "npm run build-sass && npm run build-babel",
+    "build-sass": "node-sass --output-style expanded -o public/ src/public/",
+    "watch-sass": "node-sass --output-style expanded -o public/ src/public/ -w",
+    "build-babel": "babel src/public -d public",
+    "watch-babel": "babel src/public -d public -w"
   },
   "author": "GarboMuffin",
   "license": "MIT",
   "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
     "chalk": "^2.3.0",
     "compression": "^1.7.1",
     "cors": "^2.8.4",
@@ -18,6 +25,7 @@
     "helmet": "^3.9.0",
     "mkdirp": "^0.5.1",
     "morgan": "^1.9.0",
+    "node-sass": "^4.7.2",
     "winston": "^2.4.0",
     "winston-daily-rotate-file": "^1.7.2"
   }

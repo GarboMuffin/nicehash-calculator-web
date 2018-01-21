@@ -6,7 +6,7 @@ If you're here for the site use the link above. (https://nicehash.garbomuffin.co
 ## Cloning
 
 ```bash
-# Remember the --recursive argument
+# remember the --recursive argument
 $ git clone --recursive https://github.com/GarboMuffin/nicehash-calculator-web
 ```
 
@@ -18,6 +18,8 @@ $ cd /path/to/repo
 
 # install the dependencies for the website
 $ npm install
+# build js and scss
+$ npm run build
 
 # now for the nicehash-calculator base...
 $ cd nicehash-calculator
