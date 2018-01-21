@@ -111,7 +111,7 @@
       const percentChange = handlePercent((meta.percentChange - 1) * 100);
       row.appendChild(createColumn(percentChange + "%", {
         // Color a percent change's cell green or red if it's positive or negative
-        className: percentChange > 0 ? "cell-green" : "cell-red",
+        className: (percentChange > 0 ? "cell-green" : "cell-red") + " cell-percent-change",
       }));
 
       return row;

@@ -25,9 +25,7 @@ app.use(cors());
 app.use(compression());
 
 app.use(express.static("public"));
-
 app.get("/data.json", require("./getData"));
-
 app.use((req, res) => res.status(404).send("404 Not Found"));
 
 module.exports = app;

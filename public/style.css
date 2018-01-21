@@ -1,0 +1,46 @@
+/* basic body styles */
+body {
+  /* font-family: sans-serif; */
+}
+
+/* basic link styles */
+a {
+  color: blue;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+a:active {
+  color: red;
+}
+
+/* table styles */
+td, th {
+  padding: 3px;
+  border: 1px solid black;
+}
+tr:nth-child(even) {
+  background-color: #EEE;
+}
+tr:hover:nth-child(even) {
+  background-color: #DDD;
+}
+tr:hover {
+  background-color: #EEE;
+}
+.cell-green {
+  background-color: #5fff5f;
+}
+.cell-red {
+  background-color: #ff0000;
+  color: white;
+}
+
+.cell-percent-change {
+  /* font-weight: bold; */
+}
+
+#no-data {
+  display: none;
+}

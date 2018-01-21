@@ -38,6 +38,7 @@ module.exports = () => {
       } catch (err) {
         logger.error(chalk.red(" > Error parsing child process output:"));
         logger.error(err.stack);
+        logger.error("Data: " + e.toString());
         calculator.kill();
         reject();
       }
