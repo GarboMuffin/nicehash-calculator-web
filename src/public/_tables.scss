@@ -3,25 +3,23 @@ td, th {
   border: 1px solid black;
 }
 
+$dim: #151515;
+$greenColor: #5fff5f;
+$redColor: #ff0000;
+$highlightColor: #ffffb5;
+
 tr {
   background-color: #FFF;
 }
 tr:hover {
-  background-color: #EEE;
+  background-color: #FFF - $dim;
 }
-
-$greenColor: #5fff5f;
-$greenHoverColor: #48e248;
-$redColor: #ff0000;
-$redHoverColor: #eb0000;
-$highlightColor: #ffffb5;
-$highlightHoverColor: #e4e4a8;
 
 .highlight, tr.highlight {
   background-color: $highlightColor;
 }
 .highlight:hover, tr.highlight:hover {
-  background-color: $highlightHoverColor;
+  background-color: $highlightColor - $dim;
 }
 
 td.cell-green, th.cell-green {
@@ -34,22 +32,22 @@ td.cell-red, th.cell-red {
 }
 
 td.cell-green:hover, th.cell-green:hover {
-  background-color: $greenHoverColor;
+  background-color: $greenColor - $dim;
 }
 td.cell-red:hover, th.cell-red:hover {
-  background-color: $redHoverColor;
+  background-color: $redColor - $dim;
 }
 
 tr:hover {
   .highlight {
-    background-color: $highlightHoverColor;
+    background-color: $highlightColor - $dim;
   }
 
   .cell-green {
-    background-color: $greenHoverColor;
+    background-color: $greenColor - $dim;
   }
 
   .cell-red {
-    background-color: $redHoverColor;
+    background-color: $redColor - $dim;
   }
 }

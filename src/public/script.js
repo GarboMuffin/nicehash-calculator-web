@@ -164,5 +164,5 @@
     waitMessage.style.display = "none";
   }
 
-  getData().then((data) => renderData(data));
+  getData().then(renderData);
 }());

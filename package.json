@@ -7,6 +7,7 @@
     "start": "node index",
     "build": "npm run build-sass && npm run build-babel",
     "build-sass": "node-sass --output-style expanded -o public/ src/public/",
+    "build-sass-min": "node-sass --output-style compressed -o public/ src/public/",
     "watch-sass": "node-sass --output-style expanded -o public/ src/public/ -w",
     "build-babel": "babel src/public -d public",
     "watch-babel": "babel src/public -d public -w"
@@ -15,7 +16,9 @@
   "license": "MIT",
   "dependencies": {
     "babel-cli": "^6.26.0",
+    "babel-minify": "^0.2.0",
     "babel-preset-env": "^1.6.1",
+    "babel-preset-minify": "^0.2.0",
     "chalk": "^2.3.0",
     "compression": "^1.7.1",
     "cors": "^2.8.4",
