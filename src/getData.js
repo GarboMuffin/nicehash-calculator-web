@@ -1,3 +1,5 @@
+import { setTimeout } from "timers";
+
 const chalk = require("chalk");
 const fs = require("fs");
 const logger = require("./logger");
@@ -45,6 +47,8 @@ function updateData() {
         logger.info("Saved data.json");
       }
     });
+
+    setTimeout(updateData, config.REFRESH_TIME);
   }).catch((err) => {
     logger.error(chalk.red(" > Fatal error updating data:"));
     logger.error(err.stack);
@@ -54,7 +58,6 @@ function updateData() {
 readExistingData();
 if (process.env.NODE_ENV === "production" || !niceHashData.coins || niceHashData.coins.length === 0) {
   updateData();
-  setInterval(updateData, config.REFRESH_TIME);
 } else {
   logger.info("Not running updates (data exists and not in production, force an update by deleting data.json)");
 }
