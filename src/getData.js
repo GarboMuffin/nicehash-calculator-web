@@ -59,7 +59,7 @@ function updateData() {
 
 readExistingData();
 if (process.env.NODE_ENV === "production" || !niceHashData.coins || niceHashData.coins.length === 0) {
-  const date = new Date(lastUpdated);
+  const date = new Date(niceHashData.lastUpdated);
   const timeSince = Date.now() - date.getTime();
   // if the data is old then do an update now
   // when prod is rapidly restarting for new feature and whatever
@@ -67,6 +67,7 @@ if (process.env.NODE_ENV === "production" || !niceHashData.coins || niceHashData
   if (timeSince > config.REFRESH_TIME) {
     updateData();
   } else {
+    logger.info("Update timeout set");
     setUpdateTimeout();
   }
 } else {
