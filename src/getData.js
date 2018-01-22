@@ -19,6 +19,10 @@ function readExistingData() {
   }
 }
 
+function setUpdateTimeout() {
+  setTimeout(updateData, config.REFRESH_TIME);
+}
+
 function updateData() {
   getNiceHashData().then((rawNiceHashData) => {
     // Sort by algorithm then by name
@@ -48,7 +52,7 @@ function updateData() {
       }
     });
 
-    setTimeout(updateData, config.REFRESH_TIME);
+    setUpdateTimeout();
   }).catch((err) => {
     logger.error(chalk.red(" > Fatal error updating data:"));
     logger.error(err.stack);
@@ -57,7 +61,16 @@ function updateData() {
 
 readExistingData();
 if (process.env.NODE_ENV === "production" || !niceHashData.coins || niceHashData.coins.length === 0) {
-  updateData();
+  const date = new Date(lastUpdated);
+  const timeSince = Date.now() - date.getTime();
+  // if the data is old then do an update now
+  // when prod is rapidly restarting for new feature and whatever
+  // i don't want to start the update process
+  if (timeSince > config.REFRESH_TIME) {
+    updateData();
+  } else {
+    setUpdateTimeout();
+  }
 } else {
   logger.info("Not running updates (data exists and not in production, force an update by deleting data.json)");
 }
