@@ -2,7 +2,7 @@ const chalk = require("chalk");
 const fs = require("fs");
 const logger = require("./logger");
 const config = require("./config");
-const getNiceHashData = require("./getNiceHashData");
+const getNiceHashData = require("./getRawData");
 
 let niceHashData = {};
 
@@ -52,8 +52,12 @@ function updateData() {
 }
 
 readExistingData();
-updateData();
-setInterval(updateData, config.REFRESH_TIME);
+if (process.env.NODE_ENV === "production" || !niceHashData.coins || niceHashData.coins.length === 0) {
+  updateData();
+  setInterval(updateData, config.REFRESH_TIME);
+} else {
+  logger.info("Not running updates (data exists and not in production, force an update by deleting data.json)");
+}
 
 module.exports = (req, res) => {
   // res.jsonp(niceHashData);

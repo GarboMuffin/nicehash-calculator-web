@@ -3,21 +3,11 @@ td, th {
   border: 1px solid black;
 }
 
-$gray: #EFEFEF;
-$darkgray: #DFDFDF;
-
-tr:nth-child(even) {
-  background-color: $gray;
-}
-tr:nth-child(even):hover {
-  background-color: $darkgray;
-}
-
-tr:nth-child(odd) {
+tr {
   background-color: #FFF;
 }
-tr:nth-child(odd):hover {
-  background-color: $gray;
+tr:hover {
+  background-color: #EEE;
 }
 
 $greenColor: #5fff5f;
@@ -25,10 +15,10 @@ $greenHoverColor: #48e248;
 $redColor: #ff0000;
 $redHoverColor: #eb0000;
 $highlightColor: #ffffb5;
-$highlightHoverColor: #f0f0b7;
+$highlightHoverColor: #e4e4a8;
 
 .highlight, tr.highlight {
-  background-color: #ffffb5;
+  background-color: $highlightColor;
 }
 .highlight:hover, tr.highlight:hover {
   background-color: $highlightHoverColor;

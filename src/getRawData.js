@@ -6,7 +6,8 @@ const PROCESS_ARGS = [
   // basic args to output data that is parasable
   "--no-header",
   "--json-output",
-  "--user-agent=\"Make an issue if problems: github.com/GarboMuffin/nicehash-calculator-web\"",
+  "--user-agent=\"\"",
+  "--sleep-time=2500",
 
   // don't specify any coins to let it run through all the coins
 ];

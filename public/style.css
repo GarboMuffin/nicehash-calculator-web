@@ -16,20 +16,12 @@ td, th {
   border: 1px solid black;
 }
 
-tr:nth-child(even) {
-  background-color: #EFEFEF;
-}
-
-tr:nth-child(even):hover {
-  background-color: #DFDFDF;
-}
-
-tr:nth-child(odd) {
+tr {
   background-color: #FFF;
 }
 
-tr:nth-child(odd):hover {
-  background-color: #EFEFEF;
+tr:hover {
+  background-color: #EEE;
 }
 
 .highlight, tr.highlight {
@@ -37,7 +29,7 @@ tr:nth-child(odd):hover {
 }
 
 .highlight:hover, tr.highlight:hover {
-  background-color: #f0f0b7;
+  background-color: #e4e4a8;
 }
 
 td.cell-green, th.cell-green {
@@ -58,7 +50,7 @@ td.cell-red:hover, th.cell-red:hover {
 }
 
 tr:hover .highlight {
-  background-color: #f0f0b7;
+  background-color: #e4e4a8;
 }
 
 tr:hover .cell-green {
