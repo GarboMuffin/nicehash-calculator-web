@@ -1,5 +1,3 @@
-import { setTimeout } from "timers";
-
 const chalk = require("chalk");
 const fs = require("fs");
 const logger = require("./logger");
