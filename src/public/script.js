@@ -44,7 +44,7 @@
       case 27: return "Sia";
       case 28: return "Blake2s";
       case 29: return "Skunk";
-      default: return "Unknown";
+      default: return "Unknown <small>(bug, please report this)</small>";
     }
   }
 
@@ -72,7 +72,7 @@
     // Used in row creation
     const createColumn = (text, opts) => {
       const column = createElement("td", opts || {});
-      column.textContent = text;
+      column.innerHTML = text;
       return column;
     };
 
@@ -153,7 +153,7 @@
       if (coin === undefined) {
         continue;
       }
-      coin.row.classList.add("highlight");
+      coin.row.className += " hightlight";
     }
 
     // Set the last updated date

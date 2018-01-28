@@ -71,10 +71,9 @@ if (process.env.NODE_ENV === "production" || !niceHashData.coins || niceHashData
     setUpdateTimeout();
   }
 } else {
-  logger.info("Not running updates (data exists and not in production, force an update by deleting data.json)");
+  logger.info("Not running updates (NODE_ENV !== 'production' or existing coin data). Force one by deleting data.json and restarting");
 }
 
 module.exports = (req, res) => {
-  // res.jsonp(niceHashData);
   res.json(niceHashData);
 };

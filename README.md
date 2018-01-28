@@ -3,6 +3,8 @@
 This is the source code for a website that shows you the profitability of buying hashing power on NiceHash.
 If you're here for the site use the link above. (https://nicehash.garbomuffin.com)
 
+To WhatToMine or NiceHash: If you would want me to reduce API requests, stop using your name, or anything like that then make an issue in this repo.
+
 ## Cloning
 
 ```bash
@@ -35,3 +37,7 @@ $ npm run build
 $ node index
 ...
 ```
+
+### Data updates
+
+In order to reduce WhatToMine API requests this will cache data and avoid getting new data unless required when in development. **You should let it complete the first sweep of gathering data before stopping it** otherwise it will not save its cache.
