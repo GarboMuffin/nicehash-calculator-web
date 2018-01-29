@@ -153,7 +153,14 @@
       if (coin === undefined) {
         continue;
       }
-      coin.row.className += " hightlight";
+
+      // classList is better but old versions of IE don't support it
+      // yes I know i'm just that petty
+      if (coin.row.className === "") {
+        coin.row.className = "highlight";
+      } else {
+        coin.row.className += " highlight";
+      }
     }
 
     // Set the last updated date
