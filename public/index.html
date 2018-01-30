@@ -61,8 +61,9 @@
       </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js"></script>
+    <!-- Adds Promise and fetch() for older browsers -->
+    <!-- Fancy thing about polyfill.io is that it only sends what the browser needs -->
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=fetch&unkown=polyfill&rum=0"></script>
     <script src="script.js"></script>
   </body>
 </html>

@@ -68,6 +68,8 @@
 
   // Renders data from the fetch
   function renderData(data) {
+    const coins = data.coins;
+
     // Creates a column
     // Used in row creation
     const createColumn = (text, opts) => {
@@ -119,7 +121,8 @@
       // Eventually returned back
       const result = [];
 
-      for (const coin of data.coins) {
+      for (let i = 0; i < coins.length; i++) {
+        const coin = coins[i];
         const algo = coin.coin.niceHashAlgo;
         const profit = coin.profit;
 
@@ -135,12 +138,12 @@
     };
 
     // If the data doesn't have any coins or if the list has length 0 there is no data
-    if (!data.coins || data.coins.length === 0) {
+    if (!coins || coins.length === 0) {
       missingDataMessage.style.display = "block";
     } else {
       // Add rows for every coin
-      const coins = data.coins;
-      for (const coin of coins) {
+      for (let i = 0; i < coins.length; i++) {
+        const coin = coins[i];
         const row = createRow(coin);
         coin.row = row;
         table.appendChild(row);
@@ -149,7 +152,9 @@
 
     // Find the most profitable coins and give them the highlight class
     const mostProfitable = getMostProfitable();
-    for (const coin of mostProfitable) {
+    for (let i = 0; i < mostProfitable.length; i++) {
+      const coin = mostProfitable[i];
+
       if (coin === undefined) {
         continue;
       }
