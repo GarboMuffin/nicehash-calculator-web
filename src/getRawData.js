@@ -42,6 +42,7 @@ module.exports = () => {
         logger.error("Data: " + e.toString());
         calculator.kill();
         reject();
+        return;
       }
       logger.info(`Updated coin: ${data.coin.displayName} (${data.coin.abbreviation})`);
       result.push(data);

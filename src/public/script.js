@@ -11,42 +11,42 @@
   // How many decimals to have in most numbers
   const VALUE_PRECISION = 4;
 
-  // Convert a Nicehash API algorithm id to a human readable string
-  function nameForAlgorithm(algo) {
-    switch (algo) {
-      case 0: return "Scrypt";
-      case 1: return "SHA256";
-      case 2: return "ScryptNf";
-      case 3: return "X11";
-      case 4: return "X13";
-      case 5: return "Keccak";
-      case 6: return "X15";
-      case 7: return "Nist5";
-      case 8: return "NeoScrypt";
-      case 9: return "Lyra2RE";
-      case 10: return "WhirlpoolX";
-      case 11: return "Qubit";
-      case 12: return "Quark";
-      case 13: return "Axiom";
-      case 14: return "Lyra2REv2";
-      case 15: return "ScryptJaneNf16";
-      case 16: return "Blake256r8";
-      case 17: return "Blake256r14";
-      case 18: return "Blake256r8vnl";
-      case 19: return "Hodl";
-      case 20: return "DaggerHashimoto";
-      case 21: return "Decred";
-      case 22: return "CryptoNight";
-      case 23: return "Lbry";
-      case 24: return "Equihash";
-      case 25: return "Pascal";
-      case 26: return "X11Gost";
-      case 27: return "Sia";
-      case 28: return "Blake2s";
-      case 29: return "Skunk";
-      default: return "Unknown <small>(bug, please report this)</small>";
-    }
-  }
+  // Conversion table of NiceHash algorithm ID to human readable string
+  const ALGORITHM_NAMES = [
+    "Scrypt", // 0
+    "SHA256", // 1
+    "ScryptNf", // 2
+    "X11", // 3
+    "X13", // 4
+    "Keccak", // 5
+    "X15", // 6
+    "Nist5", // 7
+    "NeoScrypt", // 8
+    "Lyra2RE", // 9
+    "WhirlpoolX", // 10
+    "Qubit", // 11
+    "Quark", // 12
+    "Axiom", // 13
+    "Lyra2REv2", // 14
+    "ScryptJaneNf16", // 15
+    "Blake256r8", // 16
+    "Blake256r14", // 17
+    "Blake256r8vnl", // 18
+    "Hodl", // 19
+    "DaggerHashimoto", // 20
+    "Decred", // 21
+    "CryptoNight", // 22
+    "Lbry", // 23
+    "Equihash", // 24
+    "Pascal", // 25
+    "X11Gost", // 26
+    "Sia", // 27
+    "Blake2s", // 28
+    "Skunk", // 29
+  ];
+
+  // When an algo id has no matching readable name
+  const UNKNOWN_ALGORITHM = "Unknown (this is a bug)";
 
   // Create an element of type `el` with properties `opts`
   function createElement(el, opts) {
@@ -103,7 +103,7 @@
 
       // Add in the data
       row.appendChild(createColumn(meta.coin.displayName + " (" + meta.coin.abbreviation + ")"));
-      row.appendChild(createColumn(nameForAlgorithm(meta.coin.niceHashAlgo)));
+      row.appendChild(createColumn(ALGORITHM_NAMES[meta.coin.niceHashAlgo] || UNKNOWN_ALGORITHM));
       row.appendChild(createColumn(fix(meta.price) + " " + moneyUnit));
       row.appendChild(createColumn(fix(meta.revenue) + " " + moneyUnit));
       row.appendChild(createColumn(fix(meta.profit) + " " + moneyUnit));
@@ -118,7 +118,6 @@
     };
 
     const getMostProfitable = () => {
-      // Eventually returned back
       const result = [];
 
       for (let i = 0; i < coins.length; i++) {
