@@ -18,47 +18,44 @@
   </head>
 
   <body>
-    <div id="main">
-      <h1>NiceHash Buyer Profitability Chart</h1>
-      <noscript><h2>Please enable JavaScript.</h2></noscript>
+    <h1>NiceHash Buyer Profitability Chart</h1>
+    <noscript><h1>Please enable JavaScript to use this site</h1></noscript>
+    <!--[if lt IE 9]><h1>Please update your browser to use this site</h1><![endif]-->
 
-      <p>This website <b>**estimates**</b> the profitability of buying hashing power on NiceHash.</p>
-      <p>
-        Calculations are made using my WIP <a href="https://github.com/GarboMuffin/nicehash-calculator/tree/rewrite">nicehash-calculator rewrite</a>
-        (which uses <a href="https://whattomine.com/">WhatToMine</a>).
-        <b>Fees are currently not accounted for.</b>
-      </p>
-      <p>
-        View the <a href="https://github.com/GarboMuffin/nicehash-calculator-web/">source code</a>.
-        Report bugs or suggest features by <a href="https://github.com/GarboMuffin/nicehash-calculator-web/issues/new">making an issue.</a>
-      </p>
-      <p>To WhatToMine or NiceHash: If you would want me to reduce API requests, stop using your name, or anything like that then make an issue with the links above.</p>
-      <p>Yellow coins are the most profitable coin of their algorithm. The ROI column is the column you probably care the most about. (If you put Bitcoin in, you could expect to get this much of your bitcoin out)</p>
-      <p><b>Disclaimer: These results have no guarantee of accuracy. I am not responsible for any losses that may come as a result of this site. The market changes very quickly and these results are not realtime.</b></p>
+    <p>This website <b>**estimates**</b> the profitability of buying hashing power on NiceHash.</p>
+    <p>
+      View the <a href="https://github.com/GarboMuffin/nicehash-calculator-web/">source code</a>.
+      Report bugs or suggest features by <a href="https://github.com/GarboMuffin/nicehash-calculator-web/issues/new">making an issue.</a>
+    </p>
+    <p>To WhatToMine or NiceHash: If you would want me to reduce API requests or anything then make an issue above.</p>
+    <p>
+      Yellow coins are the most profitable coin of their algorithm. The ROI column is the column you probably care the most about.
+      (if you put X BTC in, expect Y% of X BTC out)
+    </p>
+    <p><b>Disclaimer: These results have no guarantee of accuracy. I am not responsible for any losses that may come as a result of this site. Your money is your responsibility.</b></p>
 
-      <hr>
+    <hr>
 
-      <p>Last updated: <span id="last-updated"><i>Loading...</i></span> (updated around every hour)</p>
-      <p id="please-wait"><i>Loading... Please wait...</i></p>
-      <p id="no-data"><b>There seems to be no data. Please wait a minute. (server probably restarted and waiting for nicehash-calculator to finish, a couple minutes usually)</b></p>
-      <table id="table">
-        <tr>
-          <th>Coin Name</th>
-          <th>Algorithm</th>
-          <th>Price</th>
-          <th>Revenue</th>
-          <th>Profit</th>
-          <th class="highlight">ROI</th>
-        </tr>
-      </table>
+    <p>Last updated: <span id="last-updated"><i>Loading...</i></span> (updated around every hour)</p>
+    <p id="please-wait"><i>Loading... Please wait...</i></p>
+    <p id="no-data"><b>There seems to be no data. Please wait a minute. (server probably restarted and waiting for nicehash-calculator to finish, a couple minutes usually)</b></p>
+    <table id="table">
+      <tr>
+        <th>Coin Name</th>
+        <th>Algorithm</th>
+        <th>Price</th>
+        <th>Revenue</th>
+        <th>Profit</th>
+        <th class="highlight">ROI</th>
+      </tr>
+    </table>
 
-      <hr>
+    <hr>
 
-      <div>
-        You can view the <a href="data.json">raw data outputted by nicehash-calculator</a>.
-        You're welcome to use that pretty much however you must.
-        (you should even be able to <code>fetch()</code> it from another domain)
-      </div>
+    <div>
+      You can view the <a href="data.json">raw data outputted by nicehash-calculator</a>.
+      You're welcome to use that pretty much however you must.
+      (you should even be able to <code>fetch()</code> it from another domain)
     </div>
 
     <!-- Adds Promise and fetch() for older browsers -->

@@ -55,8 +55,7 @@
       if (!opts.hasOwnProperty(key)) {
         continue;
       }
-      const val = opts[key];
-      element[key] = val;
+      element[key] = opts[key];
     }
     return element;
   }
