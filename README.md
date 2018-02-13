@@ -3,6 +3,8 @@
 This is the source code for a website that shows you the profitability of buying hashing power on NiceHash.
 If you're here for the site use the link above. (https://nicehash.garbomuffin.com)
 
+The live website is often running a slightly different version. A different index.html, config, etc.
+
 To WhatToMine or NiceHash: If you would want me to reduce API requests, stop using your name, or anything like that then make an issue in this repo.
 
 ## Cloning
