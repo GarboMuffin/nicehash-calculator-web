@@ -5,8 +5,7 @@ const logger = require("./logger");
 const PROCESS_ARGS = [
   // basic args to output data that is parasable
   "--no-header",
-  "--json-output",
-  "--user-agent=\"\"",
+  "--output=json",
   "--sleep-time=2500",
 
   // don't specify any coins to let it run through all the coins
@@ -25,9 +24,12 @@ module.exports = () => {
     };
     const dir = getDir();
 
-    const calculator = childProcess.fork("../nicehash-calculator/dist/index", PROCESS_ARGS, {
+    const calculator = childProcess.fork("../nicehash-calculator/index.js", PROCESS_ARGS, {
       // set the correct working directory
       cwd: dir + "/nicehash-calculator",
+      // dont pass arguments from this onto the program
+      // eg. --inspect or --inspect-brk will cause problems if enabled
+      execArgv: [],
       // don't pipe stdin/stdout/stderr
       silent: true,
     });

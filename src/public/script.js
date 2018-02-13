@@ -101,13 +101,16 @@
       const moneyUnit = "BTC/day/" + hashUnit;
 
       // Add in the data
-      row.appendChild(createColumn(meta.coin.displayName + " (" + meta.coin.abbreviation + ")"));
-      row.appendChild(createColumn(ALGORITHM_NAMES[meta.coin.niceHashAlgo] || UNKNOWN_ALGORITHM));
-      row.appendChild(createColumn(fix(meta.price) + " " + moneyUnit));
-      row.appendChild(createColumn(fix(meta.revenue) + " " + moneyUnit));
-      row.appendChild(createColumn(fix(meta.profit) + " " + moneyUnit));
+      row.appendChild(createColumn(meta.coin.displayName + " (" + meta.coin.abbreviation + ")")); // name
+      row.appendChild(createColumn(ALGORITHM_NAMES[meta.coin.niceHashAlgo.id] || UNKNOWN_ALGORITHM)); // algo
+      row.appendChild(createColumn(fix(meta.price) + " " + moneyUnit)); // price
+      row.appendChild(createColumn(fix(meta.revenue.revenue) + " " + moneyUnit, {
+        title: new Date(meta.revenue.timestamp).toLocaleString(),
+      })); // revenue
+      row.appendChild(createColumn(fix(meta.profit) + " " + moneyUnit)); // profit
 
-      const percentChange = handlePercent((meta.percentChange - 1) * 100);
+      // ROI needs some special care
+      const percentChange = handlePercent(meta.percentChange * 100);
       row.appendChild(createColumn(percentChange + "%", {
         // Color a percent change's cell green or red if it's positive or negative
         className: (percentChange > 0 ? "cell-green" : "cell-red") + " cell-percent-change",
@@ -121,7 +124,7 @@
 
       for (let i = 0; i < coins.length; i++) {
         const coin = coins[i];
-        const algo = coin.coin.niceHashAlgo;
+        const algo = coin.coin.niceHashAlgo.id;
         const profit = coin.profit;
 
         const highestCoinOfAlgo = result[algo];

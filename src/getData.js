@@ -26,7 +26,7 @@ function updateData() {
     // Sort by algorithm then by name
     // TODO: consider sorting by profit instead of name?
     rawNiceHashData.sort((a, b) => {
-      const byAlgo = a.coin.niceHashAlgo - b.coin.niceHashAlgo;
+      const byAlgo = a.coin.niceHashAlgo.id - b.coin.niceHashAlgo.id;
       const aName = a.coin.displayName.toLowerCase();
       const bName = b.coin.displayName.toLowerCase();
       const byName = aName < bName ? -1 : aName > bName ? 1 : 0;
@@ -64,7 +64,7 @@ if (process.env.NODE_ENV === "production" || !niceHashData.coins || niceHashData
   // if the data is old then do an update now
   // when prod is rapidly restarting for new feature and whatever
   // i don't want to start the update process
-  if (timeSince > config.REFRESH_TIME) {
+  if (timeSince > config.REFRESH_TIME || isNaN(timeSince)) {
     updateData();
   } else {
     logger.info("Update timeout set");

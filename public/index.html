@@ -22,7 +22,16 @@
     <noscript><h1>Please enable JavaScript to use this site</h1></noscript>
     <!--[if lt IE 9]><h1>Please update your browser to use this site</h1><![endif]-->
 
-    <p>This website <b>**estimates**</b> the profitability of buying hashing power on NiceHash.</p>
+    <p>
+      This website <b>**estimates**</b> the profitability of buying hashing power on NiceHash.
+    </p>
+    <hr>
+    <p>
+      This gives you a brief overview of what could be profitable and what is likely not profitable.
+      You should do your own calculations.
+      This is not investing advice.
+      <b>I am not responsible for any losses that may come as a result of this site.</b>
+    </p>
     <p>
       View the <a href="https://github.com/GarboMuffin/nicehash-calculator-web/">source code</a>.
       Report bugs or suggest features by <a href="https://github.com/GarboMuffin/nicehash-calculator-web/issues/new">making an issue.</a>
@@ -32,11 +41,10 @@
       Yellow coins are the most profitable coin of their algorithm. The ROI column is the column you probably care the most about.
       (if you put X BTC in, expect Y% of X BTC out)
     </p>
-    <p><b>Disclaimer: These results have no guarantee of accuracy. I am not responsible for any losses that may come as a result of this site. Your money is your responsibility.</b></p>
 
     <hr>
 
-    <p>Last updated: <span id="last-updated"><i>Loading...</i></span> (updated around every hour)</p>
+    <p>Last updated: <span id="last-updated"><i>Loading...</i></span> (updated around four hours)</p>
     <p id="please-wait"><i>Loading... Please wait...</i></p>
     <p id="no-data"><b>There seems to be no data. Please wait a minute. (server probably restarted and waiting for nicehash-calculator to finish, a couple minutes usually)</b></p>
     <table id="table">
@@ -44,7 +52,7 @@
         <th>Coin Name</th>
         <th>Algorithm</th>
         <th>Price</th>
-        <th>Revenue</th>
+        <th title="Revenue of each coin is calculated at different times. Hover over a revenue number in the table to see when it was actually calculated.">Revenue <small>(Hover)</small></th>
         <th>Profit</th>
         <th class="highlight">ROI</th>
       </tr>
