@@ -177,5 +177,8 @@
     waitMessage.style.display = "none";
   }
 
-  getData().then(renderData);
+  function start() {
+    getData().then(renderData);
+  }
+  window.start = start;
 }());

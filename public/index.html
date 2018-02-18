@@ -20,23 +20,22 @@
   <body>
     <h1>NiceHash Buyer Profitability Chart</h1>
     <noscript><h1>Please enable JavaScript to use this site</h1></noscript>
-    <!--[if lt IE 9]><h1>Please update your browser to use this site</h1><![endif]-->
+    <!--[if lt IE 9]><h1>Please update your browser to use this site.</h1><![endif]-->
 
     <p>
       This website <b>**estimates**</b> the profitability of buying hashing power on NiceHash.
-    </p>
-    <hr>
-    <p>
-      This gives you a brief overview of what could be profitable and what is not profitable.
       You should still do your own calculations.
       This is not investing advice.
       <b>I am not responsible for any losses that may come as a result of this site.</b>
     </p>
+    <hr>
     <p>
-      View the <a href="https://github.com/GarboMuffin/nicehash-calculator-web/">source code</a>.
-      Report bugs or suggest features by <a href="https://github.com/GarboMuffin/nicehash-calculator-web/issues/new">making an issue.</a>
+      You can view the <a href="https://github.com/GarboMuffin/nicehash-calculator-web/">source code</a>.
+      Report bugs or suggest features by <a href="https://github.com/GarboMuffin/nicehash-calculator-web/issues/new">making an issue</a>.
     </p>
-    <p>To WhatToMine or NiceHash: If you would want me to reduce API requests or anything then make an issue above.</p>
+    <p>
+      If this site is useful please consider donating at the bottom of this page.
+    </p>
     <p>
       Yellow coins are the most profitable coin of their algorithm. The ROI column is the column you probably care the most about.
       (if you put X BTC in, expect Y% of X BTC out)
@@ -52,7 +51,7 @@
         <th>Coin Name</th>
         <th>Algorithm</th>
         <th>Price</th>
-        <th title="Revenue of each coin is calculated at different times. Hover over a revenue number in the table to see when it was actually calculated.">Revenue <small>(Hover)</small></th>
+        <th>Revenue</th>
         <th>Profit</th>
         <th class="highlight">ROI</th>
       </tr>
@@ -61,14 +60,38 @@
     <hr>
 
     <div>
-      You can view the <a href="data.json">raw data outputted by nicehash-calculator</a>.
-      You're welcome to use that pretty much however you must.
-      (you should even be able to <code>fetch()</code> it from another domain)
+      You can view the <a href="data.json">raw data with a lot more information than shown here</a> (mostly useless).
+      You're welcome to use that pretty much however you want.
     </div>
 
-    <!-- Adds Promise and fetch() for older browsers -->
-    <!-- Fancy thing about polyfill.io is that it only sends what the browser needs -->
-    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=fetch&unkown=polyfill&rum=0"></script>
+    <hr>
+
+    <div id="donations">
+      <div><b>Consider donating:</b></div>
+      <div class="donation">BTC (bech32): bc1qkuz9a4trzgvdq9sru800jtxfz0ld0vtwrqu0nq</div>
+      <div class="donation">BTC: 1JZS1fhPHuxCyhPFYLYFoNzArTRJsJArwv</div>
+      <div class="donation">ETH: 0xE9eDFAB6565695C01c1978B9782ad1FE22b3E5AC</div>
+      <div class="donation">LTC: LNTXpx86L2ADQPMC3t78jNvramJ1xMS2F4</div>
+    </div>
+
     <script src="script.js"></script>
+    <script>
+      (function(){
+        "use strict";
+        // if fetch exists in the window object then skip a round trip for polyfills
+        if ("fetch" in window) {
+          start();
+        } else {
+          // fetch don't exist, polyfills are needed
+          // load polyfill then start
+          var script = document.createElement("script");
+          script.src = "https://cdn.polyfill.io/v2/polyfill.min.js?features=fetch&rum=0";
+          document.body.appendChild(script);
+          script.onload = function() {
+            start();
+          };
+        }
+      }());
+    </script>
   </body>
 </html>
