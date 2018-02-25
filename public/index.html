@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <title>NiceHash Buyer Profitability Chart</title>
-    <meta name="description" content="Automatically calculates how profitable it is to buy hashing power on NiceHash in a convenient chart.">
+    <meta name="description" content="Automatically estimates how profitable it is to buy hashing power on NiceHash in a convenient chart.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
 
@@ -24,36 +24,42 @@
 
     <p>
       This website <b>**estimates**</b> the profitability of buying hashing power on NiceHash.
-      You should still do your own calculations.
       This is not investing advice.
       <b>I am not responsible for any losses that may come as a result of this site.</b>
     </p>
-    <hr>
     <p>
-      You can view the <a href="https://github.com/GarboMuffin/nicehash-calculator-web/">source code</a>.
-      Report bugs or suggest features by <a href="https://github.com/GarboMuffin/nicehash-calculator-web/issues/new">making an issue</a>.
+      <!-- Consider staring? (fwiw, the 1 star existing right now is not my own) -->
+      This site is <a href="https://github.com/GarboMuffin/nicehash-calculator-web/">open source</a>.
+      Please <a href="https://github.com/GarboMuffin/nicehash-calculator-web/issues/new">report bugs or suggest features</a>.
+    </p>
+
+    <!-- No ad networks want to accept this site (for good reason) -->
+    <!-- Crypto miners are incredibly scummy (even authedmine.com) -->
+    <!-- This site doesn't even have many users and honestly doesn't cost anything to host -->
+    <!-- I doubt anyone will ever donate but there's a chance -->
+    <!-- Even with very aggressive advertising it's unlikely this site would ever make a single dollar -->
+    <p>
+      If this site is useful then please consider donating at the bottom of this site.
     </p>
     <p>
-      If this site is useful please consider donating at the bottom of this page.
-    </p>
-    <p>
-      Yellow coins are the most profitable coin of their algorithm. The ROI column is the column you probably care the most about.
-      (if you put X BTC in, expect Y% of X BTC out)
+      Yellow coins are the most profitable coin of their algorithm.
+      The ROI column is the column you probably care the most about.
+      Hover over column headers for more details.
     </p>
 
     <hr>
 
-    <p>Last updated: <span id="last-updated"><i>Loading...</i></span> (updated around every four hours)</p>
+    <p>Last updated: <span id="last-updated"><i>Loading...</i></span> (updated around every four hours and I do intend to change this)</p>
     <p id="please-wait"><i>Loading... Please wait...</i></p>
-    <p id="no-data"><b>There seems to be no data. Please wait a minute. (server probably restarted and waiting for nicehash-calculator to finish, a couple minutes usually)</b></p>
+    <p id="no-data"><b>No data. Please refresh in a few minutes.</b></p>
     <table id="table">
       <tr>
-        <th>Coin Name</th>
-        <th>Algorithm</th>
-        <th>Price</th>
-        <th>Revenue</th>
-        <th>Profit</th>
-        <th class="highlight">ROI</th>
+        <th title="Name and abbreviation of the coin.">Coin Name</th>
+        <th title="The corresponding algorithm on NiceHash.">Algorithm</th>
+        <th title="Average cost to buy hashing power for this coin on NiceHash. It is possible to have orders for less than this number.">Price / Cost</th>
+        <th title="Estimated rewards for mining that coin.">Revenue / Rewards</th>
+        <th title="Revenue minus cost.">Profit</th>
+        <th title="If you put X BTC in, expect Y% of X BTC out." class="highlight">ROI</th>
       </tr>
     </table>
 
@@ -75,23 +81,5 @@
     </div>
 
     <script src="script.js"></script>
-    <script>
-      (function(){
-        "use strict";
-        // if fetch exists in the window object then skip a round trip for polyfills
-        if ("fetch" in window) {
-          start();
-        } else {
-          // fetch don't exist, polyfills are needed
-          // load polyfill then start
-          var script = document.createElement("script");
-          script.src = "https://cdn.polyfill.io/v2/polyfill.min.js?features=fetch&rum=0";
-          document.body.appendChild(script);
-          script.onload = function() {
-            start();
-          };
-        }
-      }());
-    </script>
   </body>
 </html>

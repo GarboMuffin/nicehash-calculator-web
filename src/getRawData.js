@@ -38,7 +38,10 @@ module.exports = () => {
       silent: true,
     });
 
+    // when data comes through stdin it can be parsed
     calculator.stdout.on("data", (e) => {
+      // Try to read the data as JSON
+      // if the process is working normally then all that should be outputted is valid JSON
       let data;
       try {
         data = JSON.parse(e.toString());

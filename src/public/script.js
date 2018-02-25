@@ -175,10 +175,27 @@
 
     // Hide the message saying waiting for data
     waitMessage.style.display = "none";
+
+    console.log("Fun fact: Type `window.data` view all of the raw data.");
+    window.data = coins;
   }
 
   function start() {
-    getData().then(renderData);
+    fetch("data.json")
+      .then((data) => data.json())
+      .then((data) => renderData(data));
   }
-  window.start = start;
+
+  // if a fetch() method exists then skip a request for polyfills and start right away
+  if ("fetch" in window) {
+    start();
+  } else {
+    // otherwise have to get polyfills
+    var script = document.createElement("script");
+    script.src = "https://cdn.polyfill.io/v2/polyfill.min.js?features=fetch&rum=0";
+    document.body.appendChild(script);
+    script.onload = function() {
+      start();
+    };
+  }
 }());

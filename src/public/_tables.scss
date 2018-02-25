@@ -5,7 +5,7 @@ td, th {
 
 $dim: #151515;
 $greenColor: #5fff5f;
-$redColor: #ff0000;
+$redColor: #ff7070;
 $highlightColor: #ffffb5;
 
 tr {
@@ -28,7 +28,6 @@ td.cell-green, th.cell-green {
 
 td.cell-red, th.cell-red {
   background-color: $redColor;
-  color: white;
 }
 
 td.cell-green:hover, th.cell-green:hover {
