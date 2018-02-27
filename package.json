@@ -1,7 +1,7 @@
 {
   "name": "nicehash-calculator-web",
   "version": "1.0.0",
-  "description": "Web interface for GarboMuffin/nicehash-calculator",
+  "description": "Web interface for github.com/GarboMuffin/nicehash-calculator",
   "main": "index.js",
   "scripts": {
     "start": "node index",
@@ -16,10 +16,8 @@
   "license": "MIT",
   "dependencies": {
     "babel-cli": "^6.26.0",
-    "babel-minify": "^0.3.0",
     "babel-preset-env": "^1.6.1",
-    "babel-preset-minify": "^0.3.0",
-    "chalk": "^2.3.0",
+    "chalk": "^2.3.1",
     "compression": "^1.7.1",
     "cors": "^2.8.4",
     "dotenv": "^5.0.0",
@@ -31,5 +29,6 @@
     "node-sass": "^4.7.2",
     "winston": "^2.4.0",
     "winston-daily-rotate-file": "^1.7.2"
-  }
+  },
+  "private": true
 }

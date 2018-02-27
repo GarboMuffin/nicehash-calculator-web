@@ -1,10 +1,10 @@
 const dotenv = require("dotenv");
 dotenv.config();
 
-const logger = require("./logger");
 const errorhandler = require("errorhandler");
-const app = require("./app");
 const config = require("./config");
+const logger = require("./logger");
+const app = require("./app");
 
 if (process.env.NODE_ENV !== "production") {
   app.use(errorhandler());
