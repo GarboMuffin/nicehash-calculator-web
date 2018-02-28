@@ -74,23 +74,6 @@ function getRawData() {
   });
 }
 
-function getSavedData() {
-  return new Promise((resolve, reject) => {
-    fs.readFile("data.json", (err, buffer) => {
-      if (err) {
-        reject();
-      }
-      let data;
-      try {
-        data = JSON.parse(buffer.toString());
-      } catch (e) {
-        reject();
-      }
-      resolve(data);
-    });
-  });
-}
-
 function parseData(rawData) {
   // Sort by algorithm then by name
   // TODO: consider sorting by profit instead of name?
@@ -121,23 +104,5 @@ function parseData(rawData) {
 }
 
 module.exports = (app) => {
-  // only get new data when running in production
-  if (app.inProduction) {
-    const getLastUpdated = () => {
-      if (app.data && app.data.lastUpdated) {
-        return new Date(app.data.lastUpdated);
-      } else {
-        return new Date(0);
-      }
-    }
-    const lastUpdated = getLastUpdated();
-    const timeSinceLastUpdate = Date.now() - lastUpdated;
-    if (timeSinceLastUpdate >= app.config.REFRESH_TIME) {
-      return getRawData().then((rawData) => parseData(rawData));
-    } else {
-      return getSavedData();
-    }
-  } else {
-    return getSavedData();
-  }
+  return getRawData().then((rawData) => parseData(rawData));
 }

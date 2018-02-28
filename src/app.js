@@ -2,10 +2,12 @@ const express = require("express");
 const morgan = require("morgan");
 const helmet = require("helmet");
 const cors = require("cors");
+const chalk = require("chalk");
 const compression = require("compression");
 
 const logger = require("./logger");
 const getData = require("./getData");
+const getSavedData = require("./getSavedData");
 
 class Application {
   constructor(app) {
@@ -48,26 +50,55 @@ class Application {
     app.get("/data.json", cors(), (req, res) => this.handleSendData(req, res));
     app.use((req, res) => res.status(404).send("404 Not Found"));
 
-    this.updateData();
+    this.loadSavedData();
+  }
+
+  handlePromiseError(err) {
+    logger.error(chalk.red(" > PROMISE ERROR:"));
+    logger.error(chalk.red(err.stack));
+  }
+
+  //
+  // DATA
+  //
+
+  loadSavedData() {
+    getSavedData().then((data) => {
+      this.data = data;
+      if (this.inProduction) {
+        const currentDate = Date.now();
+        const dataDate = new Date(data.lastUpdated);
+        const timeSince = currentDate - dataDate;
+        if (timeSince >= this.config.REFRESH_TIME || isNaN(timeSince)) {
+          this.updateData();
+        } else {
+          this.setUpdateTimeout(this.config.REFRESH_TIME - timeSince);
+        }
+      }
+    }).catch((err) => this.handlePromiseError(err));
   }
 
   updateData() {
     getData(this).then((data) => {
       this.data = data;
       if (this.inProduction) {
-        this.startUpdateTimeout();
+        this.setUpdateTimeout();
       }
-    });
+    }).catch((err) => this.handlePromiseError(err));
   }
+
+  setUpdateTimeout(timeout = this.config.REFRESH_TIME) {
+    logger.info("Setting update interval (" + timeout + "ms)");
+    setTimeout(() => this.updateData(), timeout);
+  }
+
+  //
+  // ROUTES
+  //
 
   render(res, page, opts = {}) {
     opts.inProduction = this.inProduction;
     res.render(page, opts);
-  }
-
-  startUpdateTimeout() {
-    logger.info("Setting update interval");
-    setTimeout(() => this.updateData(), this.config.REFRESH_TIME);
   }
 
   handleRenderIndex(req, res) {
