@@ -6,11 +6,11 @@ const config = require("./config");
 const logger = require("./logger");
 const app = require("./app");
 
-if (process.env.NODE_ENV !== "production") {
-  app.use(errorhandler());
+if (!app.inProduction) {
+  app.server.use(errorhandler());
 }
 
-const server = app.listen(config.PORT, () => {
+const server = app.server.listen(config.PORT, () => {
   const address = server.address();
   logger.info(`Listening on ${address.address}:${address.port}`);
 });

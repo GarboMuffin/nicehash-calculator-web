@@ -1,79 +1,143 @@
-const chalk = require("chalk");
+const childProcess = require("child_process");
 const fs = require("fs");
+const chalk = require("chalk");
+
 const logger = require("./logger");
-const config = require("./config");
-const getNiceHashData = require("./getRawData");
 
-let niceHashData = {};
+const PROCESS_ARGS = [
+  // basic args to output data that is parasable
+  "--no-header",
+  "--output=json",
 
-function readExistingData() {
-  try {
-    const existingData = fs.readFileSync("data.json");
-    const data = JSON.parse(existingData.toString());
-    niceHashData = data;
-    logger.info("Read existing data.json");
-  } catch (e) {
-    logger.warn("Couldn't load data.json");
-  }
-}
+  // go slow enough to avoid any possible rate limits
+  "--sleep-time=2500",
 
-function setUpdateTimeout() {
-  setTimeout(updateData, config.REFRESH_TIME);
-}
+  // takes ~225 seconds to do a full update with sleep time @ 2500
+  // this will allow the cache to be utilized to some extent (reducing requests) but also still provide accurate numbers
+  "--max-age=300",
 
-function updateData() {
-  getNiceHashData().then((rawNiceHashData) => {
-    // Sort by algorithm then by name
-    // TODO: consider sorting by profit instead of name?
-    rawNiceHashData.sort((a, b) => {
-      const byAlgo = a.coin.niceHashAlgo.id - b.coin.niceHashAlgo.id;
-      const aName = a.coin.displayName.toLowerCase();
-      const bName = b.coin.displayName.toLowerCase();
-      const byName = aName < bName ? -1 : aName > bName ? 1 : 0;
-      return byAlgo || byName;
-    });
+  "bitcoin", "litecoin",
+];
 
-    const date = new Date();
-    const data = {
-      lastUpdated: date,
-      coins: rawNiceHashData,
+function getRawData() {
+  return new Promise((resolve, reject) => {
+    const result = [];
+
+    logger.info("Starting update");
+
+    const getDir = () => {
+      const dir = __dirname.split(/[/\\]/g);
+      dir.pop();
+      return dir.join("/");
     };
-    niceHashData = data;
+    const dir = getDir();
 
-    // save it to a file so restarts don't have missing data
-    fs.writeFile("data.json", JSON.stringify(data), (err) => {
-      if (err) {
-        logger.error(chalk.red(" > Couldn't save data.json:"));
-        logger.error(err.stack);
-      } else {
-        logger.info("Saved data.json");
-      }
+    const calculator = childProcess.fork("../nicehash-calculator/index.js", PROCESS_ARGS, {
+      // set the correct working directory
+      cwd: dir + "/nicehash-calculator",
+      // dont pass arguments from this onto the program
+      // eg. --inspect or --inspect-brk will cause problems if enabled
+      execArgv: [],
+      // don't pipe stdin/stdout/stderr
+      silent: true,
     });
 
-    setUpdateTimeout();
-  }).catch((err) => {
-    logger.error(chalk.red(" > Fatal error updating data:"));
-    logger.error(err.stack);
+    // when data comes through stdin it can be parsed
+    calculator.stdout.on("data", (e) => {
+      // Try to read the data as JSON
+      // if the process is working normally then all that should be outputted is valid JSON
+      let data;
+      try {
+        data = JSON.parse(e.toString());
+      } catch (err) {
+        logger.error(chalk.red(" > Error parsing child process output:"));
+        logger.error(err.stack);
+        logger.error("Data: " + e.toString());
+        calculator.kill();
+        reject();
+        return;
+      }
+      logger.info(`Updated coin: ${data.coin.displayName} (${data.coin.abbreviation})`);
+      result.push(data);
+    });
+
+    calculator.on("exit", (e) => {
+      logger.info("Ending update");
+      resolve(result);
+    });
+
+    calculator.on("error", (e) => {
+      logger.error(chalk.red(" > Child process error:"));
+      logger.error(err.stack);
+      reject();
+    });
   });
 }
 
-readExistingData();
-if (process.env.NODE_ENV === "production" || !niceHashData.coins || niceHashData.coins.length === 0) {
-  const date = new Date(niceHashData.lastUpdated);
-  const timeSince = Date.now() - date.getTime();
-  // if the data is old then do an update now
-  // when prod is rapidly restarting for new feature and whatever
-  // i don't want to start the update process
-  if (timeSince > config.REFRESH_TIME || isNaN(timeSince)) {
-    updateData();
-  } else {
-    logger.info("Update timeout set");
-    setUpdateTimeout();
-  }
-} else {
-  logger.info("Not running updates (NODE_ENV !== 'production' or existing coin data). Force one by deleting data.json and restarting");
+function getSavedData() {
+  return new Promise((resolve, reject) => {
+    fs.readFile("data.json", (err, buffer) => {
+      if (err) {
+        reject();
+      }
+      let data;
+      try {
+        data = JSON.parse(buffer.toString());
+      } catch (e) {
+        reject();
+      }
+      resolve(data);
+    });
+  });
 }
 
-module.exports = (req, res) => {
-  res.json(niceHashData);
-};
+function parseData(rawData) {
+  // Sort by algorithm then by name
+  // TODO: consider sorting by profit instead of name?
+  rawData.sort((a, b) => {
+    const byAlgo = a.coin.niceHashAlgo.id - b.coin.niceHashAlgo.id;
+    const aName = a.coin.displayName.toLowerCase();
+    const bName = b.coin.displayName.toLowerCase();
+    const byName = aName < bName ? -1 : aName > bName ? 1 : 0;
+    return byAlgo || byName;
+  });
+
+  const date = new Date();
+  const data = {
+    lastUpdated: date,
+    coins: rawData,
+  };
+
+  fs.writeFile("data.json", JSON.stringify(data), (err) => {
+    if (err) {
+      logger.error(chalk.red(" > Couldn't save data.json:"));
+      logger.error(err.stack);
+    } else {
+      logger.info("Saved data.json");
+    }
+  });
+
+  return data;
+}
+
+module.exports = (app) => {
+  // only get new data when running in production
+  if (app.inProduction) {
+    const getLastUpdated = () => {
+      if (app.data && app.data.lastUpdated) {
+        return new Date(app.data.lastUpdated);
+      } else {
+        return new Date(0);
+      }
+    }
+    const lastUpdated = getLastUpdated();
+    const timeSinceLastUpdate = Date.now() - lastUpdated;
+    if (timeSinceLastUpdate >= app.config.REFRESH_TIME) {
+      return getRawData().then((rawData) => parseData(rawData));
+    } else {
+      return getSavedData();
+    }
+  } else {
+    return getSavedData();
+  }
+}

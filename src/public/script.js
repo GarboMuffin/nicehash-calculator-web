@@ -11,40 +11,6 @@
   // How many decimals to have in most numbers
   const VALUE_PRECISION = 4;
 
-  // Conversion table of NiceHash algorithm ID to human readable string
-  const ALGORITHM_NAMES = [
-    "Scrypt", // 0
-    "SHA256", // 1
-    "ScryptNf", // 2
-    "X11", // 3
-    "X13", // 4
-    "Keccak", // 5
-    "X15", // 6
-    "Nist5", // 7
-    "NeoScrypt", // 8
-    "Lyra2RE", // 9
-    "WhirlpoolX", // 10
-    "Qubit", // 11
-    "Quark", // 12
-    "Axiom", // 13
-    "Lyra2REv2", // 14
-    "ScryptJaneNf16", // 15
-    "Blake256r8", // 16
-    "Blake256r14", // 17
-    "Blake256r8vnl", // 18
-    "Hodl", // 19
-    "DaggerHashimoto", // 20
-    "Decred", // 21
-    "CryptoNight", // 22
-    "Lbry", // 23
-    "Equihash", // 24
-    "Pascal", // 25
-    "X11Gost", // 26
-    "Sia", // 27
-    "Blake2s", // 28
-    "Skunk", // 29
-  ];
-
   // When an algo id has no matching readable name
   const UNKNOWN_ALGORITHM = "Unknown (this is a bug)";
 
@@ -98,11 +64,11 @@
       };
 
       const hashUnit = meta.coin.niceHashUnit.displayName;
-      const moneyUnit = "BTC/day/" + hashUnit;
+      const moneyUnit = "BTC/" + hashUnit + "/day";
 
       // Add in the data
       row.appendChild(createColumn(meta.coin.displayName + " (" + meta.coin.abbreviation + ")")); // name
-      row.appendChild(createColumn(ALGORITHM_NAMES[meta.coin.niceHashAlgo.id] || UNKNOWN_ALGORITHM)); // algo
+      row.appendChild(createColumn(meta.coin.niceHashAlgo.displayName || UNKNOWN_ALGORITHM)); // algo
       row.appendChild(createColumn(fix(meta.price) + " " + moneyUnit)); // price
       row.appendChild(createColumn(fix(meta.revenue.revenue) + " " + moneyUnit, {
         title: new Date(meta.revenue.timestamp).toLocaleString(),
@@ -176,7 +142,7 @@
     // Hide the message saying waiting for data
     waitMessage.style.display = "none";
 
-    console.log("Fun fact: Type `window.data` view all of the raw data.");
+    console.log("The data is stored in `window.data`");
     window.data = coins;
   }
 
@@ -186,7 +152,7 @@
       .then((data) => renderData(data));
   }
 
-  // if a fetch() method exists then skip a request for polyfills and start right away
+  // if a fetch() method exists then skip a request for polyfills as they are not needed
   if ("fetch" in window) {
     start();
   } else {

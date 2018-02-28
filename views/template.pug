@@ -1,0 +1,22 @@
+//- This is the pug file rendered when someone visits the home page
+//- Server side rendering is now possible
+//- For now client side works well enough
+
+//- This file is still a slight mix of pug and html
+
+doctype
+html(lang="en")
+  head
+    block head
+      meta(name="viewport" content="width=device-width, initial-scale=1.0")
+      //- only enable google analytics in production
+      if inProduction
+        script(async src="https://www.googletagmanager.com/gtag/js?id=UA-77118590-9")
+        script.
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'UA-77118590-9');
+
+  body
+    block body
