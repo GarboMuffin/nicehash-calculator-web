@@ -15,8 +15,6 @@ const PROCESS_ARGS = [
   // takes ~225 seconds to do a full update with sleep time @ 2500
   // this will allow the cache to be utilized to some extent (reducing requests) but also still provide accurate numbers
   "--max-age=300",
-
-  "bitcoin", "litecoin",
 ];
 
 function getRawData() {
