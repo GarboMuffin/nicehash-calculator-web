@@ -48,9 +48,7 @@ class Application {
 
     app.use(express.static("public"));
     app.get("/", (req, res) => this.handleRenderIndex(req, res));
-    app.get("/beta", (req, res) => this.handleRenderBeta(req, res));
     app.get("/data.json", cors(), (req, res) => res.json(this.data));
-    app.get("/renderedData.json", cors(), (req, res) => res.json(this.renderedData));
     app.use((req, res) => res.status(404).send("404 Not Found"));
 
     this.loadSavedData();
@@ -110,11 +108,7 @@ class Application {
   }
 
   handleRenderIndex(req, res) {
-    this.render(res, "index");
-  }
-
-  handleRenderBeta(req, res) {
-    this.render(res, "beta", {
+    this.render(res, "index", {
       data: this.renderedData,
     });
   }
