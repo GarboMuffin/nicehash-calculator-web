@@ -1,4 +1,3 @@
 User-agent: *
 Allow: /
 Disallow: /data.json
-Disallow: /beta

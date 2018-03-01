@@ -15,10 +15,10 @@ block body
     This site is <a href="https://github.com/GarboMuffin/nicehash-calculator-web/">open source</a>.
     Please <a href="https://github.com/GarboMuffin/nicehash-calculator-web/issues/new">report bugs or suggest features</a>.
   p.
-    Please consider donating at the bottom of this page.
+    Please consider donating to the addresses at the bottom of this page.
   p.
     Yellow coins are the most profitable coin of their algorithm.
-    The ROI column is the column you probably care the most about.
+    The ROI column is probably the most important one.
     Hover over column headers for more details.
 
   p
@@ -39,9 +39,9 @@ block body
       th(title="Name and abbreviation of the coin.") Coin Name
       th(title="The corresponding algorithm on NiceHash.") Algorithm
       th(title="Average cost to buy hashing power for this coin on NiceHash. It is possible to have good orders for less than this number.") Price / Cost
-      th(title="Estimated rewards for mining that coin.") Revenue / Rewards
+      th(title="Estimated rewards for mining that coin. Actual results may vary greatly.") Revenue / Rewards
       th(title="Revenue minus cost.") Profit
-      th(title="If you put X BTC in, expect Y% of X BTC out." class="highlight") ROI
+      th(title="Average returns on any bitcoin put into mining this coin on NiceHash. Actual results may vary greatly." class="highlight") ROI
     each coin in data.coins
       tr(class=coin.isMostProfitable ? "highlight" : "")
         td= coin.displayName
