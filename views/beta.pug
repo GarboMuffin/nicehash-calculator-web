@@ -8,7 +8,6 @@ extends template
 
 block append head
   title NiceHash Buyer Profitability Chart (Beta version)
-  meta(name="description" content="Automatically estimates how profitable it is to buy hashing power on NiceHash in a convenient chart.")
   link(rel="stylesheet" href="style.css")
 
 block body
@@ -27,96 +26,17 @@ block body
 
   - var date = (new Date(data.lastUpdated)).toLocaleString();
   p= "Last updated: " + date + " (updated around every four hours and I do intend to change this)"
-  table
-    tr
-      th(title="Name and abbreviation of the coin.") Coin Name
-      th(title="The corresponding algorithm on NiceHash.") Algorithm
-      th(title="Average cost to buy hashing power for this coin on NiceHash. It is possible to have orders for less than this number.") Price / Cost
-      th(title="Estimated rewards for mining that coin.") Revenue / Rewards
-      th(title="Revenue minus cost.") Profit
-      th(title="If you put X BTC in, expect Y% of X BTC out." class="highlight") ROI
-    -
-      const RENDER = [];
-      const VALUE_PRECISION = 4;
-      const UNKNOWN_ALGORITHM = "Unknown (this is a bug)";
-      const coins = data.coins;
 
-      const getResult = (meta) => {
-        const result = {};
-        meta.result = result;
-
-        const fix = (number) => number.toFixed(VALUE_PRECISION);
-
-        // Throws a + infront of a positive number, used for percents
-        const handlePercent = (number) => {
-          number = number.toFixed(2);
-          if (number > 0) {
-            return "+" + number;
-          } else {
-            return number;
-          }
-        };
-
-        const hashUnit = meta.coin.niceHashUnit.displayName;
-        const moneyUnit = "BTC/" + hashUnit + "/day";
-
-        // Add in the data
-        result.displayName = meta.coin.displayName + " (" + meta.coin.abbreviation + ")";
-        result.algoName = meta.coin.niceHashAlgo.displayName || UNKNOWN_ALGORITHM;
-        result.price = fix(meta.price) + " " + moneyUnit;
-        result.revenue = fix(meta.revenue.revenue) + " " + moneyUnit;
-        result.revenueData = new Date(meta.revenue.timestamp).toLocaleString();
-        result.profit = fix(meta.profit) + " " + moneyUnit;
-
-        const percentChange = handlePercent(meta.percentChange * 100);
-        result.roi = percentChange + "%";
-        result.roiClass = (percentChange > 0 ? "cell-green" : "cell-red") + " cell-percent-change";
-
-        return result;
-      };
-
-      const getMostProfitable = () => {
-        const result = [];
-
-        for (let i = 0; i < coins.length; i++) {
-          const coin = coins[i];
-          const algo = coin.coin.niceHashAlgo.id;
-          const profit = coin.profit;
-
-          const highestCoinOfAlgo = result[algo];
-          const highestProfitOfAlgo = highestCoinOfAlgo ? highestCoinOfAlgo.profit : -Infinity;
-
-          if (profit > highestProfitOfAlgo) {
-            result[algo] = coin;
-          }
-        }
-
-        return result;
-      };
-
-      for (let i = 0; i < coins.length; i++) {
-        const coin = coins[i];
-        const result = getResult(coin);
-        RENDER.push(result);
-      }
-
-      const mostProfitable = getMostProfitable();
-      for (let i = 0; i < mostProfitable.length; i++) {
-        const coin = mostProfitable[i];
-        if (coin === undefined) {
-          continue;
-        }
-        coin.result.mostProfitable = true;
-      }
-
-    each coin in RENDER
-      tr(class=coin.mostProfitable ? "highlight" : "")
+  include table
+  +table()
+    each coin in data.coins
+      tr(class=coin.isMostProfitable ? "highlight" : "")
         td= coin.displayName
         td= coin.algoName
         td= coin.price
-        td= coin.revenue
+        td(title=(new Date(coin.revenueDate)).toLocaleString())= coin.revenue
         td= coin.profit
-        td(class=coin.roiClass)= coin.roi
+        td(class=coin.isProfitable ? "cell-green" : "cell-red" + " cell-percent-change")= coin.roi
 
   hr
 

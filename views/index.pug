@@ -11,8 +11,8 @@ block append head
 block body
   h1 NiceHash Buyer Profitability Chart
   noscript
-    h1 Please enable JavaScript to use this site OR try the <a href="beta">beta version</a> that works without javascript.
-  <!--[if lt IE 9]><h1>Please update your browser to use this site.</h1><![endif]-->
+    h1 Please enable JavaScript to use this site OR try the <a href="beta">beta version</a> that works without JS.
+  <!--[if lt IE 9]><h1>Please update your browser to use this site OR try the <a href="beta">beta version</a> that works without older browsers.</h1><![endif]-->
 
   p.
     This website <b>**estimates**</b> the profitability of buying hashing power on NiceHash ignoring fees.
@@ -21,7 +21,6 @@ block body
   p.
     This site is <a href="https://github.com/GarboMuffin/nicehash-calculator-web/">open source</a>.
     Please <a href="https://github.com/GarboMuffin/nicehash-calculator-web/issues/new">report bugs or suggest features</a>.
-
   p.
     If this site is useful then please consider donating at the bottom of this site.
   p.
@@ -32,7 +31,8 @@ block body
   hr
 
   p Last updated:
-    | 
+    |
+    |
     span#last-updated
       i Loading...
     |  (updated around every four hours and I do intend to change this)
@@ -40,14 +40,9 @@ block body
     i Loading... Please wait...
   p#no-data
     b No data. Please refresh in a few minutes.
-  table#table
-    tr
-      th(title="Name and abbreviation of the coin.") Coin Name
-      th(title="The corresponding algorithm on NiceHash.") Algorithm
-      th(title="Average cost to buy hashing power for this coin on NiceHash. It is possible to have orders for less than this number.") Price / Cost
-      th(title="Estimated rewards for mining that coin.") Revenue / Rewards
-      th(title="Revenue minus cost.") Profit
-      th(title="If you put X BTC in, expect Y% of X BTC out." class="highlight") ROI
+
+  include table
+  +table()
 
   hr
 

@@ -8,12 +8,14 @@ const compression = require("compression");
 const logger = require("./logger");
 const getData = require("./getData");
 const getSavedData = require("./getSavedData");
+const renderData = require("./renderData");
 
 class Application {
   constructor(app) {
     this.config = require("./config");
     this.inProduction = process.env.NODE_ENV === "production";
     this.data = {};
+    this.renderedData = {};
     this.server = app;
 
     if (this.inProduction) {
@@ -47,7 +49,8 @@ class Application {
     app.use(express.static("public"));
     app.get("/", (req, res) => this.handleRenderIndex(req, res));
     app.get("/beta", (req, res) => this.handleRenderBeta(req, res));
-    app.get("/data.json", cors(), (req, res) => this.handleSendData(req, res));
+    app.get("/data.json", cors(), (req, res) => res.json(this.data));
+    app.get("/renderedData.json", cors(), (req, res) => res.json(this.renderedData));
     app.use((req, res) => res.status(404).send("404 Not Found"));
 
     this.loadSavedData();
@@ -62,9 +65,14 @@ class Application {
   // DATA
   //
 
+  setData(data) {
+    this.data = data;
+    this.renderedData = renderData(data);
+  }
+
   loadSavedData() {
     getSavedData().then((data) => {
-      this.data = data;
+      this.setData(data);
       if (this.inProduction) {
         const currentDate = Date.now();
         const dataDate = new Date(data.lastUpdated);
@@ -80,7 +88,7 @@ class Application {
 
   updateData() {
     getData(this).then((data) => {
-      this.data = data;
+      this.setData(data);
       if (this.inProduction) {
         this.setUpdateTimeout();
       }
@@ -105,13 +113,9 @@ class Application {
     this.render(res, "index");
   }
 
-  handleSendData(req, res) {
-    res.json(this.data);
-  }
-
   handleRenderBeta(req, res) {
     this.render(res, "beta", {
-      data: this.data,
+      data: this.renderedData,
     });
   }
 }
