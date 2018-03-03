@@ -30,13 +30,6 @@ td.cell-red, th.cell-red {
   background-color: $redColor;
 }
 
-td.cell-green:hover, th.cell-green:hover {
-  background-color: $greenColor - $dim;
-}
-td.cell-red:hover, th.cell-red:hover {
-  background-color: $redColor - $dim;
-}
-
 tr:hover {
   .highlight {
     background-color: $highlightColor - $dim;

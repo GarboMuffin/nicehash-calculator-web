@@ -1,16 +1,23 @@
 // Converts raw data from nicehash-calculator into more easily parsed data
 
+const chalk = require("chalk");
+const logger = require("./logger");
+
 const VALUE_PRECISION = 4;
-const UNKNOWN_ALGORITHM = "Unknown (this is a bug)";
 
 module.exports = (data) => {
+  if (!data.coins || data.coins.length === 0) {
+    logger.warn(chalk.yellow("No data?"));
+    return {};
+  }
+
   const outputCoins = [];
 
   const coins = data.coins;
 
   const getResult = (meta) => {
     const result = {};
-    meta.result = result;
+    meta.renderData = result;
 
     const fix = (number) => number.toFixed(VALUE_PRECISION);
 
@@ -29,7 +36,7 @@ module.exports = (data) => {
 
     // Add in the data
     result.displayName = meta.coin.displayName + " (" + meta.coin.abbreviation + ")";
-    result.algoName = meta.coin.niceHashAlgo.displayName || UNKNOWN_ALGORITHM;
+    result.algoName = meta.coin.niceHashAlgo.displayName;
     result.price = fix(meta.price) + " " + moneyUnit;
     result.revenue = fix(meta.revenue.revenue) + " " + moneyUnit;
     result.revenueDate = new Date(meta.revenue.timestamp).toLocaleString();
@@ -43,8 +50,7 @@ module.exports = (data) => {
   const getMostProfitable = () => {
     const result = [];
 
-    for (let i = 0; i < coins.length; i++) {
-      const coin = coins[i];
+    for (const coin of coins) {
       const algo = coin.coin.niceHashAlgo.id;
       const profit = coin.profit;
 
@@ -59,19 +65,23 @@ module.exports = (data) => {
     return result;
   };
 
-  for (let i = 0; i < coins.length; i++) {
-    const coin = coins[i];
+  for (const coin of coins) {
     const result = getResult(coin);
     outputCoins.push(result);
   }
 
   const mostProfitable = getMostProfitable();
-  for (let i = 0; i < mostProfitable.length; i++) {
-    const coin = mostProfitable[i];
+  for (const coin of mostProfitable) {
+    // todo: this if might not be needed
     if (coin === undefined) {
       continue;
     }
-    coin.result.isMostProfitable = true;
+    coin.renderData.isMostProfitable = true;
+  }
+  for (const coin of coins) {
+    if (!coin.renderData.isMostProfitable) {
+      coin.renderData.isMostProfitable = false;
+    }
   }
 
   const renderedData = {

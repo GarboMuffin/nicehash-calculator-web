@@ -15,7 +15,7 @@ function getSavedData() {
       try {
         data = JSON.parse(buffer.toString());
       } catch (e) {
-        logger.error("Malformed JSON in data.json");
+        logger.warn("Malformed JSON in data.json");
         resolve({});
       }
       logger.info("Loaded data.json");

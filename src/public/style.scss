@@ -1,8 +1,32 @@
-@import "core";
-@import "links";
 @import "tables";
-@import "donations";
 
-#no-data {
-  display: none;
+body {
+  font-family: sans-serif;
+}
+
+// Links
+a {
+  color: blue;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+a:active {
+  color: red;
+}
+
+// Tables
+td, th {
+  padding: 3px;
+  border: 1px solid black;
+}
+
+// Donations
+#donations {
+  text-align: center;
+  font-size: 0.9em;
+}
+.donation {
+  text-align: center;
 }

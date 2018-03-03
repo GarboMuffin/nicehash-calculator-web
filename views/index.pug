@@ -1,56 +1,52 @@
 extends template
 
 block append head
-  title NiceHash Buyer Profitability Chart
+  title NiceHash Buyer Profitability Table
   link(rel="stylesheet" href="style.css")
 
 block body
-  h1 NiceHash Buyer Profitability Chart
+  h1 NiceHash Buyer Profitability Table
 
   p.
-    This website <b>**estimates**</b> the profitability of buying hashing power on NiceHash ignoring fees.
+    This website <b>estimates</b> the profitability of buying hashing power on NiceHash <b>ignoring fees</b>.
     This is not investing advice.
     <b>I am not responsible for any losses that may come as a result of this site.</b>
   p.
     This site is <a href="https://github.com/GarboMuffin/nicehash-calculator-web/">open source</a>.
     Please <a href="https://github.com/GarboMuffin/nicehash-calculator-web/issues/new">report bugs or suggest features</a>.
-  p.
-    Please consider donating to the addresses at the bottom of this page.
+    Consider donating to the addresses at the bottom of this page.
   p.
     Yellow coins are the most profitable coin of their algorithm.
     The ROI column is probably the most important one.
     Hover over column headers for more details.
 
-  p
-    b.
-      The table is now rendered on the server. JavaScript is no longer needed (but helps make dates local).
-
   hr
 
-  - var date = (new Date(data.lastUpdated)).toISOString();
-  p Last updated:
-    |
-    |
-    span(data-time=date)#last-updated= date + " (UTC)"
-    |   (updated around every four hours. I do intend to reduce this)
-
-  table
-    tr
-      th(title="Name and abbreviation of the coin.") Coin Name
-      th(title="The corresponding algorithm on NiceHash.") Algorithm
-      th(title="Average cost to buy hashing power for this coin on NiceHash. It is possible to have good orders for less than this number.") Price / Cost
-      th(title="Estimated rewards for mining that coin. Actual results may vary greatly.") Revenue / Rewards
-      th(title="Revenue minus cost.") Profit
-      th(title="Average returns on any bitcoin put into mining this coin on NiceHash. Actual results may vary greatly." class="highlight") ROI
-    each coin in data.coins
-      tr(class=coin.isMostProfitable ? "highlight" : "")
-        td= coin.displayName
-        td= coin.algoName
-        td= coin.price
-        - var revenueDate = (new Date(coin.revenueDate)).toISOString();
-        td(data-time=revenueDate title=revenueDate + " (UTC)").revenue= coin.revenue
-        td= coin.profit
-        td(class=coin.isProfitable ? "cell-green" : "cell-red" + " cell-percent-change")= coin.roi
+  if data.coins && data.coins.length > 0
+    - var date = (new Date(data.lastUpdated)).toISOString();
+    p Last updated:
+      |
+      |
+      span#last-updated= date + " (UTC)"
+      |  (updated around every four hours. I do intend to reduce this)
+    table
+      tr
+        th(title="Name and abbreviation of the coin.") Coin Name
+        th(title="The corresponding algorithm on NiceHash.") Algorithm
+        th(title="Average cost to buy hashing power for this coin on NiceHash. It is possible to have good orders for less than this number.") Price / Cost
+        th(title="Estimated rewards for mining that coin. Actual results may vary greatly.") Revenue / Rewards
+        th(title="Revenue minus cost.") Profit
+        th(title="Average returns on any bitcoin put into mining this coin on NiceHash. Actual results may vary greatly." class="highlight") ROI
+        each coin in data.coins
+          tr(class=coin.isMostProfitable ? "highlight" : "")
+            td= coin.displayName
+            td= coin.algoName
+            td= coin.price
+            td(title=(new Date(coin.revenueDate)).toISOString() + " (UTC)").revenue= coin.revenue
+            td= coin.profit
+            td(class=coin.isProfitable ? "cell-green" : "cell-red" + " cell-percent-change")= coin.roi
+  else
+    h2 Could not find data to render. Please refresh in a few minutes. If this lasts more than a few minutes please report a bug.
 
   hr
 
@@ -66,8 +62,8 @@ block body
     .donation BTC (bech32): bc1qkuz9a4trzgvdq9sru800jtxfz0ld0vtwrqu0nq
     .donation BTC: 1JZS1fhPHuxCyhPFYLYFoNzArTRJsJArwv
     .donation BCH: qzjtsdg8uskpa8q5lgt7rxvxm7gv27vk0qrwgyy0nz
+    .donation LTC: LNTXpx86L2ADQPMC3t78jNvramJ1xMS2F4
     .donation ETH: 0xE9eDFAB6565695C01c1978B9782ad1FE22b3E5AC
     .donation DOGE: DS7aiQgXqFrmwG3bRK3kzC78Hb114y7Y1R
-    .donation LTC: LNTXpx86L2ADQPMC3t78jNvramJ1xMS2F4
 
   script(src="script.js")
