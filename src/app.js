@@ -40,11 +40,6 @@ class Application {
     app.use(helmet.hidePoweredBy());
     app.use(helmet.xssFilter());
     app.use(helmet.referrerPolicy({policy: "no-referrer"}));
-    app.use(helmet.contentSecurityPolicy({
-      directives: {
-        defaultSrc: ["'self'"]
-      }
-    }));
 
     app.use("/realtime.html", helmet.contentSecurityPolicy({
       directives: {
