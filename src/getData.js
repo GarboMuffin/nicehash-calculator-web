@@ -17,18 +17,33 @@ const PROCESS_ARGS = [
 
   // these coins have a history of having an ROI of <= -99%
   // '-coin_name' disables that coin
+
+  // sha-256
+  "-crown",
+  "-unobtanium",
+  "-zetacoin",
+  // scrypt
   "-bata",
   "-mooncoin",
-  "-myriad-scrypt",
+  "-worldcoin",
   "-viacoin",
-  "-crown",
-  "-myriad-sha",
-  "-unobtanium",
+  "-dnotes",
+  "-einsteinium",
+  // x11
   "-qbc", // Québecoin, the fancy e seems to break it normally
+  // equihash
+  "-bitcoinz",
+  // keccak, pretty much a dead market now so the entire algorithm could be disabled
   "-maxcoin",
   "-smartcash",
-  "-bitcoinz",
-  "-zetacoin",
+  // other/multi
+  "-xmy", // myriad-scrypt and myriad-sha
+
+  // coins I will not disable even though they have low profit:
+  // Dogecoin - its dogecoin...
+  // Verge-blake (2s) - only blake 2s coin
+  // Quark - only quark coin
+  // Sono - only skunk coin on whattomine and the only reason it has -100% is because whattomine has something broken
 ];
 
 function getRawData() {
