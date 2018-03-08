@@ -31,18 +31,23 @@ module.exports = (data) => {
       }
     };
 
-    const hashUnit = meta.coin.niceHashUnit.displayName;
+    const hashUnit = meta.coin.algorithm.niceHash.unit.displayName;
     const moneyUnit = "BTC/" + hashUnit + "/day";
 
     // Add in the data
     result.displayName = meta.coin.displayName + " (" + meta.coin.abbreviation + ")";
-    result.algoName = meta.coin.niceHashAlgo.displayName;
+    result.algoName = meta.coin.algorithm.displayName;
     result.price = fix(meta.price) + " " + moneyUnit;
     result.revenue = fix(meta.revenue.revenue) + " " + moneyUnit;
     result.revenueDate = new Date(meta.revenue.timestamp).toLocaleString();
     result.profit = fix(meta.profit) + " " + moneyUnit;
     result.isProfitable = meta.percentChange > 0;
     result.roi = handlePercent(meta.percentChange * 100) + "%";
+
+    result.wtmId = meta.coin.id;
+    result.wtmUnit = meta.coin.algorithm.whatToMine.unit.hashes;
+    result.nhId = meta.coin.algorithm.niceHash.id;
+    result.nhUnit = meta.coin.algorithm.niceHash.unit.hashes;
 
     return result;
   };
@@ -51,7 +56,7 @@ module.exports = (data) => {
     const result = [];
 
     for (const coin of coins) {
-      const algo = coin.coin.niceHashAlgo.id;
+      const algo = coin.coin.algorithm.niceHash.id;
       const profit = coin.profit;
 
       const highestCoinOfAlgo = result[algo];

@@ -1,9 +1,7 @@
 const express = require("express");
 const morgan = require("morgan");
 const helmet = require("helmet");
-const cors = require("cors");
 const chalk = require("chalk");
-const compression = require("compression");
 
 const logger = require("./logger");
 const getData = require("./getData");
@@ -24,7 +22,9 @@ class Application {
       logger.info("Running in development mode");
     }
 
-    app.set("trust proxy", true);
+    app.set("case sensitive routing", true);
+    app.set("strict routing", true);
+    app.set("trust proxy", "loopback");
     app.set("view engine", "pug");
 
     app.use(morgan("short", {
@@ -40,15 +40,21 @@ class Application {
     app.use(helmet.hidePoweredBy());
     app.use(helmet.xssFilter());
     app.use(helmet.referrerPolicy({policy: "no-referrer"}));
-    app.use((req, res, next) => {
-      res.set("Cache-Control", "no-cache");
-      next();
-    });
-    app.use(compression());
+    app.use(helmet.contentSecurityPolicy({
+      directives: {
+        defaultSrc: ["'self'"]
+      }
+    }));
+
+    app.use("/realtime.html", helmet.contentSecurityPolicy({
+      directives: {
+        connectSrc: ["whattomine.com", "api.nicehash.com"]
+      }
+    }))
 
     app.use(express.static("public"));
     app.get("/", (req, res) => this.handleRenderIndex(req, res));
-    app.get("/data.json", cors(), (req, res) => res.json(this.data));
+    app.get("/data.json", (req, res) => this.handleSendData(req, res));
     app.use((req, res) => res.status(404).send("404 Not Found"));
 
     this.loadSavedData();
@@ -111,6 +117,11 @@ class Application {
     this.render(res, "index", {
       data: this.renderedData,
     });
+  }
+
+  handleSendData(req, res) {
+    res.set("Access-Control-Allow-Origin", "*");
+    res.json(this.data);
   }
 }
 
