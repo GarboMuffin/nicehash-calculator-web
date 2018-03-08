@@ -1,13 +1,12 @@
 // Converts raw data from nicehash-calculator into more easily parsed data
 
-const chalk = require("chalk");
 const logger = require("./logger");
 
 const VALUE_PRECISION = 4;
 
 module.exports = (data) => {
   if (!data.coins || data.coins.length === 0) {
-    logger.warn(chalk.yellow("No data?"));
+    logger.warn("No data?");
     return {};
   }
 
@@ -43,11 +42,6 @@ module.exports = (data) => {
     result.profit = fix(meta.profit) + " " + moneyUnit;
     result.isProfitable = meta.percentChange > 0;
     result.roi = handlePercent(meta.percentChange * 100) + "%";
-
-    result.wtmId = meta.coin.id;
-    result.wtmUnit = meta.coin.algorithm.whatToMine.unit.hashes;
-    result.nhId = meta.coin.algorithm.niceHash.id;
-    result.nhUnit = meta.coin.algorithm.niceHash.unit.hashes;
 
     return result;
   };

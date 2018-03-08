@@ -1,6 +1,5 @@
 const childProcess = require("child_process");
 const fs = require("fs");
-const chalk = require("chalk");
 
 const logger = require("./logger");
 
@@ -29,6 +28,7 @@ const PROCESS_ARGS = [
   "-maxcoin",
   "-smartcash",
   "-bitcoinz",
+  "-zetacoin",
 ];
 
 function getRawData() {
@@ -62,7 +62,7 @@ function getRawData() {
       try {
         data = JSON.parse(e.toString());
       } catch (err) {
-        logger.error(chalk.red(" > Error parsing child process output:"));
+        logger.error(" > Error parsing child process output:");
         logger.error(err.stack);
         logger.error("Data: " + e.toString());
         calculator.kill();
@@ -79,7 +79,7 @@ function getRawData() {
     });
 
     calculator.on("error", (e) => {
-      logger.error(chalk.red(" > Child process error:"));
+      logger.error(" > Child process error:");
       logger.error(err.stack);
       reject();
     });
@@ -105,7 +105,7 @@ function parseData(rawData) {
 
   fs.writeFile("data.json", JSON.stringify(data), (err) => {
     if (err) {
-      logger.error(chalk.red(" > Couldn't save data.json:"));
+      logger.error(" > Couldn't save data.json:");
       logger.error(err.stack);
     } else {
       logger.info("Saved data.json");

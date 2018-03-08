@@ -1,7 +1,6 @@
 const express = require("express");
 const morgan = require("morgan");
 const helmet = require("helmet");
-const chalk = require("chalk");
 
 const logger = require("./logger");
 const getData = require("./getData");
@@ -56,8 +55,8 @@ class Application {
   }
 
   handlePromiseError(err) {
-    logger.error(chalk.red(" > PROMISE ERROR:"));
-    logger.error(chalk.red(err.stack));
+    logger.error(" > PROMISE ERROR:");
+    logger.error(err.stack);
   }
 
   //
