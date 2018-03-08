@@ -90,7 +90,7 @@ function parseData(rawData) {
   // Sort by algorithm then by name
   // TODO: consider sorting by profit instead of name?
   rawData.sort((a, b) => {
-    const byAlgo = a.coin.niceHashAlgo.id - b.coin.niceHashAlgo.id;
+    const byAlgo = a.coin.algorithm.niceHash.id - b.coin.algorithm.niceHash.id;
     const aName = a.coin.displayName.toLowerCase();
     const bName = b.coin.displayName.toLowerCase();
     const byName = aName < bName ? -1 : aName > bName ? 1 : 0;
