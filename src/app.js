@@ -40,12 +40,6 @@ class Application {
     app.use(helmet.xssFilter());
     app.use(helmet.referrerPolicy({policy: "no-referrer"}));
 
-    app.use("/realtime.html", helmet.contentSecurityPolicy({
-      directives: {
-        connectSrc: ["whattomine.com", "api.nicehash.com"]
-      }
-    }))
-
     app.use(express.static("public"));
     app.get("/", (req, res) => this.handleRenderIndex(req, res));
     app.get("/data.json", (req, res) => this.handleSendData(req, res));
