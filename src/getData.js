@@ -31,6 +31,7 @@ const PROCESS_ARGS = [
   "-einsteinium",
   // x11
   "-qbc", // Québecoin, the fancy e seems to break it normally
+  "-creamcoin",
   // equihash
   "-bitcoinz",
   // keccak, pretty much a dead market now so the entire algorithm could be disabled

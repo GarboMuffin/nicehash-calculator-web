@@ -25,6 +25,7 @@ class Application {
     app.set("strict routing", true);
     app.set("trust proxy", "loopback");
     app.set("view engine", "pug");
+    app.set("views", "src/views");
 
     app.use(morgan("short", {
       stream: {
@@ -65,7 +66,7 @@ class Application {
   loadSavedData() {
     getSavedData().then((data) => {
       this.setData(data);
-      if (this.inProduction) {
+      if (this.inProduction && !this.config.DISABLE_UPDATES) {
         const currentDate = Date.now();
         const dataDate = new Date(data.lastUpdated);
         const timeSince = currentDate - dataDate;
@@ -98,6 +99,7 @@ class Application {
 
   render(res, page, opts = {}) {
     opts.inProduction = this.inProduction;
+    opts.googleAnalyticsCode = this.config.GOOGLE_ANALYTICS_CODE;
     res.render(page, opts);
   }
 

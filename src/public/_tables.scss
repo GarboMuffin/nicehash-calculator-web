@@ -1,19 +1,36 @@
+table {
+  border-collapse: collapse;
+}
+
 td, th {
-  padding: 3px;
+  padding: 4px;
   border: 1px solid black;
 }
 
+$headerColor: #e4f2f7;
 $dim: #151515;
 $greenColor: #5fff5f;
 $redColor: #ff7070;
 $highlightColor: #ffffb5;
 
-tr {
-  background-color: #FFF;
+thead {
+  tr {
+    background-color: $headerColor;
+  }
+  tr:hover {
+    background-color: $headerColor - $dim;
+  }
 }
-tr:hover {
-  background-color: #FFF - $dim;
+
+tbody {
+  tr {
+    background-color: #FFF;
+  }
+  tr:hover {
+    background-color: #FFF - $dim;
+  }
 }
+
 
 .highlight, tr.highlight {
   background-color: $highlightColor;
