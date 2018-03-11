@@ -15,6 +15,10 @@ const PROCESS_ARGS = [
   // this will allow the cache to be utilized to some extent (reducing requests) but also still provide accurate numbers
   "--max-age=300",
 
+  // for development it can be handy to only enable on a few coins
+  // "bitcoin",
+  // "litecoin",
+
   // these coins have a history of having an ROI of <= -99%
   // '-coin_name' disables that coin
 
@@ -118,15 +122,6 @@ function parseData(rawData) {
     lastUpdated: date,
     coins: rawData,
   };
-
-  fs.writeFile("data.json", JSON.stringify(data), (err) => {
-    if (err) {
-      logger.error(" > Couldn't save data.json:");
-      logger.error(err.stack);
-    } else {
-      logger.info("Saved data.json");
-    }
-  });
 
   return data;
 }

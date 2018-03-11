@@ -6,6 +6,7 @@ const logger = require("./logger");
 const getData = require("./getData");
 const getSavedData = require("./getSavedData");
 const renderData = require("./renderData");
+const saveData = require("./saveData");
 
 class Application {
   constructor(app) {
@@ -61,6 +62,7 @@ class Application {
   setData(data) {
     this.data = data;
     this.renderedData = renderData(data);
+    saveData(data);
   }
 
   loadSavedData() {

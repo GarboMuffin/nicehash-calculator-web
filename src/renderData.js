@@ -4,7 +4,7 @@ const logger = require("./logger");
 
 const VALUE_PRECISION = 4;
 
-module.exports = (data) => {
+function renderData(data) {
   if (!data.coins || data.coins.length === 0) {
     logger.warn("No data?");
     return {};
@@ -90,3 +90,5 @@ module.exports = (data) => {
 
   return renderedData;
 }
+
+module.exports = renderData;
