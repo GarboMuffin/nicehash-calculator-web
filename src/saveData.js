@@ -10,13 +10,13 @@ mkdirp("data");
 async function saveData(data) {
   try {
     const stringToWrite = JSON.stringify(data);
-    const date = data.lastUpdated.valueOf();
+    const date = (new Date(data.lastUpdated)).valueOf();
     await writeFile("data.json", stringToWrite);
     await writeFile(`data/${date}.json`, stringToWrite);
     logger.info("Saved data");
   } catch (e) {
     logger.error(" > Couldn't save data:");
-    logger.error(err.stack);
+    logger.error(e.stack);
   }
 }
 

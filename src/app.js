@@ -62,7 +62,7 @@ class Application {
   setData(data) {
     this.data = data;
     this.renderedData = renderData(data);
-    saveData(data);
+    saveData(data).catch((err) => this.handlePromiseError(err));
   }
 
   loadSavedData() {
