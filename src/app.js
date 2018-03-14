@@ -101,13 +101,13 @@ class Application {
 
   render(res, page, opts = {}) {
     opts.inProduction = this.inProduction;
-    opts.googleAnalyticsCode = this.config.GOOGLE_ANALYTICS_CODE;
     res.render(page, opts);
   }
 
   handleRenderIndex(req, res) {
     this.render(res, "index", {
       data: this.renderedData,
+      refreshTime: this.config.REFRESH_TIME,
     });
   }
 

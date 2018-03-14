@@ -9,9 +9,8 @@ block body
   h1 NiceHash Buyer Profitability Table
 
   p.
-    This website <b>estimates</b> the profitability of buying hashing power on NiceHash <b>ignoring fees</b>.
-    This is <b>not</b> investing advice.
-    <b>I am not responsible for any losses that may come as a result of this site.</b>
+    This website <b>estimates</b> the profitability of buying hashing power on <a href="https://www.nicehash.com/?refby=258346">NiceHash (referral link)</a> ignoring fees.
+    <b>I am not responsible for any losses that may come as a result of this site. This project is not affiliated with NiceHash.</b>
   p.
     This site is <a href="https://github.com/GarboMuffin/nicehash-calculator-web/">open source</a>.
     Please <a href="https://github.com/GarboMuffin/nicehash-calculator-web/issues/new">report bugs or suggest features</a>.
@@ -24,13 +23,19 @@ block body
   hr
 
   if data.coins && data.coins.length > 0
-    - var date = (new Date(data.lastUpdated)).toISOString();
+    - var date = (new Date(data.lastUpdated));
+    - var timeSinceUpdate = Date.now() - date;
     p Last updated:
       |
       |
-      span#last-updated= date + " (UTC)"
+      span#last-updated= date.toISOString() + " (UTC)"
       |
       | (updated around every two hours. I do intend to reduce this)
+    //- if no update has occured for 2x the configured refresh interval then show a warning
+    //- something probably broke.
+    if timeSinceUpdate > (refreshTime * 2)
+      p
+        b It seems an update has not occurred for a while. This is probably a bug, please report it.
     table
       thead
         tr
@@ -50,7 +55,8 @@ block body
             td= coin.profit
             td(class=coin.isProfitable ? "cell-green" : "cell-red" + " cell-percent-change")= coin.roi
   else
-    h2 Could not find data to render. Please refresh in a few minutes. If this lasts more than a few minutes please report a bug.
+    p
+      b Could not find data to render. Refresh in a few minutes. If this lasts more than a few minutes please report it.
 
   hr
 
