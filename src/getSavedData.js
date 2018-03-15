@@ -1,27 +1,28 @@
 const fs = require("fs");
+const util = require("util");
 
-const logger = require("./logger");
+const stat = util.promisify(fs.stat);
+const readFile = util.promisify(fs.readFile);
 
-function getSavedData() {
-  return new Promise((resolve, reject) => {
-    fs.readFile("data.json", (err, buffer) => {
-      // resolve() with empty JSON is used instead of reject()
+async function getSavedData(file = "data.json") {
+  try {
+    const fileStat = await stat(file);
+    if (!fileStat.isFile()) {
+      throw new Error("");
+    }
+  } catch (e) {
+    throw new Error("File does not exist");
+  }
 
-      if (err) {
-        logger.warn("Missing data.json");
-        resolve({});
-      }
-      let data;
-      try {
-        data = JSON.parse(buffer.toString());
-      } catch (e) {
-        logger.warn("Malformed JSON in data.json");
-        resolve({});
-      }
-      logger.info("Loaded data.json");
-      resolve(data);
-    });
-  });
+  const contents = await readFile(file);
+  let data;
+  try {
+    data = JSON.parse(contents);
+  } catch (e) {
+    throw new Error("Malformed JSON");
+  }
+
+  return data;
 }
 
 module.exports = getSavedData;

@@ -2,7 +2,6 @@ extends template
 
 block append head
   title NiceHash Buyer Profitability Table
-  link(rel="stylesheet" href="style.css")
   meta(name="description" content="Automatically estimates the profitability of buying hashing power on NiceHash.")
 
 block body
@@ -28,32 +27,14 @@ block body
     p Last updated:
       |
       |
-      span#last-updated= date.toISOString() + " (UTC)"
+      span.utc-text= date.toISOString() + " (UTC)"
       |
       | (updated around every two hours. I do intend to reduce this)
-    //- if no update has occured for 2x the configured refresh interval then show a warning
-    //- something probably broke.
+    //- if no update has occured for 2x the configured refresh interval then show a warning because something probably broke.
     if timeSinceUpdate > (refreshTime * 2)
       p
         b It seems an update has not occurred for a while. This is probably a bug, please report it.
-    table
-      thead
-        tr
-          th(title="Name and abbreviation of the coin.") Coin Name
-          th(title="The corresponding algorithm on NiceHash.") Algorithm
-          th(title="Average cost to buy hashing power for this coin on NiceHash. It is possible to have good orders for less than this number.") Price / Cost
-          th(title="Estimated rewards for mining that coin. Actual results may vary greatly.") Revenue / Rewards
-          th(title="Revenue minus cost.") Profit
-          th(title="Average returns on any bitcoin put into mining this coin on NiceHash. Actual results may vary greatly." class="highlight") ROI
-      tbody
-        each coin in data.coins
-          tr(class=coin.isMostProfitable ? "highlight" : "")
-            td= coin.displayName
-            td= coin.algoName
-            td= coin.price
-            td(title=(new Date(coin.revenueDate)).toISOString() + " (UTC)").revenue= coin.revenue
-            td= coin.profit
-            td(class=coin.isProfitable ? "cell-green" : "cell-red" + " cell-percent-change")= coin.roi
+    include table
   else
     p
       b Could not find data to render. Refresh in a few minutes. If this lasts more than a few minutes please report it.
@@ -63,17 +44,3 @@ block body
   p.
     You can view the <a href="data.json">raw data with a lot more information</a>.
     You're welcome to use that pretty much however you want.
-
-  hr
-
-  #donations
-    div
-      b Consider donating:
-    .donation BTC (bech32): bc1qkuz9a4trzgvdq9sru800jtxfz0ld0vtwrqu0nq
-    .donation BTC: 1JZS1fhPHuxCyhPFYLYFoNzArTRJsJArwv
-    .donation BCH: qzjtsdg8uskpa8q5lgt7rxvxm7gv27vk0qrwgyy0nz
-    .donation LTC: LNTXpx86L2ADQPMC3t78jNvramJ1xMS2F4
-    .donation ETH: 0xE9eDFAB6565695C01c1978B9782ad1FE22b3E5AC
-    .donation DOGE: DS7aiQgXqFrmwG3bRK3kzC78Hb114y7Y1R
-
-  script(src="script.js")

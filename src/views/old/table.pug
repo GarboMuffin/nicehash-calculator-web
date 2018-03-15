@@ -1,0 +1,12 @@
+extends ../template
+
+block append head
+  title Snapshot of Profitability
+
+block body
+  p Snapshot of the estimated profitability at
+    |
+    |
+    span.utc-text= sourceDate.toISOString()
+    |:
+  include ../table

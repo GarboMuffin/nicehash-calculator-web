@@ -1,0 +1,11 @@
+extends ../template
+
+block append head
+  title Old Data
+
+block body
+  p List of all saved data:
+  ul
+    each date in data
+      li
+        a(href=`/old/${date}`).utc-text= (new Date(+date)).toISOString()

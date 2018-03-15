@@ -2,17 +2,19 @@
 
 (function() {
   "use strict";
-
-  function date(d) {
-    return (new Date(d.replace(" (UTC)", ""))).toLocaleString();
+  function convert(t) {
+    return (new Date(t.replace(" (UTC)", ""))).toLocaleString();
   }
-
-  var lastUpdatedEl = document.getElementById("last-updated");
-  lastUpdatedEl.textContent = date(lastUpdatedEl.textContent);
-
-  var revenueCells = document.getElementsByClassName("revenue");
-  for (var i = 0; i < revenueCells.length; i++) {
-    var el = revenueCells[i];
-    el.setAttribute("title", date(el.getAttribute("title")));
+  function fixDates(els, type) {
+    for (var i = 0; i < els.length; i++) {
+      var el = els[i];
+      if (type === "text") {
+        el.textContent = convert(el.textContent);
+      } else if (type === "title") {
+        el.setAttribute("title", convert(el.getAttribute("title")));
+      }
+    }
   }
+  fixDates(document.getElementsByClassName("utc-text"), "text");
+  fixDates(document.getElementsByClassName("utc-title"), "title");
 }());

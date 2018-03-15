@@ -7,6 +7,7 @@ const getData = require("./getData");
 const getSavedData = require("./getSavedData");
 const renderData = require("./renderData");
 const saveData = require("./saveData");
+const listSavedData = require("./listSavedData");
 
 class Application {
   constructor(app) {
@@ -45,6 +46,8 @@ class Application {
     app.use(express.static("public"));
     app.get("/", (req, res) => this.handleRenderIndex(req, res));
     app.get("/data.json", (req, res) => this.handleSendData(req, res));
+    app.get("/old/", (req, res) => this.handleRenderOldList(req, res));
+    app.get("/old/:date", (req, res, next) => this.handleRenderOld(req, res, next));
     app.use((req, res) => res.status(404).send("404 Not Found"));
 
     this.loadSavedData();
@@ -83,7 +86,11 @@ class Application {
 
   updateData() {
     getData(this).then((data) => {
-      this.setData(data);
+      if (!data || !data.coins || data.coins.length === 0) {
+        logger.error("Update returned bad data. Aborting update.");
+      } else {
+        this.setData(data);
+      }
       if (this.inProduction) {
         this.setUpdateTimeout();
       }
@@ -108,6 +115,30 @@ class Application {
     this.render(res, "index", {
       data: this.renderedData,
       refreshTime: this.config.REFRESH_TIME,
+    });
+  }
+
+  async handleRenderOld(req, res, next) {
+    const dateParam = req.params.date;
+    const file = `data/${dateParam}.json`;
+    let data;
+    try {
+      data = await getSavedData(file);
+    } catch (e) {
+      next();
+      return;
+    }
+    data.coins = data.coins.map((coin) => coin.renderData);
+    this.render(res, "old/table", {
+      sourceDate: new Date(+dateParam),
+      data: data,
+    });
+  }
+
+  async handleRenderOldList(req, res) {
+    const files = await listSavedData();
+    this.render(res, "old/list", {
+      data: files,
     });
   }
 
