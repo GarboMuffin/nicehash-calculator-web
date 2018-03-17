@@ -15,7 +15,7 @@ const PROCESS_ARGS = [
   // "bitcoin",
   // "litecoin",
 
-  // these coins have a history of having a vey 
+  // these coins have a history of having a very low ROI
   // '-coin_name' disables that coin
 
   // sha-256
