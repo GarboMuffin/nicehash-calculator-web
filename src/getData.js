@@ -11,15 +11,11 @@ const PROCESS_ARGS = [
   // go slow enough to avoid any possible rate limits
   "--sleep-time=2500",
 
-  // takes ~225 seconds to do a full update with sleep time @ 2500
-  // this will allow the cache to be utilized to some extent (reducing requests) but also still provide accurate numbers
-  "--max-age=300",
-
   // for development it can be handy to only enable on a few coins
   // "bitcoin",
   // "litecoin",
 
-  // these coins have a history of having an ROI of <= -99%
+  // these coins have a history of having a vey 
   // '-coin_name' disables that coin
 
   // sha-256
@@ -41,6 +37,10 @@ const PROCESS_ARGS = [
   // keccak, pretty much a dead market now so the entire algorithm could be disabled
   "-maxcoin",
   "-smartcash",
+  // neoscrypt
+  "-halcyon",
+  // cryptonight
+  "-digitalnote",
   // other/multi
   "-xmy", // myriad-scrypt and myriad-sha
 ];
