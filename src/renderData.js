@@ -37,8 +37,8 @@ function renderData(data) {
     result.displayName = meta.coin.displayName + " (" + meta.coin.abbreviation + ")";
     result.algoName = meta.coin.algorithm.displayName;
     result.price = fix(meta.price) + " " + moneyUnit;
-    result.revenue = fix(meta.revenue.revenue) + " " + moneyUnit;
-    result.revenueDate = new Date(meta.revenue.timestamp).toLocaleString();
+    result.revenue = fix(meta.revenue) + " " + moneyUnit;
+    result.revenueDate = new Date(meta.rawRevenue.timestamp).toLocaleString();
     result.profit = fix(meta.profit) + " " + moneyUnit;
     result.isProfitable = meta.percentChange > 0;
     result.roi = handlePercent(meta.percentChange * 100) + "%";

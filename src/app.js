@@ -81,7 +81,7 @@ class Application {
           this.setUpdateTimeout(this.config.REFRESH_TIME - timeSince);
         }
       }
-    }).catch((err) => this.handlePromiseError(err));
+    }).catch((err) => this.updateData());
   }
 
   updateData() {

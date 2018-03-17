@@ -43,12 +43,6 @@ const PROCESS_ARGS = [
   "-smartcash",
   // other/multi
   "-xmy", // myriad-scrypt and myriad-sha
-
-  // coins I will not disable even though they have low profit:
-  // Dogecoin - its dogecoin...
-  // Verge-blake (2s) - only blake 2s coin
-  // Quark - only quark coin
-  // Sono - only skunk coin on whattomine and the only reason it has -100% is because whattomine has something broken
 ];
 
 function getRawData() {
