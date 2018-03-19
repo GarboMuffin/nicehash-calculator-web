@@ -29,6 +29,7 @@ const PROCESS_ARGS = [
   "-viacoin",
   "-dnotes",
   "-einsteinium",
+  "-florin",
   // x11
   "-qbc", // Québecoin, the fancy e seems to break it normally
   "-creamcoin",
@@ -39,6 +40,7 @@ const PROCESS_ARGS = [
   "-smartcash",
   // neoscrypt
   "-halcyon",
+  "-phoenixcoin",
   // cryptonight
   "-digitalnote",
   // other/multi
