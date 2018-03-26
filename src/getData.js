@@ -6,6 +6,7 @@ const logger = require("./logger");
 const PROCESS_ARGS = [
   // basic args to output data that is parasable
   "--no-header",
+  "--no-warnings", // if coins disappear or other things warnings get output which aren't parseable
   "--output=json",
 
   // go slow enough to avoid any possible rate limits
