@@ -29,15 +29,16 @@ block body
       |
       span.utc-text= date.toISOString() + " (UTC)"
       |
-      | (updated around every two hours. I do intend to reduce this)
+      | (updated around every two hours)
     //- if no update has occured for 2x the configured refresh interval then show a warning because something probably broke.
     if timeSinceUpdate > (refreshTime * 2)
-      p
-        b It seems an update has not occurred for a while. This is probably a bug, please report it.
+      p.error#no-update It seems an update has not occurred for a while. This is probably a bug, please report it.
+    //- if running in production and there's less than 35 coins (there's normally like 70 something) then something is probably wrong
+    if inProduction && (data.coins.length < 35)
+      p.error#few-coins There is an unusually small amount of coins present here. This is probably a bug, please report it.
     include table
   else
-    p
-      b Could not find data to render. Refresh in a few minutes. If this lasts more than a few minutes please report it.
+    p.error#no-data Could not find data to render. Refresh in a few minutes. If this lasts more than a few minutes please report it.
 
   hr
 
