@@ -1,7 +1,6 @@
 (function() {
   "use strict";
 
-  // 1. Convert dates to local time
   function convert(t) {
     return (new Date(t.replace(" (UTC)", ""))).toLocaleString();
   }
@@ -17,23 +16,4 @@
   }
   fixDates(document.getElementsByClassName("utc-text"), "text");
   fixDates(document.getElementsByClassName("utc-title"), "title");
-
-  // 2. Error reporting (through google analytics)
-  if (window.gtag) {
-    function reportError(d) {
-      gtag("event", "exception", {
-        exDescription: d,
-      });
-    }
-
-    if (document.getElementsByClassName("error").length > 0) {
-      if (document.getElementById("no-update")) {
-        reportError("no update");
-      } else if (document.getElementById("few-coins")) {
-        reportError("few coins");
-      } else if (document.getElementById("no-data")) {
-        reportError("no data");
-      }
-    }
-  }
 }());
