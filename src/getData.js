@@ -46,6 +46,7 @@ const PROCESS_ARGS = [
   "-digitalnote",
   // other/multi
   "-xmy", // myriad-scrypt and myriad-sha
+  "-dgc", // scrypt, x11, and sha variants
 ];
 
 function getRawData() {

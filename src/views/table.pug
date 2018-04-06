@@ -4,7 +4,7 @@ table
       th(title="Name and abbreviation of the coin.") Coin Name
       th(title="The corresponding algorithm on NiceHash.") Algorithm
       th(title="Average cost to buy hashing power for this coin on NiceHash. It is possible to have good orders for less than this number.") Price / Cost
-      th(title="Estimated rewards for mining that coin. Actual results may vary greatly.") Revenue / Rewards
+      th(title="Estimated rewards for mining that coin. Actual results may vary greatly. Hover over the number for a timestamp. Red text means old/lagging data.") Revenue / Rewards
       th(title="Revenue minus cost.") Profit
       th(title="Average returns on any bitcoin put into mining this coin on NiceHash. Actual results may vary greatly." class="highlight") ROI
   tbody
@@ -13,6 +13,6 @@ table
         td= coin.displayName
         td= coin.algoName
         td= coin.price
-        td(title=(new Date(coin.revenueDate)).toISOString() + " (UTC)").utc-title= coin.revenue
+        td(title=(new Date(coin.revenueDate)).toISOString() + " (UTC)" class=coin.lagging ? "lagging" : "").utc-title= coin.revenue
         td= coin.profit
-        td(class=coin.isProfitable ? "cell-green" : "cell-red" + " cell-percent-change")= coin.roi
+        td(class=coin.isProfitable ? "cell-profitable" : "cell-not-profitable")= coin.roi

@@ -42,6 +42,7 @@ function renderData(data) {
     result.profit = fix(meta.profit) + " " + moneyUnit;
     result.isProfitable = meta.percentChange > 0;
     result.roi = handlePercent(meta.percentChange * 100) + "%";
+    result.lagging = meta.coin.lagging;
 
     return result;
   };

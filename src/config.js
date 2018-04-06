@@ -1,7 +1,2 @@
-const PORT = process.env.PORT || 8080;
-const REFRESH_TIME = 1000 * 60 * 60 * 2; // prod often uses a different number here
-
-module.exports = {
-  PORT,
-  REFRESH_TIME,
-};
+module.exports.PORT = process.env.PORT || 8080;
+module.exports.REFRESH_TIME = 1000 * 60 * 60 * 1.5; // prod often uses a different number here

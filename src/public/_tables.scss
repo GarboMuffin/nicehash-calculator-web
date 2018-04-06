@@ -8,9 +8,9 @@ td, th {
 }
 
 $dim: #151515;
-$greenColor: #5fff5f;
-$redColor: #ff7070;
-$highlightColor: #ffffb5;
+$green: #5fff5f;
+$red: #ff7070;
+$highlight: #ffffb5;
 
 tr {
   background-color: #FFF;
@@ -20,30 +20,30 @@ tr:hover {
 }
 
 .highlight, tr.highlight {
-  background-color: $highlightColor;
+  background-color: $highlight;
 }
 .highlight:hover, tr.highlight:hover {
-  background-color: $highlightColor - $dim;
+  background-color: $highlight - $dim;
 }
 
-td.cell-green, th.cell-green {
-  background-color: $greenColor;
+td.cell-profitable, th.cell-profitable {
+  background-color: $green;
 }
 
-td.cell-red, th.cell-red {
-  background-color: $redColor;
+td.cell-not-profitable, th.cell-not-profitable {
+  background-color: $red;
 }
 
 tr:hover {
   .highlight {
-    background-color: $highlightColor - $dim;
+    background-color: $highlight - $dim;
   }
 
-  .cell-green {
-    background-color: $greenColor - $dim;
+  .cell-profitable {
+    background-color: $green - $dim;
   }
 
-  .cell-red {
-    background-color: $redColor - $dim;
+  .cell-not-profitable {
+    background-color: $red - $dim;
   }
 }
