@@ -16,7 +16,7 @@ block body
     Consider donating to the addresses at the bottom of this page.
   p.
     Yellow coins are the most profitable coin of their algorithm.
-    Red revenue text means that coin is lagging.
+    <span class="lagging">Red text</span> indicates lagging coins. (long block time, old revenue numbers)
     The ROI column is probably the most important one.
     Hover over column headers for more details.
 
@@ -32,7 +32,7 @@ block body
       |
       | (updated around every one and a half hours)
     //- if no update has occured for 2x the configured refresh interval then show a warning because something probably broke.
-    if timeSinceUpdate > (refreshTime * 2)
+    if inProduction && timeSinceUpdate > (refreshTime * 2)
       p.error#no-update It seems an update has not occurred for a while. This is probably a bug, please report it.
     //- if running in production and there's less than 35 coins (there's normally like 70 something) then something is probably wrong
     if inProduction && (data.coins.length < 35)

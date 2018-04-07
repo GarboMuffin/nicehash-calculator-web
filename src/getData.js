@@ -34,6 +34,7 @@ const PROCESS_ARGS = [
   // x11
   "-qbc", // Québecoin, the fancy e seems to break it normally
   "-creamcoin",
+  "-startcoin",
   // equihash
   "-bitcoinz",
   // keccak, pretty much a dead market now so the entire algorithm could be disabled
@@ -42,8 +43,11 @@ const PROCESS_ARGS = [
   // neoscrypt
   "-halcyon",
   "-phoenixcoin",
+  "-orbitcoin",
   // cryptonight
   "-digitalnote",
+  // lyra2rev2
+  "-galactrum",
   // other/multi
   "-xmy", // myriad-scrypt and myriad-sha
   "-dgc", // scrypt, x11, and sha variants
@@ -53,7 +57,7 @@ function getRawData() {
   return new Promise((resolve, reject) => {
     const result = [];
 
-    logger.info("Starting update");
+    logger.info("Starting update with args: " + PROCESS_ARGS.join(" "));
 
     const getDir = () => {
       const dir = __dirname.split(/[/\\]/g);
@@ -124,6 +128,4 @@ function parseData(rawData) {
   return data;
 }
 
-module.exports = (app) => {
-  return getRawData().then((rawData) => parseData(rawData));
-}
+module.exports = () => getRawData().then((rawData) => parseData(rawData));
