@@ -41,6 +41,7 @@ const PROCESS_ARGS = [
   "-maxcoin",
   "-smartcash",
   // neoscrypt
+  "-crowdcoin",
   "-halcyon",
   "-phoenixcoin",
   "-orbitcoin",
