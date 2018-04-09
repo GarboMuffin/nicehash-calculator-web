@@ -48,6 +48,7 @@ class Application {
         scriptSrc: ["'self'", "www.google-analytics.com"],
         styleSrc: ["'self'"],
         imgSrc: [
+          "'self'", // stops errors when loading favicon
           "www.google-analytics.com", // normal tracking things
           "stats.g.doubleclick.net", // in rare instances the request to google-analytics.com is cancelled and it falls back to this???
         ],
