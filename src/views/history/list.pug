@@ -8,4 +8,4 @@ block body
   ul
     each date in data
       li
-        a(href=`/old/${date}`).utc-text= (new Date(+date)).toISOString()
+        a(href=`/history/${date}`).utc-text= (new Date(+date)).toISOString()

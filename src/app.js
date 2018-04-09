@@ -24,7 +24,6 @@ class Application {
     }
 
     app.set("case sensitive routing", true);
-    app.set("strict routing", true);
     app.set("trust proxy", "loopback");
     app.set("view engine", "pug");
     app.set("views", "src/views");
@@ -42,12 +41,26 @@ class Application {
     app.use(helmet.hidePoweredBy());
     app.use(helmet.xssFilter());
     app.use(helmet.referrerPolicy({policy: "no-referrer"}));
+    app.use(helmet.contentSecurityPolicy({
+      reportOnly: true, // temporarily until i confirm this doesn't break anything
+      directives: {
+        defaultSrc: ["'none'"],
+        scriptSrc: ["'self'", "www.google-analytics.com"],
+        styleSrc: ["'self'"],
+        imgSrc: [
+          "www.google-analytics.com", // normal tracking things
+          "stats.g.doubleclick.net", // in rare instances the request to google-analytics.com is cancelled and it falls back to this???
+        ],
+        reportUri: "/report-csp-violation",
+      },
+    }))
 
     app.use(express.static("public"));
     app.get("/", (req, res) => this.handleRenderIndex(req, res));
     app.get("/data.json", (req, res) => this.handleSendData(req, res));
-    app.get("/old/", (req, res) => this.handleRenderOldList(req, res));
-    app.get("/old/:date", (req, res, next) => this.handleRenderOld(req, res, next));
+    app.get("/history/", (req, res) => this.handleRenderHistoryList(req, res));
+    app.get("/history/:date", (req, res, next) => this.handleRenderHistory(req, res, next));
+    app.post("/report-csp-violation", express.json({type: "*/*"}), (req, res) => this.handleCSPViolation(req, res));
     app.use((req, res) => res.status(404).send("404 Not Found"));
 
     this.loadSavedData();
@@ -111,6 +124,11 @@ class Application {
     res.render(page, opts);
   }
 
+  handleCSPViolation(req, res) {
+    logger.warn("CSP Violation: " + JSON.stringify(req.body));
+    res.send("");
+  }
+
   handleRenderIndex(req, res) {
     this.render(res, "index", {
       data: this.renderedData,
@@ -118,7 +136,7 @@ class Application {
     });
   }
 
-  async handleRenderOld(req, res, next) {
+  async handleRenderHistory(req, res, next) {
     const dateParam = req.params.date;
     const file = `data/${dateParam}.json`;
     let data;
@@ -129,15 +147,15 @@ class Application {
       return;
     }
     data.coins = data.coins.map((coin) => coin.renderData);
-    this.render(res, "old/table", {
+    this.render(res, "history/table", {
       sourceDate: new Date(+dateParam),
       data: data,
     });
   }
 
-  async handleRenderOldList(req, res) {
+  async handleRenderHistoryList(req, res) {
     const files = await listSavedData();
-    this.render(res, "old/list", {
+    this.render(res, "history/list", {
       data: files,
     });
   }

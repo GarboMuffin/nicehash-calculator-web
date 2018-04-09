@@ -5,12 +5,7 @@ html(lang="en")
       meta(name="viewport" content="width=device-width, initial-scale=1.0")
       //- only enable google analytics in production
       if inProduction
-        script(async src="https://www.googletagmanager.com/gtag/js?id=UA-77118590-9")
-        script.
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'UA-77118590-9');
+        script(src="/analytics.js")
       link(rel="stylesheet" href="/style.css")
 
   body
