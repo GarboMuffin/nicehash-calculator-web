@@ -49,9 +49,14 @@ const PROCESS_ARGS = [
   "-digitalnote",
   // lyra2rev2
   "-galactrum",
+  "-rupee",
   // other/multi
   "-xmy", // myriad-scrypt and myriad-sha
   "-dgc", // scrypt, x11, and sha variants
+
+  // missing exchanges, so temporary
+  "-btcp", // bitcoin private
+  "-lcc", // litecoin cash
 ];
 
 function getRawData() {
