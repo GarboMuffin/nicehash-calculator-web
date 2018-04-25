@@ -44,11 +44,11 @@ class Application {
     app.use(helmet.contentSecurityPolicy({
       reportOnly: true, // temporarily until i confirm this doesn't break anything
       directives: {
-        defaultSrc: ["'none'"],
+        defaultSrc: ["'self'"],
         scriptSrc: ["'self'", "www.google-analytics.com"],
         styleSrc: ["'self'"],
         imgSrc: [
-          "'self'", // stops errors when loading favicon
+          "'self'", // favicon.ico, which is a 404 anyways
           "www.google-analytics.com", // normal tracking things
           "stats.g.doubleclick.net", // in rare instances the request to google-analytics.com is cancelled and it falls back to this???
         ],
@@ -61,6 +61,7 @@ class Application {
     app.get("/data.json", (req, res) => this.handleSendData(req, res));
     app.get("/history/", (req, res) => this.handleRenderHistoryList(req, res));
     app.get("/history/:date", (req, res, next) => this.handleRenderHistory(req, res, next));
+    app.get("/calculate", (req, res) => res.render("calculate"));
     app.post("/report-csp-violation", express.json({type: "*/*"}), (req, res) => this.handleCSPViolation(req, res));
     app.use((req, res) => res.status(404).send("404 Not Found"));
 

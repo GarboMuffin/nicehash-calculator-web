@@ -1,0 +1,30 @@
+extends layout
+
+block append head
+  title In Browser Estimations
+
+block body
+  h1 In Browser Calculations
+  p This page allows you to calculate the most updated profitability data for several coins without relying on the main site to update often.
+  p This is experimental and might be removed. It still needs some work but the main parts of it are functional.
+  noscript
+    p
+      b Please enable JavaScript.
+  select#coin-dropdown
+    option(selected disabled value="-1")#default-option Loading... Please wait...
+  button#button Get Data
+  #output(style={
+    display: "none"
+  })
+    mixin item(text, id)
+      div
+        b= text + ":"
+        |
+        |
+        span(id=id)
+    +item("Name", "output-name")
+    +item("Algorithm", "output-algorithm")
+    +item("Price", "output-price")
+    +item("Revenue", "output-revenue")
+    +item("ROI", "output-roi")
+  script(src="calculate.js")
