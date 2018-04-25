@@ -20,8 +20,7 @@
   }
 
   function getAllCoins() {
-    // return fetch("/data.json")
-    return fetch("https://nicehash.garbomuffin.com/data.json")
+    return fetch("/data.json")
       .then((res) => res.json());
   }
 
