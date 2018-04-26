@@ -42,19 +42,17 @@ class Application {
     app.use(helmet.xssFilter());
     app.use(helmet.referrerPolicy({policy: "no-referrer"}));
     app.use(helmet.contentSecurityPolicy({
-      reportOnly: true, // temporarily until i confirm this doesn't break anything
+      reportOnly: true, // temporarily until i confirm this doesn't break anything (it breaks a lot)
       directives: {
-        defaultSrc: ["'self'"],
+        // this isn't the most secure, but it's better than nothing
+        defaultSrc: ["'none'"],
         scriptSrc: ["'self'", "www.google-analytics.com"],
         styleSrc: ["'self'"],
-        imgSrc: [
-          "'self'", // favicon.ico, which is a 404 anyways
-          "www.google-analytics.com", // normal tracking things
-          "stats.g.doubleclick.net", // in rare instances the request to google-analytics.com is cancelled and it falls back to this???
-        ],
+        imgSrc: ["*",],
+        connectSrc: ["*"],
         reportUri: "/report-csp-violation",
       },
-    }))
+    }));
 
     app.use(express.static("public"));
     app.get("/", (req, res) => this.handleRenderIndex(req, res));

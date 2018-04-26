@@ -13,6 +13,8 @@
   const outputRevenue = document.getElementById("output-revenue");
   const outputRoi = document.getElementById("output-roi");
 
+  outputContainer.style.display = "none";
+
   const precision = 4;
 
   function fetchCorsResource(url) {

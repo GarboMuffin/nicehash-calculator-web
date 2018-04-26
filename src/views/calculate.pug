@@ -13,9 +13,7 @@ block body
   select#coin-dropdown
     option(selected disabled value="-1")#default-option Loading... Please wait...
   button#button Get Data
-  #output(style={
-    display: "none"
-  })
+  #output
     mixin item(text, id)
       div
         b= text + ":"
