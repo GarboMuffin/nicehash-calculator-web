@@ -45,10 +45,9 @@ class Application {
       reportOnly: true, // temporarily until i confirm this doesn't break anything (it breaks a lot)
       directives: {
         // this isn't the most secure, but it's better than nothing
-        defaultSrc: ["'none'"],
+        defaultSrc: ["'self'"],
         scriptSrc: ["'self'", "www.google-analytics.com"],
-        styleSrc: ["'self'"],
-        imgSrc: ["*",],
+        imgSrc: ["*"],
         connectSrc: ["*"],
         reportUri: "/report-csp-violation",
       },
