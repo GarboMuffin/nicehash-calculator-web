@@ -10,30 +10,17 @@ _This README is incomplete. You can make an issue if you need help trying to run
 ## Cloning
 
 ```bash
-# remember the --recursive argument
-$ git clone --recursive https://github.com/GarboMuffin/nicehash-calculator-web
+$ git clone https://github.com/GarboMuffin/nicehash-calculator-web
 ```
 
 ## Installing and building
 
 ```bash
-# move to where you cloned the repo
-$ cd /path/to/repo/
-
 # install the dependencies for the website
 $ npm install
-# build js and scss
-$ npm run build
-
-# now for the nicehash-calculator base...
-$ cd nicehash-calculator
-# get the dependencies
-$ npm install
-# build typescript
+# build scss
 $ npm run build
 ```
-
-Whenever you pull you will probably have to run some similar commands.
 
 ## Development setup
 
@@ -41,7 +28,6 @@ Whenever you pull you will probably have to run some similar commands.
 
 In Linux this is easy to do from the command line:
 ```bash
-$ cd /path/to/repo/
 $ wget https://nicehash.garbomuffin.com/data.json
 ```
 

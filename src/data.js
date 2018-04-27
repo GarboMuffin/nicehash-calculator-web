@@ -1,10 +1,59 @@
-// Converts raw data from nicehash-calculator into more easily parsed data
+const fs = require("fs");
+const util = require("util");
+const mkdirp = require("mkdirp");
+
+const stat = util.promisify(fs.stat);
+const readFile = util.promisify(fs.readFile);
+const writeFile = util.promisify(fs.writeFile);
+const readDir = util.promisify(fs.readdir);
 
 const logger = require("./logger");
 
-const VALUE_PRECISION = 4;
+mkdirp("data");
+
+async function getSavedData(file = "data.json") {
+  try {
+    const fileStat = await stat(file);
+    if (!fileStat.isFile()) {
+      throw new Error("");
+    }
+  } catch (e) {
+    throw new Error("File does not exist");
+  }
+
+  const contents = await readFile(file);
+  let data;
+  try {
+    data = JSON.parse(contents);
+  } catch (e) {
+    throw new Error("Malformed JSON");
+  }
+
+  return data;
+}
+
+async function listSavedData() {
+  let files = await readDir("data");
+  files = files.map((file) => file.replace(/\.json$/, ""));
+  return files;
+}
+
+async function saveData(data) {
+  try {
+    const stringToWrite = JSON.stringify(data);
+    const date = (new Date(data.lastUpdated)).valueOf();
+    await writeFile("data.json", stringToWrite);
+    await writeFile(`data/${date}.json`, stringToWrite);
+    logger.info("Saved data");
+  } catch (e) {
+    logger.error(" > Couldn't save data:");
+    logger.error(e.stack);
+  }
+}
 
 function renderData(data) {
+  const VALUE_PRECISION = 4;
+
   if (!data.coins || data.coins.length === 0) {
     logger.warn("No data?");
     return {};
@@ -92,4 +141,7 @@ function renderData(data) {
   return renderedData;
 }
 
-module.exports = renderData;
+module.exports.getSavedData = getSavedData;
+module.exports.listSavedData = listSavedData;
+module.exports.saveData = saveData;
+module.exports.renderData = renderData;

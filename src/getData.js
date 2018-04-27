@@ -1,116 +1,51 @@
-const childProcess = require("child_process");
 const fs = require("fs");
 
 const logger = require("./logger");
+const config = require("./config");
 
-const PROCESS_ARGS = [
-  // basic args to output data that is parasable
-  "--no-header",
-  "--no-warnings", // if coins disappear or other things warnings get output which aren't parseable
-  "--output=json",
+const parseOptions = require("./nicehash-calculator/options/index").parseOptions;
+const NiceHashCalculator = require("./nicehash-calculator/calculator/NiceHashCalculator").NiceHashCalculator;
+const AbstractHandler = require("./nicehash-calculator/handlers/AbstractHandler").AbstractHandler;
 
-  // go slow enough to avoid any possible rate limits
-  "--sleep-time=2500",
+// just get some default options
+const options = parseOptions([]);
+// then specify what we want to change
+options.showHeader = false;
+options.showWarnings = false;
+options.sleepTime = 2500; // slow enough to avoid rate limits
+options.outputHandler = {
+  // getHandler() is later redefined in getRawData()
+  getHandler() {}
+};
 
-  // for development it can be handy to only enable on a few coins
-  // "bitcoin",
-  // "litecoin",
+config.DISABLED_COINS.forEach((c) => options.coins.push("-" + c));
 
-  // these coins have a history of having a very low ROI
-  // '-coin_name' disables that coin
-
-  // sha-256
-  "-crown",
-  "-unobtanium",
-  "-zetacoin",
-  // scrypt
-  "-bata",
-  "-mooncoin",
-  "-worldcoin",
-  "-viacoin",
-  "-dnotes",
-  "-einsteinium",
-  "-florin",
-  // x11
-  "-qbc", // Québecoin, the fancy e seems to break it normally
-  "-creamcoin",
-  "-startcoin",
-  // equihash
-  "-bitcoinz",
-  // keccak, pretty much a dead market now so the entire algorithm could be disabled
-  "-maxcoin",
-  "-smartcash",
-  // neoscrypt
-  "-crowdcoin",
-  "-halcyon",
-  "-phoenixcoin",
-  "-orbitcoin",
-  // cryptonight
-  "-digitalnote",
-  // lyra2rev2
-  "-galactrum",
-  "-rupee",
-  // other/multi
-  "-xmy", // myriad-scrypt and myriad-sha
-  "-dgc", // scrypt, x11, and sha variants
-
-  // missing exchanges, so temporary
-  "-btcp", // bitcoin private
-  "-lcc", // litecoin cash
-];
+// sometimes during testing it can be useful to uncomment this to just enable a couple coins
+// options.coins = ["bitcoin", "litecoin"];
 
 function getRawData() {
   return new Promise((resolve, reject) => {
     const result = [];
 
-    logger.info("Starting update with args: " + PROCESS_ARGS.join(" "));
-
-    const getDir = () => {
-      const dir = __dirname.split(/[/\\]/g);
-      dir.pop();
-      return dir.join("/");
-    };
-    const dir = getDir();
-
-    const calculator = childProcess.fork("../nicehash-calculator/index.js", PROCESS_ARGS, {
-      // set the correct working directory
-      cwd: dir + "/nicehash-calculator",
-      // dont pass arguments from this onto the program
-      // eg. --inspect or --inspect-brk will cause problems if enabled
-      execArgv: [],
-      // don't pipe stdin/stdout/stderr
-      silent: true,
-    });
-
-    // when data comes through stdin it can be parsed
-    calculator.stdout.on("data", (e) => {
-      // Try to read the data as JSON
-      // if the process is working normally then all that should be outputted is valid JSON
-      let data;
-      try {
-        data = JSON.parse(e.toString());
-      } catch (err) {
-        logger.error(" > Error parsing child process output:");
-        logger.error(err.stack);
-        logger.error("Data: " + e.toString());
-        calculator.kill();
-        reject();
-        return;
+    options.outputHandler.getHandler = () => {
+      return new class extends AbstractHandler {
+        handle(data) {
+          logger.info("Updated data for coin " + data.coin.displayName);
+          result.push(data);
+        }
+        finished() {
+          resolve(result);
+        }
       }
-      logger.info(`Updated coin: ${data.coin.displayName} (${data.coin.abbreviation})`);
-      result.push(data);
-    });
+    };
 
-    calculator.on("exit", (e) => {
-      logger.info("Ending update");
-      resolve(result);
-    });
-
-    calculator.on("error", (e) => {
-      logger.error(" > Child process error:");
-      logger.error(err.stack);
-      reject();
-    });
+    const calculator = new NiceHashCalculator(options);
+    calculator.start()
+      .catch((err) => {
+        logger.error("Error while running nicehash-calculator:");
+        logger.error(err.stack);
+        reject();
+      });
   });
 }
 
@@ -134,4 +69,7 @@ function parseData(rawData) {
   return data;
 }
 
-module.exports = () => getRawData().then((rawData) => parseData(rawData));
+module.exports = function getData() {
+  return getRawData()
+    .then((rawData) => parseData(rawData));
+};

@@ -5,13 +5,14 @@
   "main": "index.js",
   "scripts": {
     "start": "node index",
-    "build": "node-sass --output-style expanded -o public/ src/public/",
-    "build-min": "node-sass --output-style compressed -o public/ src/public/",
-    "watch": "node-sass --output-style expanded -o public/ src/public/ -w"
+    "build": "node-sass --output-style expanded -o public/ src/css/",
+    "build-min": "node-sass --output-style compressed -o public/ src/css/",
+    "watch": "node-sass --output-style expanded -o public/ src/css/ -w"
   },
   "author": "GarboMuffin",
   "license": "MIT",
   "dependencies": {
+    "chalk": "^2.4.1",
     "dotenv": "^5.0.0",
     "errorhandler": "^1.5.0",
     "express": "^4.16.2",
@@ -20,6 +21,8 @@
     "morgan": "^1.9.0",
     "node-sass": "^4.7.2",
     "pug": "^2.0.0-rc.4",
+    "request": "^2.85.0",
+    "request-promise-native": "^1.0.5",
     "winston": "^2.4.0",
     "winston-daily-rotate-file": "^1.7.2"
   },
