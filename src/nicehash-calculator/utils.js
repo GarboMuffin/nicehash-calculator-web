@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-// returns a promise that will resolve after `ms` ms
-const rp = require("request-promise-native");
+const rq = require("./lib/request");
 const logger_1 = require("./logger");
+// returns a promise that will resolve after `ms` ms
 function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
 }
@@ -26,11 +26,9 @@ function clone(arr) {
 exports.clone = clone;
 async function request(url) {
     logger_1.logger.debug("request(): requested " + url);
-    const rq = await rp(url, {
-        headers: {
-        // perhaps define a user-agent or referrer?
-        },
+    const req = await rq.request({
+        url,
     });
-    return rq;
+    return req;
 }
 exports.request = request;

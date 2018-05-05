@@ -4,20 +4,20 @@ const logger_1 = require("../../logger");
 const utils_1 = require("../../utils");
 async function getRawCoins() {
     const raw = await utils_1.request("https://whattomine.com/coins.json");
-    const data = JSON.parse(raw);
+    const data = JSON.parse(raw.data);
     return data;
 }
 exports.getRawCoins = getRawCoins;
 async function getRawCalculators() {
     const raw = await utils_1.request("https://whattomine.com/calculators.json");
-    const data = JSON.parse(raw);
+    const data = JSON.parse(raw.data);
     return data;
 }
 exports.getRawCalculators = getRawCalculators;
 async function getRawRevenue(id, hashrate) {
     // https://whattomine.com/coins/1.json
     const raw = await utils_1.request(`https://whattomine.com/coins/${id}.json?hr=${hashrate}`);
-    const data = JSON.parse(raw);
+    const data = JSON.parse(raw.data);
     return data;
 }
 exports.getRawRevenue = getRawRevenue;
@@ -31,7 +31,7 @@ async function getRawMassRevenueCache(opts) {
         url += `&${names[0]}=true&factor[${names[1]}_hr]=${algo.hashrate}`;
     }
     const raw = await utils_1.request(url);
-    const data = JSON.parse(raw);
+    const data = JSON.parse(raw.data);
     return data;
 }
 exports.getRawMassRevenueCache = getRawMassRevenueCache;

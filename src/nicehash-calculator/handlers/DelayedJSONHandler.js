@@ -7,6 +7,7 @@ const AbstractHandler_1 = require("./AbstractHandler");
 class DelayedJSONHandler extends AbstractHandler_1.AbstractHandler {
     constructor() {
         super(...arguments);
+        this.pretty = false;
         this.data = [];
     }
     handle(data) {

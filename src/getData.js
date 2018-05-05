@@ -5,7 +5,6 @@ const config = require("./config");
 
 const parseOptions = require("./nicehash-calculator/options/index").parseOptions;
 const NiceHashCalculator = require("./nicehash-calculator/calculator/NiceHashCalculator").NiceHashCalculator;
-const AbstractHandler = require("./nicehash-calculator/handlers/AbstractHandler").AbstractHandler;
 
 // just get some default options
 const options = parseOptions([]);
@@ -27,17 +26,18 @@ function getRawData() {
   return new Promise((resolve, reject) => {
     const result = [];
 
-    options.outputHandler.getHandler = () => {
-      return new class extends AbstractHandler {
-        handle(data) {
-          logger.info("Updated data for coin " + data.coin.displayName);
-          result.push(data);
-        }
-        finished() {
-          resolve(result);
-        }
+    options.outputHandler.class = class {
+      constructor() {
+        this.pretty = false;
       }
-    };
+      handle(data) {
+        logger.info("Updated data for coin " + data.coin.displayName);
+        result.push(data);
+      }
+      finished() {
+        resolve(result);
+      }
+    }
 
     const calculator = new NiceHashCalculator(options);
     calculator.start()

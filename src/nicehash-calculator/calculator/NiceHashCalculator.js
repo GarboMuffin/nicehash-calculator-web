@@ -4,6 +4,7 @@ const chalk_1 = require("chalk");
 const NiceHash = require("../apis/nicehash");
 const WhatToMine = require("../apis/whattomine");
 const constants_1 = require("../constants");
+const requestLib = require("../lib/request");
 const logger_1 = require("../logger");
 const options_1 = require("../options");
 const utils_1 = require("../utils");
@@ -22,6 +23,9 @@ class NiceHashCalculator {
     // Core
     //
     async start() {
+        // determine the output handler to be used
+        const outputHandler = new this.options.outputHandler.class();
+        this.outputHandler = outputHandler;
         this.initOptions();
         await this.initApis();
         // get all coins on whattomine
@@ -34,8 +38,6 @@ class NiceHashCalculator {
             return;
         }
         await this.populateWhatToMineCache(coins);
-        // determine the output handler to be used
-        const outputHandler = this.options.outputHandler.getHandler();
         // For every coin...
         for (const coin of coins) {
             // get the data
@@ -87,6 +89,8 @@ class NiceHashCalculator {
         logger_1.logger.showWarnings = this.options.showWarnings;
         logger_1.logger.debugEnabled = this.options.debug;
         logger_1.logger.debug("options", this.options);
+        // set the pretty print option of the request lib
+        requestLib.config.pretty.enabled = this.outputHandler.pretty;
         // For each unrecognized option log a warning to the user
         for (const unrecognizedOption of this.options.unrecognized) {
             logger_1.logger.warn("Unrecognized option: " + unrecognizedOption);

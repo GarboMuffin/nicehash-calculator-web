@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const request = require("request-promise-native");
 const logger_1 = require("../../logger");
+const utils_1 = require("../../utils");
 async function getRawGlobalPrices() {
-    const rq = await request("https://api.nicehash.com/api?method=stats.global.current");
-    const data = JSON.parse(rq);
+    const rq = await utils_1.request("https://api.nicehash.com/api?method=stats.global.current");
+    const data = JSON.parse(rq.data);
     return data;
 }
 exports.getRawGlobalPrices = getRawGlobalPrices;
@@ -19,8 +19,8 @@ async function cacheGlobalPrices() {
 exports.cacheGlobalPrices = cacheGlobalPrices;
 // Returns the existing orders for an algorithm on NiceHash
 async function getOrders(algo) {
-    const rq = await request(`https://api.nicehash.com/api?method=orders.get&algo=${algo.id}`);
-    const data = JSON.parse(rq);
+    const rq = await utils_1.request(`https://api.nicehash.com/api?method=orders.get&algo=${algo.id}`);
+    const data = JSON.parse(rq.data);
     return data;
 }
 exports.getOrders = getOrders;
