@@ -103,7 +103,6 @@ app.use(helmet.hidePoweredBy());
 app.use(helmet.xssFilter());
 app.use(helmet.referrerPolicy({policy: "no-referrer"}));
 app.use(helmet.contentSecurityPolicy({
-  reportOnly: true, // temporarily until i confirm this doesn't break anything (it breaks a lot)
   directives: {
     // this isn't the most secure, but it's better than nothing
     defaultSrc: ["'self'"],
