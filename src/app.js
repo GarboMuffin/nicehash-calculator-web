@@ -11,6 +11,7 @@ const handleCSPViolation = require("./routes/csp");
 const renderIndex = require("./routes/index");
 const renderHistoryTable = require("./routes/history/table");
 const renderHistoryList = require("./routes/history/list");
+const render = require("./routes/render");
 
 if (config.IN_PRODUCTION) {
   logger.info("Running in production mode");
@@ -120,7 +121,7 @@ app.get("/data.json", handleSendData);
 app.get("/history/", renderHistoryList);
 app.get("/history/:date", renderHistoryTable);
 
-app.get("/calculate", (req, res) => res.render("calculate"));
+app.get("/calculate", (req, res) => render(res, "calculate"));
 app.post("/report-csp-violation", express.json({type: "*/*"}), handleCSPViolation);
 
 app.use((req, res) => res.status(404).send("404 Not Found"));
