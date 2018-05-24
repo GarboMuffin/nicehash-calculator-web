@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const chalk_1 = require("chalk");
+const Algorithm_1 = require("../Algorithm");
+const HashRateUnit_1 = require("../HashRateUnit");
 const NiceHash = require("../apis/nicehash");
 const WhatToMine = require("../apis/whattomine");
 const constants_1 = require("../constants");
@@ -127,7 +129,29 @@ class NiceHashCalculator {
     }
     async initApis() {
         if (this.options.prices === options_1.PricesOption.Average) {
-            this.priceCache = await NiceHash.cacheGlobalPrices();
+            this.priceCache = await NiceHash.getGlobalPrices();
+        }
+        // set some algorithm metadata
+        const buyerInfo = await NiceHash.getBuyerInfo();
+        const algorithms = buyerInfo.algorithms;
+        for (const nhMeta of algorithms) {
+            const hashrate = nhMeta.speed_text;
+            const name = nhMeta.name;
+            const id = nhMeta.algo;
+            const algorithm = new NiceHash.Algorithm(id, HashRateUnit_1.HashRateUnit.fromString(hashrate));
+            for (const algo of Algorithm_1.Algorithm.instances) {
+                if (algo.id === id) {
+                    logger_1.logger.debug(`set unit for ${algo.displayName} to ${algorithm.unit.displayName}`);
+                    algo.niceHash = algorithm;
+                    break;
+                }
+            }
+        }
+        // error checking
+        for (const algo of Algorithm_1.Algorithm.instances) {
+            if (!algo.niceHash) {
+                logger_1.logger.warn(`Missing metadata for algorithm ${algo.displayName} (${algo.id})`);
+            }
         }
     }
     async populateWhatToMineCache(coins) {

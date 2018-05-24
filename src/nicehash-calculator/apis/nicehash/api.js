@@ -8,7 +8,7 @@ async function getRawGlobalPrices() {
     return data;
 }
 exports.getRawGlobalPrices = getRawGlobalPrices;
-async function cacheGlobalPrices() {
+async function getGlobalPrices() {
     const data = await getRawGlobalPrices();
     const cache = [];
     for (const niceHashCost of data.result.stats) {
@@ -16,7 +16,14 @@ async function cacheGlobalPrices() {
     }
     return cache;
 }
-exports.cacheGlobalPrices = cacheGlobalPrices;
+exports.getGlobalPrices = getGlobalPrices;
+// Returns buyer info
+async function getBuyerInfo() {
+    const rq = await utils_1.request("https://api.nicehash.com/api?method=buy.info");
+    const data = JSON.parse(rq.data);
+    return data.result;
+}
+exports.getBuyerInfo = getBuyerInfo;
 // Returns the existing orders for an algorithm on NiceHash
 async function getOrders(algo) {
     const rq = await utils_1.request(`https://api.nicehash.com/api?method=orders.get&algo=${algo.id}`);
