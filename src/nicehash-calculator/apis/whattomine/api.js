@@ -2,28 +2,40 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const logger_1 = require("../../logger");
 const utils_1 = require("../../utils");
-async function getRawCoins() {
-    const raw = await utils_1.request("https://whattomine.com/coins.json");
-    const data = JSON.parse(raw.data);
-    return data;
-}
-exports.getRawCoins = getRawCoins;
+/**
+ * Get the raw calculator list JSON
+ * https://whattomine.com/calculators.json
+ */
 async function getRawCalculators() {
     const raw = await utils_1.request("https://whattomine.com/calculators.json");
     const data = JSON.parse(raw.data);
     return data;
 }
 exports.getRawCalculators = getRawCalculators;
+/**
+ * Gets raw revenue JSON for a coin
+ * https://whattomine.com/coins/1.json?hr=999
+ *
+ * @param id The coin
+ * @param hashrate The hashrate
+ */
 async function getRawRevenue(id, hashrate) {
-    // https://whattomine.com/coins/1.json
     const raw = await utils_1.request(`https://whattomine.com/coins/${id}.json?hr=${hashrate}`);
     const data = JSON.parse(raw.data);
     return data;
 }
 exports.getRawRevenue = getRawRevenue;
-async function getRawMassRevenueCache(opts) {
+/**
+ * Returns raw listed coins JSON
+ *
+ * http://whattomine.com/coins.json
+ * http://whattomine.com/coins.json?cn=true&factor[cn_hr]=999
+ *
+ * @param algos Algorithms to include
+ */
+async function getRawListedCoins(algos) {
     let url = "http://whattomine.com/coins.json?";
-    for (const algo of opts.algos) {
+    for (const algo of algos) {
         if (algo.algorithm.cacheNames === null) {
             continue;
         }
@@ -34,19 +46,22 @@ async function getRawMassRevenueCache(opts) {
     const data = JSON.parse(raw.data);
     return data;
 }
-exports.getRawMassRevenueCache = getRawMassRevenueCache;
-//
-// Wrappers
-//
-// populates the local cache
-async function getMassRevenueCache(opts) {
-    const data = await getRawMassRevenueCache(opts);
+exports.getRawListedCoins = getRawListedCoins;
+/**
+ * Gets coins listed on the home page of what to mine
+ *
+ * @param opts Algorithms to include
+ */
+async function getListedCoins(algos) {
+    const data = await getRawListedCoins(algos);
     const result = [];
     for (const key of Object.keys(data.coins)) {
         const value = data.coins[key];
+        // skip lagging coins
         if (value.lagging) {
             continue;
         }
+        // skip nicehash coins
         if (key.startsWith("Nicehash")) {
             continue;
         }
@@ -57,7 +72,7 @@ async function getMassRevenueCache(opts) {
     }
     return result;
 }
-exports.getMassRevenueCache = getMassRevenueCache;
+exports.getListedCoins = getListedCoins;
 // Returns WhatToMine's list of calculators in a more usable format
 async function getCalculators() {
     // Get the raw data

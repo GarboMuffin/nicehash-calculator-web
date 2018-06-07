@@ -126,4 +126,14 @@ Algorithm.CryptoNightV7 = new Algorithm({
     whatToMine: WhatToMine.Algorithm.CryptoNightV7,
     id: 30,
 });
+Algorithm.CryptoNightHeavy = new Algorithm({
+    name: "CryptoNightHeavy",
+    whatToMine: WhatToMine.Algorithm.CryptoNightHeavy,
+    id: 31,
+});
+Algorithm.Lyra2z = new Algorithm({
+    name: "Lyra2Z",
+    whatToMine: WhatToMine.Algorithm.Lyra2z,
+    id: 32,
+});
 exports.Algorithm = Algorithm;

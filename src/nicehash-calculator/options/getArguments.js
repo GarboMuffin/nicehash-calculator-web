@@ -2,6 +2,18 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs = require("fs");
 function readArgumentsFile() {
+    // First make sure that the arguments file exists
+    // If it doesn't then nothing bad will happen
+    try {
+        const stat = fs.statSync("arguments.txt");
+        if (!stat.isFile()) {
+            return [];
+        }
+    }
+    catch (e) {
+        return [];
+    }
+    // Read the arguments file
     const content = fs.readFileSync("arguments.txt");
     const lines = content.toString().split("\n");
     const result = [];
@@ -10,7 +22,7 @@ function readArgumentsFile() {
         if (line.startsWith("#")) {
             continue;
         }
-        // Trim it to avoid newlines and other characters
+        // Trim line endings and other characters
         const trimmed = line.trim();
         // Ignore empty lines
         if (trimmed === "") {

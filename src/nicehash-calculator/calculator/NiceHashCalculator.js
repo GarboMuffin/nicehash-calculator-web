@@ -141,7 +141,7 @@ class NiceHashCalculator {
             const algorithm = new NiceHash.Algorithm(id, HashRateUnit_1.HashRateUnit.fromString(hashrate));
             for (const algo of Algorithm_1.Algorithm.instances) {
                 if (algo.id === id) {
-                    logger_1.logger.debug(`set unit for ${algo.displayName} to ${algorithm.unit.displayName}`);
+                    logger_1.logger.debug(`initApis(): set unit for ${algo.displayName} to ${algorithm.unit.displayName}`);
                     algo.niceHash = algorithm;
                     break;
                 }
@@ -174,9 +174,7 @@ class NiceHashCalculator {
         if (algos.length === 0) {
             return;
         }
-        const cache = await WhatToMine.getMassRevenueCache({
-            algos,
-        });
+        const cache = await WhatToMine.getListedCoins(algos);
         this.revenueCache = cache;
     }
     //
