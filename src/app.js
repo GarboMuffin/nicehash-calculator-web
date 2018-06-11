@@ -118,7 +118,9 @@ app.use(express.static("public"));
 app.get("/", (req, res) => renderIndex(req, res, state));
 app.get("/data.json", handleSendData);
 app.get("/history/", renderHistoryList);
+app.get("/history.json", renderHistoryList.json);
 app.get("/history/:date", renderHistoryTable);
+app.get("/history/:date.json", renderHistoryTable.json);
 
 app.get("/calculate", (req, res) => render(res, "calculate"));
 app.post("/report-csp-violation", express.json({type: "*/*"}), handleCSPViolation);

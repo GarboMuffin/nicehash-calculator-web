@@ -1,9 +1,17 @@
 const dataOperations = require("../../data");
 const render = require("../render");
 
+async function getData() {
+  return await dataOperations.listSavedData();
+}
+
 module.exports = async function renderHistoryList(req, res) {
-  const files = await dataOperations.listSavedData();
+  const data = await getData();
   render(res, "history/list", {
-    data: files,
+    data,
   });
 };
+
+module.exports.json = async function renderRawHistoryList(req, res) {
+  res.jsonp(await getData());
+}
