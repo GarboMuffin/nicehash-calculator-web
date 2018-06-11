@@ -12,7 +12,6 @@ async function getData(req) {
   } catch (e) {
     return null;
   }
-  data.coins = data.coins.map((coin) => coin.renderData);
   return data;
 }
 
@@ -22,7 +21,7 @@ module.exports = async function renderHistoryTable(req, res, next) {
     next();
     return;
   }
-  // console.log(data);
+  data.coins = data.coins.map((coin) => coin.renderData);
   render(res, "history/table", {
     sourceDate: new Date(+req.params.date),
     data: data,
