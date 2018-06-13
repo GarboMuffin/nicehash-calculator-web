@@ -13,8 +13,8 @@ options.showHeader = false;
 options.showWarnings = false;
 options.sleepTime = 2500; // slow enough to avoid rate limits
 options.outputHandler = {
-  // getHandler() is later redefined in getRawData()
-  getHandler() {}
+  // later redefined in getRawData()
+  class: class {}
 };
 
 config.DISABLED_COINS.forEach((c) => options.coins.push("-" + c));
@@ -59,6 +59,10 @@ function parseData(rawData) {
     const byName = aName < bName ? -1 : aName > bName ? 1 : 0;
     return byAlgo || byName;
   });
+
+  // remove very high roi coins
+  // most likely caused by a bug of some sort
+  rawData = rawData.filter((coin) => coin.returnOnInvestment <= 10);
 
   const date = new Date();
   const data = {
