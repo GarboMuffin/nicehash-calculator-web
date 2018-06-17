@@ -16,12 +16,15 @@ module.exports.DISABLED_COINS = [
   "dnotes",
   "einsteinium",
   "florin",
+  "heldcoin",
+  "dogecoin",
   // x11
   "qbc", // Québecoin, the fancy e seems to break it normally
   "creamcoin",
   "startcoin",
   "influxcoin",
   "adzcoin",
+  "pxi",
   // equihash
   "bitcoinz",
   // keccak, pretty much a dead market now so the entire algorithm could be disabled
@@ -32,6 +35,8 @@ module.exports.DISABLED_COINS = [
   "halcyon",
   "phoenixcoin",
   "orbitcoin",
+  "dinero",
+  "simplebank",
   // cryptonight
   "digitalnote",
   "bytecoin",
