@@ -18,6 +18,7 @@ module.exports.DISABLED_COINS = [
   "florin",
   "heldcoin",
   "dogecoin",
+  "linx",
   // x11
   "qbc", // Québecoin, the fancy e seems to break it normally
   "creamcoin",
