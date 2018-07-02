@@ -136,4 +136,9 @@ Algorithm.Lyra2z = new Algorithm({
     whatToMine: WhatToMine.Algorithm.Lyra2z,
     id: 32,
 });
+Algorithm.X16R = new Algorithm({
+    name: "X16R",
+    whatToMine: WhatToMine.Algorithm.Lyra2z,
+    id: 33,
+});
 exports.Algorithm = Algorithm;
