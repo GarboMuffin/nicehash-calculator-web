@@ -38,5 +38,5 @@ Algorithm["Blake (14r)"] = new Algorithm(HashRateUnit_1.HashRateUnit.MEGA, "bk14
 Algorithm.CryptoNightV7 = new Algorithm(HashRateUnit_1.HashRateUnit.HASH, "cn7");
 Algorithm.CryptoNightHeavy = new Algorithm(HashRateUnit_1.HashRateUnit.HASH, null);
 Algorithm.Lyra2z = new Algorithm(HashRateUnit_1.HashRateUnit.MEGA, null);
-Algorithm.X16R = new Algorithm(HashRateUnit_1.HashRateUnit.MEGA, null);
+Algorithm.X16R = new Algorithm(HashRateUnit_1.HashRateUnit.MEGA, "x16r");
 exports.Algorithm = Algorithm;

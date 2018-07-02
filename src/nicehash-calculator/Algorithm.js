@@ -83,6 +83,7 @@ Algorithm.Scrypt = new Algorithm({
 Algorithm["SHA-256"] = new Algorithm({
     name: "SHA-256",
     whatToMine: WhatToMine.Algorithm["SHA-256"],
+    aliases: ["sha256"],
     id: 1,
 });
 Algorithm.Quark = new Algorithm({
@@ -138,7 +139,7 @@ Algorithm.Lyra2z = new Algorithm({
 });
 Algorithm.X16R = new Algorithm({
     name: "X16R",
-    whatToMine: WhatToMine.Algorithm.Lyra2z,
+    whatToMine: WhatToMine.Algorithm.X16R,
     id: 33,
 });
 exports.Algorithm = Algorithm;
