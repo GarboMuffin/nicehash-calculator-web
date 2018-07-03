@@ -106,8 +106,6 @@ app.use(helmet.contentSecurityPolicy({
   directives: {
     // this isn't the most secure, but it's better than nothing
     defaultSrc: ["'self'"],
-    scriptSrc: ["'self'", "www.google-analytics.com"],
-    imgSrc: ["*"],
     connectSrc: ["*"],
     reportUri: "/report-csp-violation",
   },
