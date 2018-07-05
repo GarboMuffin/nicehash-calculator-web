@@ -27,6 +27,7 @@ function enableCoin(coin, trigger) {
 }
 function filter(coins, targets) {
     // This is messy but from my tests it works just how I want it
+    // null means not explicitly enabled or disabled
     coins.forEach((coin) => coin.enabled = null);
     let hasEnabledCoins = false;
     for (const str of targets) {
@@ -55,6 +56,9 @@ function filter(coins, targets) {
             logger_1.logger.warn(`Couldn't find coins that match argument '${str}'`);
         }
     }
-    return coins.filter((coin) => coin.enabled === true || coin.enabled === null);
+    // Set the coin's enabled state to true for null coins (which act as true)
+    coins.forEach((coin) => coin.enabled = coin.enabled || coin.enabled === null);
+    // return only the coins that have enabled = true
+    return coins.filter((coin) => coin.enabled === true);
 }
 exports.filter = filter;

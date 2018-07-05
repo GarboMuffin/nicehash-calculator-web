@@ -11,7 +11,7 @@ function getAdditionalNames(coin) {
     // Due to the switch to using whattomine to know coins we no longer have control over the data
     // And as a result some "less than good" work is done for this
     // WhatToMine doesn't always provide very good display names so some manual converting is done
-    // some additional names may also be given
+    // some additional aliases may also be given
     const coins = {
         BitcoinCash: { displayName: "Bitcoin Cash", names: ["bcash", "bcc"] },
         BitcoinGold: { displayName: "Bitcoin Gold" },
