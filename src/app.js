@@ -7,7 +7,6 @@ const getData = require("./getData");
 const dataOperations = require("./data");
 const config = require("./config");
 
-const handleCSPViolation = require("./routes/csp");
 const renderIndex = require("./routes/index");
 const renderHistoryTable = require("./routes/history/table");
 const renderHistoryList = require("./routes/history/list");
@@ -107,7 +106,6 @@ app.use(helmet.contentSecurityPolicy({
     // this isn't the most secure, but it's better than nothing
     defaultSrc: ["'self'"],
     connectSrc: ["*"],
-    reportUri: "/report-csp-violation",
   },
 }));
 
@@ -121,7 +119,6 @@ app.get("/history/:date", renderHistoryTable);
 app.get("/history/:date.json", renderHistoryTable.json);
 
 app.get("/calculate", (req, res) => render(res, "calculate"));
-app.post("/report-csp-violation", express.json({type: "*/*"}), handleCSPViolation);
 
 app.use((req, res) => res.status(404).send("404 Not Found"));
 
