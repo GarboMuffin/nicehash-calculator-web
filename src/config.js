@@ -9,11 +9,11 @@ module.exports.DISABLED_COINS = [
   "unobtanium",
   "zetacoin",
   // scrypt
+  "aur-scrypt",
   "bata",
   "mooncoin",
   "worldcoin",
   "viacoin",
-  "dnotes",
   "einsteinium",
   "florin",
   "heldcoin",
@@ -27,10 +27,7 @@ module.exports.DISABLED_COINS = [
   "adzcoin",
   "pxi",
   // equihash
-  "bitcoinz",
-  // keccak, pretty much a dead market now so the entire algorithm could be disabled
-  "maxcoin",
-  "smartcash",
+  "commercium",
   // neoscrypt
   "crowdcoin",
   "halcyon",
@@ -38,19 +35,15 @@ module.exports.DISABLED_COINS = [
   "orbitcoin",
   "dinero",
   "simplebank",
+  "innova",
   // cryptonight
   "digitalnote",
-  "bytecoin",
   "monerooriginal",
+  "karbo",
   // lyra2rev2
   "galactrum",
   "rupee",
   "straks",
   // other/multi
   "xmy", // myriad-scrypt and myriad-sha
-  "dgc", // scrypt, x11, and sha variants
-
-  // missing exchanges, so temporary
-  "btcp", // bitcoin private
-  "lcc", // litecoin cash
 ];
