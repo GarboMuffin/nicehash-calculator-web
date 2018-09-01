@@ -10,6 +10,10 @@ if (!app.inProduction) {
   app.use(errorhandler());
 }
 
+if (config.PORT === 80 && app.inProduction) {
+  logger.warn("Listening on port 80 in production? Really?");
+}
+
 const server = app.listen(config.PORT, () => {
   const address = server.address();
   logger.info(`Listening on ${address.address}:${address.port}`);

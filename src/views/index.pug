@@ -9,17 +9,11 @@ block body
 
   p.
     This website <b>estimates</b> the profitability of buying hashing power on <a href="https://www.nicehash.com/?refby=258346">NiceHash (referral link)</a> ignoring fees.
-    <b>I am not responsible for any losses that may come as a result of this site. This project is not affiliated with NiceHash.</b>
+    <b>This project is not affiliated with NiceHash, and I am not responsible for any losses that may come as a result of this site.</b>
   p.
     This site is <a href="https://github.com/GarboMuffin/nicehash-calculator-web/">open source</a>.
-    Please <a href="https://github.com/GarboMuffin/nicehash-calculator-web/issues/new">report bugs or suggest features</a>.
-    Consider donating to the addresses at the bottom of this page.
-  p.
-    Yellow coins are the most profitable coin of their algorithm.
-    <span class="lagging">Red text</span> indicates older data that may be outdated.
-    The ROI column is probably the most important one.
-    <span title="I do disable some coins that have very low profit to reduce API requests.">Most coins on What To Mine should appear here. (report missing coins)</span>
-    Hover over column headers for more details.
+    Please <a href="https://github.com/GarboMuffin/nicehash-calculator-web/issues/new">report bugs or suggest features on GitHub</a>.
+    Consider visiting the <a href="/calculate">in browser calculator</a> and <a href="/history">historical data</a> pages.
 
   hr
 
@@ -31,19 +25,18 @@ block body
       |
       span.utc-text= date.toISOString() + " (UTC)"
       |
-      | (updated around every one and a half hours)
+      | (updated around every two hours)
     //- if no update has occured for 2x the configured refresh interval then show a warning because something probably broke.
     if inProduction && timeSinceUpdate > (refreshTime * 2)
-      p.error#no-update It seems an update has not occurred for a while. This is probably a bug, please report it.
+      p.error#no-update It seems an update has not occurred for a while. This is probably a bug; please report it.
     //- if running in production and there's less than 35 coins (there's normally like 70 something) then something is probably wrong
     if inProduction && (data.coins.length < 35)
-      p.error#few-coins There is an unusually small amount of coins present here. This is probably a bug, please report it.
+      p.error#few-coins There is an unusually small amount of coins present here. This is probably a bug; please report it.
     include table
   else
-    p.error#no-data Could not find data to render. Refresh in a few minutes. If this lasts more than a few minutes please report it.
+    p.error#no-data Could not find data to render. Refresh in a few minutes. If this lasts more than a few minutes; please report it.
 
   hr
 
   p.
     You can view the <a href="data.json">raw data with a lot more information</a>.
-    You're welcome to use that pretty much however you want.

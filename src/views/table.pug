@@ -13,6 +13,6 @@ table
         td= coin.displayName
         td= coin.algoName
         td= coin.price
-        td(title=(new Date(coin.revenueDate)).toISOString() + " (UTC)" class=coin.lagging ? "lagging" : "").utc-title= coin.revenue
+        td(title=new Date(coin.revenueDate).toISOString() + " (UTC)" class={lagging: coin.lagging}).utc-title= coin.revenue
         td= coin.profit
         td(class=coin.isProfitable ? "cell-profitable" : "cell-not-profitable")= coin.roi

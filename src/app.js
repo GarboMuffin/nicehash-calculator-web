@@ -13,9 +13,15 @@ const renderHistoryList = require("./routes/history/list");
 const render = require("./routes/render");
 
 if (config.IN_PRODUCTION) {
-  logger.info("Running in production mode");
+  logger.info("Production environment");
 } else {
-  logger.info("Running in development mode");
+  logger.info("Development environment");
+}
+
+if (config.ALLOW_UPDATES) {
+  logger.info("Data updates are enabled");
+} else {
+  logger.info("Data updates are disabled; change this by editing src/config.js");
 }
 
 const state = {
@@ -32,15 +38,17 @@ function handlePromiseError(err) {
 // DATA
 //
 
-function setData(data) {
+function setData(data, writeData=true) {
   state.data = data;
   state.renderedData = dataOperations.renderData(data);
-  dataOperations.saveData(data).catch((err) => handlePromiseError(err));
+  if (writeData) {
+    dataOperations.saveData(data).catch((err) => handlePromiseError(err));
+  }
 }
 
 function loadSavedData() {
   dataOperations.getSavedData().then((data) => {
-    setData(data);
+    setData(data, false);
     if (config.IN_PRODUCTION && !config.DISABLE_UPDATES) {
       const currentDate = Date.now();
       const dataDate = new Date(data.lastUpdated);
@@ -61,7 +69,7 @@ function updateData() {
     } else {
       setData(data);
     }
-    if (config.IN_PRODUCTION) {
+    if (config.ALLOW_UPDATES) {
       setUpdateTimeout();
     }
   }).catch((err) => handlePromiseError(err));
@@ -84,9 +92,11 @@ function handleSendData(req, res) {
 const app = express();
 
 app.set("case sensitive routing", true);
-app.set("trust proxy", "loopback");
+app.set("trust proxy", config.REVERSE_PROXY);
+app.set("strict routing", true);
 app.set("view engine", "pug");
 app.set("views", "src/views");
+app.set("env", config.IN_PRODUCTION ? "production" : "development");
 
 app.use(morgan("short", {
   stream: {
@@ -95,24 +105,13 @@ app.use(morgan("short", {
   },
 }));
 
-// security things or something?
-app.use(helmet.dnsPrefetchControl());
-app.use(helmet.frameguard());
 app.use(helmet.hidePoweredBy());
-app.use(helmet.xssFilter());
-app.use(helmet.referrerPolicy({policy: "no-referrer"}));
-app.use(helmet.contentSecurityPolicy({
-  directives: {
-    // this isn't the most secure, but it's better than nothing
-    defaultSrc: ["'self'"],
-    connectSrc: ["*"],
-  },
-}));
-
 app.use(express.static("public"));
 
 app.get("/", (req, res) => renderIndex(req, res, state));
 app.get("/data.json", handleSendData);
+// redirect "/history" to "/history/" because of strict routing
+app.get("/history", (req, res) => res.redirect(req.path + "/"));
 app.get("/history/", renderHistoryList);
 app.get("/history.json", renderHistoryList.json);
 app.get("/history/:date", renderHistoryTable);

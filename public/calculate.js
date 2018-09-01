@@ -5,7 +5,6 @@
   const defaultOption = document.getElementById("default-option");
   const button = document.getElementById("button");
   const outputContainer = document.getElementById("output");
-  const table = document.getElementById("table");
 
   const outputName = document.getElementById("output-name");
   const outputAlgorithm = document.getElementById("output-algorithm");
