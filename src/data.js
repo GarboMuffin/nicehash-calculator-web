@@ -34,8 +34,9 @@ async function getSavedData(file = "data.json") {
 
 async function listSavedData() {
   let files = await readDir("data");
-  files = files.map((file) => file.replace(/\.json$/, ""));
-  return files;
+  return files
+    .filter((file) => file.endsWith(".json"))
+    .map((file) => file.replace(/\.json$/, ""));
 }
 
 async function saveData(data) {
