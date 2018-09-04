@@ -60,9 +60,8 @@ function parseData(rawData) {
     return byAlgo || byName;
   });
 
-  // remove very high roi coins
-  // most likely caused by a bug of some sort
-  rawData = rawData.filter((coin) => coin.returnOnInvestment <= 10);
+  // remove 1000%+ (?) ROI coins and 0 ROI coins resulting from API issues
+  rawData = rawData.filter((coin) => coin.returnOnInvestment <= 10 || coin.returnOnInvestment === 0)
 
   const date = new Date();
   const data = {
