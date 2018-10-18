@@ -32,6 +32,7 @@ module.exports.DISABLED_COINS = [
   "crown",
   "unobtanium",
   "zetacoin",
+  "maza",
   // scrypt
   "aur-scrypt",
   "bata",
@@ -64,10 +65,22 @@ module.exports.DISABLED_COINS = [
   "digitalnote",
   "monerooriginal",
   "karbo",
+  "dinastycoin",
+  "sumokoin",
+  // cryptonightv7
+  "qrl",
   // lyra2rev2
   "galactrum",
   "rupee",
   "straks",
+  "nix",
+  // daggerhashimoto
+  "ellaism",
+  "expanse",
+  "pirl",
+  "ubiq",
+  // lyra2z
+  "mct",
   // multi algo
   "xmy", // myriad-scrypt and myriad-sha
 ];
