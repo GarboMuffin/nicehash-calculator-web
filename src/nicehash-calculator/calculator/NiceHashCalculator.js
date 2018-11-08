@@ -116,13 +116,8 @@ class NiceHashCalculator {
         }
     }
     printHeader() {
-        console.log(chalk_1.default `This program {bold estimates} the profitability of buying hashing power on NiceHash.`);
-        console.log(chalk_1.default `Estimations have no guarantee of accuracy.`);
-        console.log(chalk_1.default `NiceHash is not affiliated with this project. {bold I am not responsible for any losses}.`);
-        console.log("");
-        // please do send me money that would be great
-        console.log(chalk_1.default `BTC: 1GarboYPsadWuEi8B2Pv1SvwAsBHVn1ABZ {gray (more addresses in the readme!)}`);
-        console.log(chalk_1.default `Referral link: {underline https://www.nicehash.com/?refby=258346}`);
+        console.log(`This program estimates the profitability of buying hashing power on NiceHash.`);
+        console.log(chalk_1.default `NiceHash is not affiliated with this project. {bold I am not responsible for any losses.}`);
         console.log("");
         console.log(chalk_1.default `Report bugs or suggest ideas: {underline ${constants_1.BUG_REPORT_URL}}`);
         console.log("");

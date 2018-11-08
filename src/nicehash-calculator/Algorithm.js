@@ -142,4 +142,10 @@ Algorithm.X16R = new Algorithm({
     whatToMine: WhatToMine.Algorithm.X16R,
     id: 33,
 });
+Algorithm.CryptoNightV8 = new Algorithm({
+    name: "CryptoNightV8",
+    aliases: ["cryptonight8", "cn8"],
+    whatToMine: WhatToMine.Algorithm.CryptoNightV8,
+    id: 34,
+});
 exports.Algorithm = Algorithm;
