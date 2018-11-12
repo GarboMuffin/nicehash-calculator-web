@@ -44,6 +44,7 @@ module.exports.DISABLED_COINS = [
   "heldcoin",
   "dogecoin",
   "linx",
+  "litecoinplus",
   // x11
   "qbc", // Québecoin
   "creamcoin",
@@ -67,6 +68,7 @@ module.exports.DISABLED_COINS = [
   "karbo",
   "dinastycoin",
   "sumokoin",
+  "bytecoin",
   // cryptonightv7
   "qrl",
   // lyra2rev2
@@ -74,6 +76,7 @@ module.exports.DISABLED_COINS = [
   "rupee",
   "straks",
   "nix",
+  "hana",
   // daggerhashimoto
   "ellaism",
   "expanse",
