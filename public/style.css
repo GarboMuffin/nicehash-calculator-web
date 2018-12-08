@@ -1,0 +1,84 @@
+body {
+  font-family: sans-serif;
+}
+
+/* Link Styles */
+a {
+  color: #0000ff;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+a:active {
+  color: #ff0000;
+}
+
+/* Donations */
+#donations {
+  text-align: center;
+  font-size: 0.9em;
+}
+.donation {
+  text-align: center;
+}
+
+/* Errors */
+.error {
+  font-weight: bold;
+  border-left: 10px solid #ff3333;
+  color: #000000;
+  background: #ffa0a0;
+  padding: 10px 5px;
+}
+
+/* Lagging coins */
+.lagging {
+  text-decoration: line-through;
+}
+.lagging:hover {
+  text-decoration: none;
+}
+.lagging:hover:after {
+  /* TODO: this is very dirty, needs improvements */
+  content: "coin is lagging";
+  font-size: 11px;
+  display: block;
+  text-align: center;
+}
+
+/* Table */
+table {
+  border-collapse: collapse;
+}
+td, th {
+  padding: 4px;
+  border: 1px solid #000000;
+}
+tr {
+  background-color: #ffffff;
+}
+.highlight, tr.highlight {
+  background-color: #ffffb5;
+}
+.highlight:hover, tr.highlight:hover {
+  background-color: #eaeaa0;
+}
+td.cell-profitable, th.cell-profitable {
+  background-color: #5fff5f;
+}
+td.cell-not-profitable, th.cell-not-profitable {
+  background-color: #ff7070;
+}
+tr:hover {
+  background-color: #eaeaea;
+}
+tr:hover .highlight {
+  background-color: #eaeaa0;
+}
+tr:hover .cell-profitable {
+  background-color: #4aea4a;
+}
+tr:hover .cell-not-profitable {
+  background-color: #ea5b5b;
+}

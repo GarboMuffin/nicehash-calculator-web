@@ -17,9 +17,7 @@ $ git clone https://github.com/GarboMuffin/nicehash-calculator-web
 
 ```bash
 # install the dependencies for the website
-$ npm install
-# build scss. must be run each time you make changes the the .scss files in src/css
-$ npm run build
+npm install
 ```
 
 ## Development setup
@@ -31,7 +29,7 @@ In a non-production environment the program will not automatically update the da
 ## Running it
 
 ```bash
-$ node index
+node index
 ```
 
 **If you get a `TypeError: util.promisify is not a function` (or similar), make sure you're running Node 8 or higher.**
@@ -42,14 +40,12 @@ By default this listens on port 8080. Visit [`http://localhost:8080`](http://loc
 
 ### Enabling Production Mode
 
-Enable production mode by setting the `NODE_ENV` environment variable to `production` or by setting `module.exports.IN_PRODUCTION` to `true` in src/config.js. This should also enable automatic data updates.
+Enable production mode by setting the `NODE_ENV` environment variable to `production` (recommended) or by setting `module.exports.IN_PRODUCTION` to `true` in `src/config.js`. This should also enable automatic data updates unless you made further changes to the configuration.
 
 ### Templates
 
-You'll probably want to change some of the templates in `src/views`. Especially GitHub links, donation addresses (layout.pug), licensing, etc. [If you can't understand pug, the documentation would be a good place to start.](https://pugjs.org/api/getting-started.html)
+You'll probably want to change some of the templates in `src/views`. Especially GitHub links, donation addresses (layout.pug), licensing, etc.
 
 ### Reverse Proxy
 
-The app should not be listening on port 80 or 443. You should instead tell it to listen on a high port that you don't forward, and use a reverse proxy like nginx to proxy the requests. You should probably consider adding `Content-Security-Policy` and other headers to protect the site from XSS.
-
-If you don't want to bother with a reverse proxy (you really should), then at least make sure you set `module.exports.REVERSE_PROXY` to `false` in src/config.js.
+You'll probably want to use a reverse proxy of some sort. (nginx, apache, caddy, etc.)

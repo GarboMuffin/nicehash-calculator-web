@@ -4,6 +4,3 @@ shrinkwrap.yaml
 logs/
 data.json
 data/
-
-# built with npm run build
-public/style.css

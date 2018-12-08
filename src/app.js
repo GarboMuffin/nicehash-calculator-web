@@ -19,9 +19,9 @@ if (config.IN_PRODUCTION) {
 }
 
 if (config.ALLOW_UPDATES) {
-  logger.info("Data updates are enabled");
+  logger.info("Automated data updates are enabled");
 } else {
-  logger.info("Data updates are disabled; change this by editing src/config.js");
+  logger.info("Automated data updates are disabled; change this by editing src/config.js");
 }
 
 const state = {
