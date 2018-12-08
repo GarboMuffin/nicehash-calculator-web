@@ -111,9 +111,9 @@ Algorithm["Blake (2s)"] = new Algorithm({
     whatToMine: WhatToMine.Algorithm["Blake (2s)"],
     id: 28,
 });
-Algorithm["Blake (2b)"] = new Algorithm({
+Algorithm.Sia = new Algorithm({
     name: "Sia",
-    whatToMine: WhatToMine.Algorithm["Blake (2b)"],
+    whatToMine: WhatToMine.Algorithm.Sia,
     id: 27,
 });
 Algorithm["Blake (14r)"] = new Algorithm({
@@ -147,5 +147,16 @@ Algorithm.CryptoNightV8 = new Algorithm({
     aliases: ["cryptonight8", "cn8"],
     whatToMine: WhatToMine.Algorithm.CryptoNightV8,
     id: 34,
+});
+// WTM does not seem to differentiate here. Will look into later.
+// public static readonly SHA256AsicBoost = new Algorithm({
+//   name: "SHA256AsicBoost",
+//   whatToMine: WhatToMine.Algorithm.SHA256AsicBoost,
+//   id: 35,
+// });
+Algorithm.Zhash = new Algorithm({
+    name: "Zhash",
+    whatToMine: WhatToMine.Algorithm.Zhash,
+    id: 36,
 });
 exports.Algorithm = Algorithm;
