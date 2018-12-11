@@ -44,7 +44,7 @@ function getRawData() {
       .catch((err) => {
         logger.error("Error while running nicehash-calculator:");
         logger.error(err.stack);
-        reject();
+        reject(err);
       });
   });
 }

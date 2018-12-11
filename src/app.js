@@ -31,7 +31,11 @@ const state = {
 
 function handlePromiseError(err) {
   logger.error(" > PROMISE ERROR:");
-  logger.error(err.stack);
+  if (err && err.stack) {
+    logger.error(err.stack);
+  } else {
+    logger.error(err);
+  }
 }
 
 //
