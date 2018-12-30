@@ -32,26 +32,23 @@ module.exports.DISABLED_COINS = [
   "crown",
   "unobtanium",
   "zetacoin",
-  "maza",
+  "unit",
   // scrypt
   "aur-scrypt",
-  "bata",
   "mooncoin",
   "worldcoin",
   "viacoin",
   "einsteinium",
   "florin",
-  "heldcoin",
   "dogecoin",
   "linx",
   "litecoinplus",
+  "gulden",
   // x11
-  "qbc", // Québecoin
   "creamcoin",
   "startcoin",
   "influxcoin",
   "adzcoin",
-  "pxi",
   // equihash
   "commercium",
   // neoscrypt
@@ -63,17 +60,13 @@ module.exports.DISABLED_COINS = [
   "simplebank",
   "innova",
   // cryptonight
-  "digitalnote",
   "monerooriginal",
   "karbo",
   "dinastycoin",
   "sumokoin",
   "bytecoin",
-  // cryptonightv7
-  "qrl",
   // lyra2rev2
   "galactrum",
-  "rupee",
   "straks",
   "nix",
   "hana",
@@ -81,10 +74,20 @@ module.exports.DISABLED_COINS = [
   "ellaism",
   "expanse",
   "pirl",
-  "ubiq",
+  "music",
+  "dbix",
   // lyra2z
   "mct",
+  // keccak
+  "maxcoin",
+  // x16r
+  "xmn",
+  // zhash
+  "anon",
+  "btcz",
+  // quark
+  "quark",
   // multi algo
-  "xmy", // myriad-scrypt and myriad-sha
+  "xmy", // myriad-scrypt, myriad-sha
 ];
-// module.exports.DISABLED_COINS = []; // uncomment to enable **all** coins, but you really shouldn't do that.
+// module.exports.DISABLED_COINS = []; // uncomment to enable all coins, but you really shouldn't do that.
