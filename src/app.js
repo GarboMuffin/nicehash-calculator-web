@@ -21,7 +21,7 @@ if (config.IN_PRODUCTION) {
 if (config.ALLOW_UPDATES) {
   logger.info("Automated data updates are enabled");
 } else {
-  logger.info("Automated data updates are disabled; change this by editing src/config.js");
+  logger.info("Automated data updates are disabled unless necessary; change this in src/config.js");
 }
 
 const state = {
@@ -80,7 +80,7 @@ function updateData() {
 }
 
 function setUpdateTimeout(timeout = config.REFRESH_TIME) {
-  logger.info("Setting update interval (" + timeout + "ms)");
+  logger.info("Next update in " + timeout + "ms");
   setTimeout(() => updateData(), timeout);
 }
 
@@ -94,6 +94,7 @@ function handleSendData(req, res) {
 //
 
 const app = express();
+app.set("env", config.IN_PRODUCTION ? "production" : "development");
 
 app.set("case sensitive routing", true);
 app.set("trust proxy", config.REVERSE_PROXY);

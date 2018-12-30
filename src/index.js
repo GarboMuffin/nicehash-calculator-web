@@ -18,5 +18,8 @@ app.use((err, req, res, next) => {
 
 const server = app.listen(config.PORT, () => {
   const address = server.address();
-  logger.info(`Listening on ${address.address}:${address.port}`);
+  logger.info(`Listening on port ${address.port}`);
+  if (app.get("env") !== "production") {
+    logger.info(`View the website at http://localhost:${address.port}`);
+  }
 });
