@@ -11,7 +11,7 @@ block body
       b Please enable JavaScript.
   select#coin-dropdown
     option(selected disabled value="-1")#default-option Loading... Please wait...
-  button#button Get Data
+  button#button(disabled) Get Data
   #output
     mixin item(text, id)
       div
@@ -23,5 +23,6 @@ block body
     +item("Algorithm", "output-algorithm")
     +item("Price", "output-price")
     +item("Revenue", "output-revenue")
+    +item("Profit", "output-profit")
     +item("ROI", "output-roi")
   script(src="calculate.js")

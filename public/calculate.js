@@ -10,6 +10,7 @@
   const outputAlgorithm = document.getElementById("output-algorithm");
   const outputPrice = document.getElementById("output-price");
   const outputRevenue = document.getElementById("output-revenue");
+  const outputProfit = document.getElementById("output-profit");
   const outputRoi = document.getElementById("output-roi");
 
   outputContainer.style.display = "none";
@@ -75,12 +76,21 @@
     const coins = dataToCoins(rawData);
     addCoinsToDropdown(coins);
 
+    coinDropdown.addEventListener("change", () => {
+      clearResult();
+    });
+
+    button.disabled = false;
     button.addEventListener("click", () => {
+      button.disabled = true;
       const selectedValue = coinDropdown.value;
       const coin = coins[selectedValue];
       const price = +nicehash.result.stats[coin.niceHashId].price;
       getRevenueForCoin(coin)
-        .then((revenue) => outputResult(coin, price, revenue));
+        .then((revenue) => {
+          outputResult(coin, price, revenue);
+          button.disabled = false;
+        });
     });
   }
 
@@ -92,13 +102,19 @@
       }
       return change;
     }
+
     outputContainer.style.display = "block";
     outputName.textContent = `${coin.displayName} (${coin.abbreviation})`;
     outputAlgorithm.textContent = coin.algoName;
     outputPrice.textContent = `${price.toFixed(precision)} BTC/${coin.unitName}/day`;
     outputRevenue.title = revenue.timestamp.toLocaleString();
     outputRevenue.textContent = `${revenue.value.toFixed(precision)} BTC/${coin.unitName}/day`;
+    outputProfit.textContent = `${revenue.value - price} BTC/${coin.unitName}/day`;
     outputRoi.textContent = getRoi();
+  }
+
+  function clearResult() {
+    outputContainer.style.display = "none";
   }
 
   function getRevenueForCoin(coin) {
