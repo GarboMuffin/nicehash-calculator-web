@@ -1,12 +1,12 @@
 table
   thead
     tr
-      th(title="Name and abbreviation of the coin.") Coin Name
-      th(title="The corresponding algorithm on NiceHash.") Algorithm
-      th(title="Average cost to buy hashing power for this coin on NiceHash. It is possible to have good orders for less than this number.") Price / Cost
-      th(title="Estimated rewards for mining that coin. Actual results may vary greatly. Hover over the number for a timestamp. Red text means old/lagging data.") Revenue / Rewards
-      th(title="Revenue minus cost.") Profit
-      th(title="Average returns on any bitcoin put into mining this coin on NiceHash. Actual results may vary greatly.").highlight ROI
+      th(scope="col" title="Name and abbreviation of the coin.") Coin Name
+      th(scope="col" title="The corresponding algorithm on NiceHash.") Algorithm
+      th(scope="col" title="Average cost to buy hashing power for this coin on NiceHash. It is possible to have good orders for less than this number.") Price / Cost
+      th(scope="col" title="Estimated rewards for mining that coin. Actual results may vary greatly. Hover over the number for a timestamp. Red text means old/lagging data.") Revenue / Rewards
+      th(scope="col" title="Revenue minus cost.") Profit
+      th(scope="col" title="Average returns on any bitcoin put into mining this coin on NiceHash. Actual results may vary greatly.").highlight ROI
   tbody
     each coin in data.coins
       tr(class=coin.isMostProfitable ? "highlight" : "")

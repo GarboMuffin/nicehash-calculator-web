@@ -7,36 +7,27 @@ block append head
 block body
   h1 NiceHash Buyer Profitability Table
 
-  p.
-    This website <b>estimates</b> the profitability of buying hashing power on <a href="https://www.nicehash.com/?refby=258346">NiceHash</a> ignoring fees.
-    <b>This project is not affiliated with NiceHash, and I am not responsible for any losses that may come as a result of this site.</b>
-  p.
-    This site is <a href="https://github.com/GarboMuffin/nicehash-calculator-web/">open source</a>.
-    Please <a href="https://github.com/GarboMuffin/nicehash-calculator-web/issues/new">report bugs or suggest features on GitHub</a>.
-    Consider visiting the <a href="/calculate">in browser calculator</a> and <a href="/history">historical data</a> pages.
+  p Estimatations of the profitability of buying hashing power on <a href="https://www.nicehash.com/?refby=258346">NiceHash</a> ignoring fees. I am not affiliated with NiceHash and not responsible for any potential losses.
+  p <a href="https://github.com/GarboMuffin/nicehash-calculator-web/">The source code is on GitHub</a>. Please <a href="https://github.com/GarboMuffin/nicehash-calculator-web/issues/">report bugs or suggest features</a>.
 
   hr
 
   if data.coins && data.coins.length > 0
     - var date = (new Date(data.lastUpdated));
     - var timeSinceUpdate = Date.now() - date;
-    p Last updated:
-      |
-      |
+    - var minutesPerUpdate = Math.round(refreshTime / 1000 / 60)
+    p= "Last update: "
       span.utc-text= date.toISOString() + " (UTC)"
-      |
-      | (updated around every two hours)
+      |  (updated around every #{minutesPerUpdate} minutes) <a href="history">Historical data</a> is available. You can also try the #[a(href="calculator") calculator].
     //- if no update has occured for 2x the configured refresh interval then show a warning because something probably broke.
     if inProduction && timeSinceUpdate > (refreshTime * 2)
-      p.error#no-update It seems an update has not occurred for a while. This is probably a bug; please report it.
+      p.error#no-update It seems an update has not occurred for a while. This is probably a bug, please report it.
     //- if running in production and there's less than 35 coins (there's normally like 70 something) then something is probably wrong
     if inProduction && (data.coins.length < 35)
-      p.error#few-coins There is an unusually small amount of coins present here. This is probably a bug; please report it.
+      p.error#few-coins There is an unusually small amount of coins present here. This is probably a bug, please report it.
     include table
   else
-    p.error#no-data Could not find data to render. Refresh in a few minutes. If this lasts more than a few minutes; please report it.
+    p.error#no-data No data to show. Try refreshing in a few minutes. If this lasts more than a few minutes then it is probably a bug, please report it.
 
-  hr
-
-  p.
-    <a href="data.json">You can use the raw JSON data as you please</a>.
+  p
+    a(href="data.json") Raw JSON

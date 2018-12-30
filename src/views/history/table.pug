@@ -1,12 +1,11 @@
 extends ../layout
 
 block append head
-  title Snapshot of Profitability
+  title Snapshot Of Data
 
 block body
-  p Snapshot of the estimated profitability at
-    |
-    |
-    span.utc-text= sourceDate.toISOString()
-    |:
+  - var jsonUrl = +sourceDate + ".json"
+  p Snapshot of the estimated profitability at #[span.utc-text= sourceDate.toISOString()]:
   include ../table
+  p
+    a(href=jsonUrl) Raw JSON

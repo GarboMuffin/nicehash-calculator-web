@@ -4,14 +4,12 @@ block append head
   title Historical Data
 
 block body
-  h2 Historical Data
+  h1 Historical Data
   p
     b JSON API:
-    |  <a href="/history.json">/history.json</a> and <a href="1520736158493.json">/history/123456789.json</a>
+    |  #[a(href="/history.json") /history.json] and #[a(href="1520736158493.json") /history/123456789.json]
     i  (Be warned that the data format has changed slightly over time, specific coins come and go, and the data is not always accurate)
-  p
-    b Licensing:
-    |  All data availible here is <b>public domain</b>. No rights reserved.
+  p Feel free to use this data however you please.
   ul
     each date in data
       li
