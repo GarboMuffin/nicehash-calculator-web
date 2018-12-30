@@ -18,7 +18,7 @@ block body
     - var minutesPerUpdate = Math.round(refreshTime / 1000 / 60)
     p= "Last update: "
       span.utc-text= date.toISOString() + " (UTC)"
-      |  (updated around every #{minutesPerUpdate} minutes) <a href="history">Historical data</a> is available. You can also try the #[a(href="calculator") calculator].
+      |  (updated around every #{minutesPerUpdate} minutes) <a href="history">Historical data</a> is available. You can also try the #[a(href="calculate") calculator].
     //- if no update has occured for 2x the configured refresh interval then show a warning because something probably broke.
     if inProduction && timeSinceUpdate > (refreshTime * 2)
       p.error#no-update It seems an update has not occurred for a while. This is probably a bug, please report it.
