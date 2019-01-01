@@ -102,6 +102,7 @@
       }
       return change;
     }
+    const profit = revenue.value - price;
 
     outputContainer.style.display = "block";
     outputName.textContent = `${coin.displayName} (${coin.abbreviation})`;
@@ -109,7 +110,7 @@
     outputPrice.textContent = `${price.toFixed(precision)} BTC/${coin.unitName}/day`;
     outputRevenue.title = revenue.timestamp.toLocaleString();
     outputRevenue.textContent = `${revenue.value.toFixed(precision)} BTC/${coin.unitName}/day`;
-    outputProfit.textContent = `${revenue.value - price} BTC/${coin.unitName}/day`;
+    outputProfit.textContent = `${profit.toFixed(precision)} BTC/${coin.unitName}/day`;
     outputRoi.textContent = getRoi();
   }
 
