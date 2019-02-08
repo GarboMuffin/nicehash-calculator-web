@@ -50,8 +50,10 @@ function getRawData() {
 }
 
 function parseData(rawData) {
-  // Sort by algorithm then by name
-  // TODO: consider sorting by profit instead of name?
+  // remove 1000%+ ROI coins and 0 ROI coins
+  rawData = rawData.filter((coin) => coin.returnOnInvestment <= 10 && coin.returnOnInvestment !== 0);
+
+  // Sort by algorithm, then case name (case insensitive)
   rawData.sort((a, b) => {
     const byAlgo = a.coin.algorithm.niceHash.id - b.coin.algorithm.niceHash.id;
     const aName = a.coin.displayName.toLowerCase();
@@ -59,9 +61,6 @@ function parseData(rawData) {
     const byName = aName < bName ? -1 : aName > bName ? 1 : 0;
     return byAlgo || byName;
   });
-
-  // remove 1000%+ (?) ROI coins and 0 ROI coins resulting from API issues
-  rawData = rawData.filter((coin) => coin.returnOnInvestment <= 10 || coin.returnOnInvestment === 0)
 
   const date = new Date();
   const data = {
