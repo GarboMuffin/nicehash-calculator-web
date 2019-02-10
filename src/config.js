@@ -32,7 +32,6 @@ module.exports.DISABLED_COINS = [
   "crown",
   "unobtanium",
   "zetacoin",
-  "unit",
   // scrypt
   "aur-scrypt",
   "mooncoin",
@@ -45,7 +44,6 @@ module.exports.DISABLED_COINS = [
   "litecoinplus",
   "gulden",
   // x11
-  "creamcoin",
   "startcoin",
   "influxcoin",
   "adzcoin",
@@ -59,6 +57,7 @@ module.exports.DISABLED_COINS = [
   "dinero",
   "simplebank",
   "innova",
+  "traid",
   // cryptonight
   "monerooriginal",
   "karbo",
@@ -68,7 +67,6 @@ module.exports.DISABLED_COINS = [
   // lyra2rev2
   "galactrum",
   "straks",
-  "nix",
   "hana",
   // daggerhashimoto
   "ellaism",
@@ -76,15 +74,15 @@ module.exports.DISABLED_COINS = [
   "pirl",
   "music",
   "dbix",
-  // lyra2z
-  "mct",
   // keccak
   "maxcoin",
   // x16r
   "xmn",
+  "hlx",
   // zhash
   "anon",
   "btcz",
+  "xsg",
   // quark
   "quark",
   // multi algo
