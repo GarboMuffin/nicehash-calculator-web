@@ -49,6 +49,7 @@ Algorithm.Lyra2REv2 = new Algorithm({
     name: "Lyra2REv2",
     whatToMine: WhatToMine.Algorithm.Lyra2REv2,
     id: 14,
+    aliases: ["lrev2"],
 });
 Algorithm.Pascal = new Algorithm({
     name: "Pascal",
@@ -158,5 +159,29 @@ Algorithm.Zhash = new Algorithm({
     name: "Zhash",
     whatToMine: WhatToMine.Algorithm.Zhash,
     id: 36,
+});
+// Also known as Beam
+Algorithm["Equihash (150,5)"] = new Algorithm({
+    name: "Beam",
+    whatToMine: WhatToMine.Algorithm.Beam,
+    id: 37,
+});
+// Also known as GrinCuckaroo29
+Algorithm.Cuckaroo29 = new Algorithm({
+    name: "GrinCuckaroo29",
+    whatToMine: WhatToMine.Algorithm.GrinCuckaroo29,
+    id: 38,
+    aliases: ["gc29"],
+});
+// public static readonly GrinCuckatoo31 = new Algorithm({
+//   name: "GrinCuckatoo31",
+//   whatToMine: WhatToMine.Algorithm.GrinCuckatoo31,
+//   id: 39,
+// });
+Algorithm.Lyra2REv3 = new Algorithm({
+    name: "Lyra2REv3",
+    whatToMine: WhatToMine.Algorithm.Lyra2REv3,
+    id: 40,
+    aliases: ["lrev3"],
 });
 exports.Algorithm = Algorithm;

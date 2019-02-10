@@ -22,6 +22,8 @@ class HashRateUnit {
 HashRateUnit.instances = [];
 HashRateUnit.HASH = new HashRateUnit(1, "H");
 HashRateUnit.KILO = new HashRateUnit(1000, "KH");
+HashRateUnit.KSOL = new HashRateUnit(1000, "KSol");
+HashRateUnit.KG = new HashRateUnit(1000, "KG");
 HashRateUnit.MEGA = new HashRateUnit(1000 * 1000, "MH");
 HashRateUnit.MSOL = new HashRateUnit(1000 * 1000, "MSol");
 HashRateUnit.GIGA = new HashRateUnit(1000 * 1000 * 1000, "GH");

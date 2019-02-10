@@ -41,4 +41,7 @@ Algorithm.Lyra2z = new Algorithm(HashRateUnit_1.HashRateUnit.MEGA, "l2z");
 Algorithm.X16R = new Algorithm(HashRateUnit_1.HashRateUnit.MEGA, "x16r");
 Algorithm.CryptoNightV8 = new Algorithm(HashRateUnit_1.HashRateUnit.HASH, "cn8");
 Algorithm.Zhash = new Algorithm(HashRateUnit_1.HashRateUnit.HASH, "zh");
+Algorithm.GrinCuckaroo29 = new Algorithm(HashRateUnit_1.HashRateUnit.HASH, "cr29");
+Algorithm.Beam = new Algorithm(HashRateUnit_1.HashRateUnit.HASH, null);
+Algorithm.Lyra2REv3 = new Algorithm(HashRateUnit_1.HashRateUnit.MEGA, "lrev3");
 exports.Algorithm = Algorithm;
