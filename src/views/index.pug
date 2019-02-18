@@ -8,14 +8,19 @@ block body
   h1 NiceHash Buyer Profitability Table
 
   p Estimatations of the profitability of buying hashing power on <a href="https://www.nicehash.com/?refby=258346">NiceHash</a> ignoring fees. I am not affiliated with NiceHash and not responsible for any potential losses.
-  p <a href="https://github.com/GarboMuffin/nicehash-calculator-web/">The source code is on GitHub</a>. Please <a href="https://github.com/GarboMuffin/nicehash-calculator-web/issues/">report bugs or suggest features</a>.
+  p The source code is <a href="https://github.com/GarboMuffin/nicehash-calculator-web/">on GitHub</a>. Please <a href="https://github.com/GarboMuffin/nicehash-calculator-web/issues/">report bugs or suggest features</a>.
+
+  noscript
+    p
+      small
+        strong Enable JavaScript for localized dates and optional night mode. (No ads, no analytics, no miners, etc.)
 
   hr
 
   if data.coins && data.coins.length > 0
     - var date = (new Date(data.lastUpdated));
     - var timeSinceUpdate = Date.now() - date;
-    - var minutesPerUpdate = Math.round(refreshTime / 1000 / 60)
+    - var minutesPerUpdate = Math.round(refreshTime / 1000 / 60);
     p= "Last update: "
       span.utc-text= date.toISOString() + " (UTC)"
       |  (updated around every #{minutesPerUpdate} minutes) <a href="history">Historical data</a> is available. You can also try the #[a(href="calculate") calculator].

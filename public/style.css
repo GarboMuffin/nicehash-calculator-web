@@ -1,17 +1,27 @@
 body {
   font-family: sans-serif;
 }
+.dark {
+  background-color: #111;
+  color: #eee;
+}
 
 /* Link Styles */
 a {
-  color: #0000ff;
+  color: #00f;
   text-decoration: none;
 }
 a:hover {
   text-decoration: underline;
 }
 a:active {
-  color: #ff0000;
+  color: #f00;
+}
+.dark a {
+  color: #88f;
+}
+.dark a:active {
+  color: #aaf;
 }
 
 /* Donations */
@@ -40,7 +50,6 @@ a:active {
   text-decoration: none;
 }
 .lagging:hover:after {
-  /* TODO: this is very dirty, needs improvements */
   content: "coin is lagging";
   font-size: 11px;
   display: block;
@@ -53,32 +62,65 @@ table {
 }
 td, th {
   padding: 4px;
-  border: 1px solid #000000;
-}
-tr {
-  background-color: #ffffff;
-}
-.highlight, tr.highlight {
-  background-color: #ffffb5;
-}
-.highlight:hover, tr.highlight:hover {
-  background-color: #eaeaa0;
-}
-td.cell-profitable, th.cell-profitable {
-  background-color: #5fff5f;
-}
-td.cell-not-profitable, th.cell-not-profitable {
-  background-color: #ff7070;
+  border: 1px solid #000;
 }
 tr:hover {
   background-color: #eaeaea;
 }
-tr:hover .highlight {
+.highlight, tr.highlight {
+  background-color: #ffffb5;
+}
+.highlight:hover, tr.highlight:hover, tr:hover .highlight {
   background-color: #eaeaa0;
+}
+.cell-profitable {
+  background-color: #5fff5f;
+}
+.cell-not-profitable {
+  background-color: #ff7070;
 }
 tr:hover .cell-profitable {
   background-color: #4aea4a;
 }
 tr:hover .cell-not-profitable {
   background-color: #ea5b5b;
+}
+
+.dark .highlight, .dark tr.highlight {
+  background-color: #383623;
+}
+.dark .highlight:hover, .dark tr.highlight:hover, .dark tr:hover .highlight {
+  background-color: #484835;
+}
+.dark td, .dark th {
+  border-color: #444;
+}
+.dark tr:hover {
+  background-color: #222;
+}
+.dark .cell-profitable {
+  background-color: #004a00;
+}
+.dark tr:hover .cell-profitable {
+  background-color: #005c08;
+}
+.dark .cell-not-profitable {
+  background-color: #740000;
+}
+.dark tr:hover .cell-not-profitable {
+  background-color: #810404;
+}
+
+.no-js #dark-mode-container {
+  display: none;
+}
+#dark-mode-container {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  opacity: 0.5;
+  transition: 0.2s opacity;
+}
+#dark-mode-container:hover {
+  opacity: 1;
 }
