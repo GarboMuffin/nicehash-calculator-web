@@ -15,7 +15,7 @@
   }
 
   /* Support dark mode */
-  document.body.classList.remove('no-js');
+  document.body.classList.remove("no-js");
   function toggleDark(transition) {
     document.body.classList.toggle("dark");
     localStorage.setItem("userPrefersDark", document.body.classList.contains("dark"));
