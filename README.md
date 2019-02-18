@@ -20,9 +20,9 @@ npm install
 
 ## Development setup
 
-All required setup is completed. The default config is that of a development environment.
+You may want to download the [latest data.json](https://nicehash.garbomuffin.com/data.json) and save it as `data.json` in the root of the repository to skip waiting a few minutes for a data update to finish, but this is not required.
 
-data will not be automatically updated due to API rate limits by default. For most development purposes the age of the data doesn't matter; there just has to be something to render. This can be changed by enabling production mode (see "Production Setup" below) or by setting `module.exports.ALLOW_UPDATES` to `true` in `src/config.js`.
+Data will not be automatically updated by default. For most development purposes the age of the data doesn't matter; there just has to be something to render. This can be changed by enabling production mode (see "Production Setup" below) or by setting `module.exports.ALLOW_UPDATES` to `true` in `src/config.js`.
 
 ## Running it
 
