@@ -184,4 +184,9 @@ Algorithm.Lyra2REv3 = new Algorithm({
     id: 40,
     aliases: ["lrev3"],
 });
+Algorithm.MTP = new Algorithm({
+    name: "MTP",
+    whatToMine: WhatToMine.Algorithm.MTP,
+    id: 41,
+});
 exports.Algorithm = Algorithm;

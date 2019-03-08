@@ -44,4 +44,5 @@ Algorithm.Zhash = new Algorithm(HashRateUnit_1.HashRateUnit.HASH, "zh");
 Algorithm.GrinCuckaroo29 = new Algorithm(HashRateUnit_1.HashRateUnit.HASH, "cr29");
 Algorithm.Beam = new Algorithm(HashRateUnit_1.HashRateUnit.HASH, null);
 Algorithm.Lyra2REv3 = new Algorithm(HashRateUnit_1.HashRateUnit.MEGA, "lrev3");
+Algorithm.MTP = new Algorithm(HashRateUnit_1.HashRateUnit.MEGA, "mtp");
 exports.Algorithm = Algorithm;
