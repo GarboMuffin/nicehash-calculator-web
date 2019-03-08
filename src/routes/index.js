@@ -5,5 +5,6 @@ module.exports = function renderIndex(req, res, state) {
   render(res, "index", {
     data: state.renderedData,
     refreshTime: config.REFRESH_TIME,
+    failures: state.successiveFailures,
   });
 };

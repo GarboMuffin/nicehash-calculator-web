@@ -30,14 +30,14 @@ Data will not be automatically updated by default. For most development purposes
 node index
 ```
 
-(If you get a `TypeError: util.promisify is not a function` (or similar), make sure you're running Node 8 or higher.)
+(If you get a `TypeError: util.promisify is not a function` or similar, make sure you're running Node 8 or higher.)
 
 By default this listens on port 8080, and you can visit [`http://localhost:8080`](http://localhost:8080) in your browser to visit the site. You can change the this with the `PORT` environment variable or by changing `module.exports.PORT` in `src/config.js`.
 
 ## Production Setup
 
-Enable production mode by setting the `NODE_ENV` environment variable to `production` (recommended) or by setting `module.exports.IN_PRODUCTION` to `true` in `src/config.js`. This should also enable automatic data updates unless you made further changes to the configuration.
+Enable production mode by setting the `NODE_ENV` environment variable to `production` (recommended, many services do this for you) or by setting `module.exports.IN_PRODUCTION` to `true` in `src/config.js`. This should also enable automatic data updates unless you made further changes to the configuration.
 
-You can edit `module.exports.REFRESH_TIME` to change the time between each data update in milliseconds. (hint: `3600000` is 1 hour, and low values might get you temporarily blocked from the What To Mine API) You can also edit `module.exports.DISABLED_COINS` to restrict or increase the amount of coins to be displayed. (hint: use coin or algorithm names and tickers) You'll probably want to change some of the templates in `src/views` such as GitHub links, donation addresses, data licensing, etc.
+You can edit `module.exports.REFRESH_TIME` to change the time between each data update in milliseconds. You can also edit `module.exports.DISABLED_COINS` to restrict or increase the amount of coins to be displayed. (hint: use [coin or algorithm names and tickers](https://github.com/GarboMuffin/nicehash-calculator#coins)) You'll probably want to change some of the templates in `src/views` such as GitHub links (index.pug), donation addresses (layout.pug), data licensing (history/list.pug), etc.
 
-Use a reverse proxy like nginx if you want SSL, caching, Content-Security-Policy, etc.
+Use a reverse proxy such as nginx if you want things like SSL, caching, etc.

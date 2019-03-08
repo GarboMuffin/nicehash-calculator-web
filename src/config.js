@@ -3,7 +3,7 @@
 module.exports.PORT = process.env.PORT || 8080;
 // module.exports.PORT = 1234; // uncomment to edit
 
-// The time between each data update, in millisecondss.
+// The time between each data update, in milliseconds.
 // Setting this too low may get you blocked by What To Mine for too sending many requests.
 // 1000 * 60 * 60 === 1 hour
 module.exports.REFRESH_TIME = 1000 * 60 * 60 * 2;

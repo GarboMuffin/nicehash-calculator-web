@@ -21,39 +21,31 @@ if (config.IN_PRODUCTION) {
 if (config.ALLOW_UPDATES) {
   logger.info("Automated data updates are enabled");
 } else {
-  logger.info("Automated data updates are disabled unless necessary; change this in src/config.js");
+  logger.info("Automated data updates are disabled unless necessary; change this in src/config.js (ALLOW_UPDATES)");
 }
 
 const state = {
   data: {},
   renderedData: {},
+  successiveFailures: 0,
 };
-
-function handlePromiseError(err) {
-  logger.error(" > PROMISE ERROR:");
-  if (err && err.stack) {
-    logger.error(err.stack);
-  } else {
-    logger.error(err);
-  }
-}
 
 //
 // DATA
 //
 
-function setData(data, writeData=true) {
+function setData(data, writeData = true) {
   state.data = data;
   state.renderedData = dataOperations.renderData(data);
   if (writeData) {
-    dataOperations.saveData(data).catch((err) => handlePromiseError(err));
+    dataOperations.saveData(data);
   }
 }
 
 function loadSavedData() {
   dataOperations.getSavedData().then((data) => {
     setData(data, false);
-    if (config.IN_PRODUCTION && !config.DISABLE_UPDATES) {
+    if (config.ALLOW_UPDATES) {
       const currentDate = Date.now();
       const dataDate = new Date(data.lastUpdated);
       const timeSince = currentDate - dataDate;
@@ -68,6 +60,7 @@ function loadSavedData() {
 
 function updateData() {
   getData(this).then((data) => {
+    state.successiveFailures = 0;
     if (!data || !data.coins || data.coins.length === 0) {
       logger.error("Update returned bad data. Aborting update.");
     } else {
@@ -76,7 +69,20 @@ function updateData() {
     if (config.ALLOW_UPDATES) {
       setUpdateTimeout();
     }
-  }).catch((err) => handlePromiseError(err));
+  }).catch((err) => dataUpdateError(err));
+}
+
+function dataUpdateError(err) {
+  logger.error("DATA UPDATED FAILED: ");
+  if (err && err.stack) {
+    logger.error(err.stack);
+  } else {
+    logger.error(err);
+  }
+  state.successiveFailures++;
+  const multiplier = Math.pow(2, state.successiveFailures);
+  logger.error(`Successive failures: ${state.successiveFailures}. Trying again in ${multiplier}x the configured interval.`);
+  setUpdateTimeout(config.REFRESH_TIME * multiplier);
 }
 
 function setUpdateTimeout(timeout = config.REFRESH_TIME) {
