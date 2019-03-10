@@ -4,6 +4,7 @@ body {
 .dark {
   background-color: #111;
   color: #eee;
+  scrollbar-color: #444 #222;
 }
 
 /* Link Styles */
@@ -86,11 +87,12 @@ tr:hover .cell-not-profitable {
   background-color: #ea5b5b;
 }
 
+/* Dark mode table */
 .dark .highlight, .dark tr.highlight {
-  background-color: #383623;
+  background-color: #413e2e;
 }
 .dark .highlight:hover, .dark tr.highlight:hover, .dark tr:hover .highlight {
-  background-color: #484835;
+  background-color: #524f3f;
 }
 .dark td, .dark th {
   border-color: #444;
@@ -102,13 +104,13 @@ tr:hover .cell-not-profitable {
   background-color: #004a00;
 }
 .dark tr:hover .cell-profitable {
-  background-color: #005c08;
+  background-color: #115b11;
 }
 .dark .cell-not-profitable {
   background-color: #740000;
 }
 .dark tr:hover .cell-not-profitable {
-  background-color: #810404;
+  background-color: #851111;
 }
 
 .no-js #dark-mode-container {

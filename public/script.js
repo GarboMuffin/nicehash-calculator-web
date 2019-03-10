@@ -15,10 +15,10 @@
   }
 
   /* Support dark mode */
-  document.body.classList.remove("no-js");
-  function toggleDark(transition) {
-    document.body.classList.toggle("dark");
-    localStorage.setItem("userPrefersDark", document.body.classList.contains("dark"));
+  document.documentElement.classList.remove("no-js");
+  function toggleDark() {
+    document.documentElement.classList.toggle("dark");
+    localStorage.setItem("userPrefersDark", document.documentElement.classList.contains("dark"));
   }
   document.getElementById("dark-mode-container").addEventListener("click", function(e) {
     toggleDark(true);
