@@ -173,11 +173,12 @@ Algorithm.Cuckaroo29 = new Algorithm({
     id: 38,
     aliases: ["gc29"],
 });
-// public static readonly GrinCuckatoo31 = new Algorithm({
-//   name: "GrinCuckatoo31",
-//   whatToMine: WhatToMine.Algorithm.GrinCuckatoo31,
-//   id: 39,
-// });
+Algorithm.Cuckatoo31 = new Algorithm({
+    name: "GrinCuckatoo31",
+    whatToMine: WhatToMine.Algorithm.GrinCuckatoo31,
+    id: 39,
+    aliases: ["ct31"],
+});
 Algorithm.Lyra2REv3 = new Algorithm({
     name: "Lyra2REv3",
     whatToMine: WhatToMine.Algorithm.Lyra2REv3,
@@ -188,5 +189,10 @@ Algorithm.MTP = new Algorithm({
     name: "MTP",
     whatToMine: WhatToMine.Algorithm.MTP,
     id: 41,
+});
+Algorithm.CryptoNightR = new Algorithm({
+    name: "CryptoNightR",
+    whatToMine: WhatToMine.Algorithm.CryptoNightR,
+    id: 42,
 });
 exports.Algorithm = Algorithm;
