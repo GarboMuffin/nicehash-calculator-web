@@ -1,9 +1,19 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const chalk_1 = require("chalk");
+const http = require("http");
 const https = require("https");
 const readline = require("readline");
 const url = require("url");
+/**
+ * Bare bones HTTP(S) library to reduce the need for dependencies and allows more control over certain things.
+ *
+ * It's terrible. I know.
+ */
+// Enable keepalive
+// The types appear to be missing, but the properties definitely exist.
+http.globalAgent.keepAlive = true;
+https.globalAgent.keepAlive = true;
 function request(options) {
     const parsedUrl = url.parse(options.url);
     const hostname = parsedUrl.hostname;
