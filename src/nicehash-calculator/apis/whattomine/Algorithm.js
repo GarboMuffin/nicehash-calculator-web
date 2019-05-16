@@ -47,4 +47,5 @@ Algorithm.Beam = new Algorithm(HashRateUnit_1.HashRateUnit.HASH, null);
 Algorithm.Lyra2REv3 = new Algorithm(HashRateUnit_1.HashRateUnit.MEGA, "lrev3");
 Algorithm.MTP = new Algorithm(HashRateUnit_1.HashRateUnit.MEGA, "mtp");
 Algorithm.CryptoNightR = new Algorithm(HashRateUnit_1.HashRateUnit.HASH, null);
+Algorithm.CuckooCycle = new Algorithm(HashRateUnit_1.HashRateUnit.HASH, "cc");
 exports.Algorithm = Algorithm;

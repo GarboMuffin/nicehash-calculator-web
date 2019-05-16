@@ -195,4 +195,9 @@ Algorithm.CryptoNightR = new Algorithm({
     whatToMine: WhatToMine.Algorithm.CryptoNightR,
     id: 42,
 });
+Algorithm.CuckooCycle = new Algorithm({
+    name: "CuckooCycle",
+    whatToMine: WhatToMine.Algorithm.CuckooCycle,
+    id: 43,
+});
 exports.Algorithm = Algorithm;
