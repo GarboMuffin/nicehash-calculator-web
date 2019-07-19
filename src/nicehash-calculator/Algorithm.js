@@ -7,7 +7,8 @@ class Algorithm {
         this.names = opts.aliases || [];
         this.names.unshift(this.displayName.toLowerCase());
         this.whatToMine = opts.whatToMine;
-        this.id = opts.id;
+        this.idEnum = opts.idEnum;
+        this.idNum = opts.idNum;
         Algorithm.instances.push(this);
     }
 }
@@ -16,188 +17,196 @@ Algorithm.instances = [];
 Algorithm.LBRY = new Algorithm({
     name: "LBRY",
     whatToMine: WhatToMine.Algorithm.LBRY,
-    id: 23,
+    idEnum: "LBRY",
+    idNum: 23,
 });
 Algorithm.Ethash = new Algorithm({
     name: "DaggerHashimoto",
     whatToMine: WhatToMine.Algorithm.Ethash,
-    id: 20,
+    idEnum: "DAGGERHASHIMOTO",
+    idNum: 20,
 });
 Algorithm.NeoScrypt = new Algorithm({
     name: "NeoScrypt",
     whatToMine: WhatToMine.Algorithm.NeoScrypt,
-    id: 8,
+    idEnum: "NEOSCRYPT",
+    idNum: 8,
 });
 Algorithm.Skunkhash = new Algorithm({
     name: "Skunkhash",
     aliases: ["skunk"],
     whatToMine: WhatToMine.Algorithm.Skunkhash,
-    id: 29,
+    idEnum: "SHUNKHASH",
+    idNum: 29,
 });
 Algorithm.Equihash = new Algorithm({
     name: "Equihash",
     whatToMine: WhatToMine.Algorithm.Equihash,
-    id: 24,
+    idEnum: "EQUIHASH",
+    idNum: 24,
 });
 Algorithm.CryptoNight = new Algorithm({
     name: "CryptoNight",
     aliases: ["cn"],
     whatToMine: WhatToMine.Algorithm.CryptoNight,
-    id: 22,
+    idEnum: "CRYPTONIGHT",
+    idNum: 22,
 });
 Algorithm.Lyra2REv2 = new Algorithm({
     name: "Lyra2REv2",
     whatToMine: WhatToMine.Algorithm.Lyra2REv2,
-    id: 14,
+    idEnum: "LYRA2REV2",
+    idNum: 14,
     aliases: ["lrev2"],
 });
 Algorithm.Pascal = new Algorithm({
     name: "Pascal",
     whatToMine: WhatToMine.Algorithm.Pascal,
-    id: 25,
-});
-Algorithm.X11Gost = new Algorithm({
-    name: "X11Gost",
-    whatToMine: WhatToMine.Algorithm.X11Gost,
-    id: 26,
+    idEnum: "PASCAL",
+    idNum: 25,
 });
 Algorithm.Keccak = new Algorithm({
     name: "Keccak",
     whatToMine: WhatToMine.Algorithm.Keccak,
-    id: 5,
+    idEnum: "KECCAK",
+    idNum: 5,
 });
 Algorithm.X11 = new Algorithm({
     name: "X11",
     whatToMine: WhatToMine.Algorithm.X11,
-    id: 3,
+    idEnum: "X11",
+    idNum: 3,
 });
 Algorithm.X13 = new Algorithm({
     name: "X13",
     whatToMine: WhatToMine.Algorithm.X13,
-    id: 4,
+    idEnum: "X13",
+    idNum: 4,
 });
 Algorithm.Scrypt = new Algorithm({
     name: "Scrypt",
     whatToMine: WhatToMine.Algorithm.Scrypt,
-    id: 0,
+    idEnum: "SCRYPT",
+    idNum: 0,
 });
 Algorithm["SHA-256"] = new Algorithm({
     name: "SHA-256",
     whatToMine: WhatToMine.Algorithm["SHA-256"],
     aliases: ["sha256"],
-    id: 1,
+    idEnum: "SHA256",
+    idNum: 1,
 });
 Algorithm.Quark = new Algorithm({
     name: "Quark",
     whatToMine: WhatToMine.Algorithm.Quark,
-    id: 12,
+    idEnum: "QUARK",
+    idNum: 12,
 });
 Algorithm.NIST5 = new Algorithm({
     name: "Nist5",
     whatToMine: WhatToMine.Algorithm.NIST5,
-    id: 7,
-});
-Algorithm.Lyra2RE = new Algorithm({
-    name: "Lyra2RE",
-    whatToMine: WhatToMine.Algorithm.Lyra2RE,
-    id: 9,
+    idEnum: "NIST5",
+    idNum: 7,
 });
 Algorithm.Qubit = new Algorithm({
     name: "Qubit",
     whatToMine: WhatToMine.Algorithm.Qubit,
-    id: 11,
+    idEnum: "QUBIT",
+    idNum: 11,
 });
 Algorithm["Blake (2s)"] = new Algorithm({
     name: "Blake (2s)",
     whatToMine: WhatToMine.Algorithm["Blake (2s)"],
-    id: 28,
+    idEnum: "BLAKE2S",
+    idNum: 28,
 });
 Algorithm.Sia = new Algorithm({
     name: "Sia",
     whatToMine: WhatToMine.Algorithm.Sia,
-    id: 27,
+    idEnum: "SIA",
+    idNum: 27,
 });
 Algorithm["Blake (14r)"] = new Algorithm({
     name: "Decred",
     whatToMine: WhatToMine.Algorithm["Blake (14r)"],
-    id: 21,
+    idEnum: "DECRED",
+    idNum: 21,
 });
 Algorithm.CryptoNightV7 = new Algorithm({
     name: "CryptoNightV7",
     aliases: ["cryptonight7", "cn7"],
     whatToMine: WhatToMine.Algorithm.CryptoNightV7,
-    id: 30,
+    idEnum: "CRYPTONIGHTV7",
+    idNum: 30,
 });
 Algorithm.CryptoNightHeavy = new Algorithm({
     name: "CryptoNightHeavy",
     whatToMine: WhatToMine.Algorithm.CryptoNightHeavy,
-    id: 31,
+    idEnum: "CRYPTONIGHTHEAVY",
+    idNum: 31,
 });
 Algorithm.Lyra2z = new Algorithm({
     name: "Lyra2Z",
     whatToMine: WhatToMine.Algorithm.Lyra2z,
-    id: 32,
+    idEnum: "LYRA2Z",
+    idNum: 32,
 });
 Algorithm.X16R = new Algorithm({
     name: "X16R",
     whatToMine: WhatToMine.Algorithm.X16R,
-    id: 33,
+    idEnum: "X16R",
+    idNum: 33,
 });
 Algorithm.CryptoNightV8 = new Algorithm({
     name: "CryptoNightV8",
     aliases: ["cryptonight8", "cn8"],
     whatToMine: WhatToMine.Algorithm.CryptoNightV8,
-    id: 34,
+    idEnum: "CRYPTONIGHTV8",
+    idNum: 34,
 });
-// WTM does not seem to differentiate here. Will look into later.
-// public static readonly SHA256AsicBoost = new Algorithm({
-//   name: "SHA256AsicBoost",
-//   whatToMine: WhatToMine.Algorithm.SHA256AsicBoost,
-//   id: 35,
-// });
 Algorithm.Zhash = new Algorithm({
     name: "Zhash",
     whatToMine: WhatToMine.Algorithm.Zhash,
-    id: 36,
+    idEnum: "ZHASH",
+    idNum: 36,
 });
-// Also known as Beam
 Algorithm["Equihash (150,5)"] = new Algorithm({
     name: "Beam",
     whatToMine: WhatToMine.Algorithm.Beam,
-    id: 37,
+    idEnum: "BEAM",
+    idNum: 37,
 });
-// Also known as GrinCuckaroo29
 Algorithm.Cuckaroo29 = new Algorithm({
     name: "GrinCuckaroo29",
     whatToMine: WhatToMine.Algorithm.GrinCuckaroo29,
-    id: 38,
+    idEnum: "GRINCUCKAROO29",
+    idNum: 38,
     aliases: ["gc29"],
 });
 Algorithm.Cuckatoo31 = new Algorithm({
     name: "GrinCuckatoo31",
     whatToMine: WhatToMine.Algorithm.GrinCuckatoo31,
-    id: 39,
+    idEnum: "GRINCUCKATOO31",
+    idNum: 39,
     aliases: ["ct31"],
 });
 Algorithm.Lyra2REv3 = new Algorithm({
     name: "Lyra2REv3",
     whatToMine: WhatToMine.Algorithm.Lyra2REv3,
-    id: 40,
+    idEnum: "LYRA2REV3",
+    idNum: 40,
     aliases: ["lrev3"],
-});
-Algorithm.MTP = new Algorithm({
-    name: "MTP",
-    whatToMine: WhatToMine.Algorithm.MTP,
-    id: 41,
 });
 Algorithm.CryptoNightR = new Algorithm({
     name: "CryptoNightR",
     whatToMine: WhatToMine.Algorithm.CryptoNightR,
-    id: 42,
+    idEnum: "CRYPTONIGHTR",
+    idNum: 42,
 });
 Algorithm.CuckooCycle = new Algorithm({
     name: "CuckooCycle",
     whatToMine: WhatToMine.Algorithm.CuckooCycle,
-    id: 43,
+    idEnum: "CUCKOOCYCLE",
+    idNum: 43,
 });
 exports.Algorithm = Algorithm;

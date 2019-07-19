@@ -11,11 +11,11 @@
   "dependencies": {
     "chalk": "^2.4.2",
     "dotenv": "^5.0.1",
-    "express": "^4.16.4",
-    "helmet": "^3.15.0",
+    "express": "^4.17.1",
+    "helmet": "^3.18.0",
     "mkdirp": "^0.5.1",
     "morgan": "^1.9.1",
-    "pug": "^2.0.3",
+    "pug": "^2.0.4",
     "winston": "^2.4.4",
     "winston-daily-rotate-file": "^1.7.2"
   },

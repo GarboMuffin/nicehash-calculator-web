@@ -59,7 +59,7 @@ function parseOptions(args) {
             default: OptionParser.PricesOption.Average,
             args: {
                 average: OptionParser.PricesOption.Average,
-                minimum: OptionParser.PricesOption.MinimumWithWorkers,
+                minimum: OptionParser.PricesOption.MinimumWithMiners,
                 "minimum-with-speed": OptionParser.PricesOption.MinimumWithHashrate,
             },
         }),

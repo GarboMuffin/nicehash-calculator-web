@@ -101,7 +101,7 @@ function renderData(data) {
     const result = [];
 
     for (const coin of coins) {
-      const algo = coin.coin.algorithm.niceHash.id;
+      const algo = coin.coin.algorithm.idNum;
       const profit = coin.profit;
 
       const highestCoinOfAlgo = result[algo];

@@ -4,3 +4,4 @@ shrinkwrap.yaml
 logs/
 data.json
 data/
+tsconfig.tsbuildinfo

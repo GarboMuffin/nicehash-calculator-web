@@ -5,10 +5,8 @@ const Algorithm_1 = require("../Algorithm");
 const HashRateUnit_1 = require("../HashRateUnit");
 const NiceHash = require("../apis/nicehash");
 const WhatToMine = require("../apis/whattomine");
-const constants_1 = require("../constants");
 const requestLib = require("../lib/request");
 const logger_1 = require("../logger");
-const options_1 = require("../options");
 const utils_1 = require("../utils");
 const coins_1 = require("./coins");
 const filter_1 = require("./filter");
@@ -16,7 +14,7 @@ const listCoins_1 = require("./listCoins");
 class NiceHashCalculator {
     constructor(options = {}) {
         this.revenueCache = [];
-        this.priceCache = [];
+        this.priceCache = {};
         this.options = options;
         // everything else happens in start()
         // constructing a NiceHashCalculator should be possible without side effects so that testing can be done
@@ -98,17 +96,8 @@ class NiceHashCalculator {
             logger_1.logger.warn("Unrecognized option: " + unrecognizedOption);
         }
         // Conditionally output a header
-        // Disclaimer, donation addresses, etc.
         if (this.options.showHeader) {
             this.printHeader();
-        }
-        // using minimum prices is heavily discouraged so output a warning
-        if (this.options.prices === options_1.PricesOption.MinimumWithWorkers) {
-            logger_1.logger.warn("Calculating prices using lowest order with some amount of workers. This is discouraged.");
-        }
-        // minimumw with hashrate is more dangerous
-        if (this.options.prices === options_1.PricesOption.MinimumWithHashrate) {
-            logger_1.logger.warn("Calculating prices using lowest order with some amount of accepted speed. This is very discouraged.");
         }
         // --experimental-fees: attempt to include fees
         if (this.options.includeFees) {
@@ -116,35 +105,35 @@ class NiceHashCalculator {
         }
     }
     printHeader() {
-        console.log(`This program estimates the profitability of buying hashing power on NiceHash.`);
         console.log(chalk_1.default `NiceHash is not affiliated with this project. {bold I am not responsible for any losses.}`);
-        console.log("");
-        console.log(chalk_1.default `Report bugs or suggest ideas: {underline ${constants_1.BUG_REPORT_URL}}`);
-        console.log("");
+        console.log('');
     }
     async initApis() {
-        if (this.options.prices === options_1.PricesOption.Average) {
-            this.priceCache = await NiceHash.getGlobalPrices();
-        }
+        // Temporarily disabled until the API provides something actually equal to the old one.
+        // if (this.options.prices === PricesOption.Average) {
+        //   this.priceCache = await NiceHash.getGlobalPrices();
+        // }
         // set some algorithm metadata
         const buyerInfo = await NiceHash.getBuyerInfo();
-        const algorithms = buyerInfo.algorithms;
+        const algorithms = buyerInfo.miningAlgorithms;
         for (const nhMeta of algorithms) {
             const hashrate = nhMeta.speed_text;
-            const id = nhMeta.algo;
-            const algorithm = new NiceHash.Algorithm(id, HashRateUnit_1.HashRateUnit.fromString(hashrate));
+            const id = +nhMeta.algo;
             for (const algo of Algorithm_1.Algorithm.instances) {
-                if (algo.id === id) {
-                    logger_1.logger.debug(`initApis(): set unit for ${algo.displayName} to ${algorithm.unit.displayName}`);
+                if (algo.idNum === id) {
+                    const algorithm = new NiceHash.Algorithm(algo.idEnum, HashRateUnit_1.HashRateUnit.fromString(hashrate));
                     algo.niceHash = algorithm;
+                    logger_1.logger.debug(`initApis(): set unit for ${algo.displayName} to ${algorithm.unit.displayName}`);
                     break;
                 }
             }
         }
         // error checking
-        for (const algo of Algorithm_1.Algorithm.instances) {
-            if (!algo.niceHash) {
-                logger_1.logger.warn(`Missing metadata for algorithm ${algo.displayName} (${algo.id})`);
+        if (logger_1.logger.debugEnabled) {
+            for (const algo of Algorithm_1.Algorithm.instances) {
+                if (!algo.niceHash) {
+                    logger_1.logger.warn(`Missing metadata for algorithm ${algo.displayName} (${algo.idEnum})`);
+                }
             }
         }
     }
@@ -182,8 +171,7 @@ class NiceHashCalculator {
             return this.priceCache[algo.id];
         }
         else {
-            const withWorkers = this.options.prices === options_1.PricesOption.MinimumWithWorkers;
-            const price = await NiceHash.getPrice(algo, withWorkers);
+            const price = await NiceHash.getPrice(algo, this.options.prices);
             this.priceCache[algo.id] = price;
             return price;
         }
