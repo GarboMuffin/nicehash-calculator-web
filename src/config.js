@@ -29,7 +29,6 @@ module.exports.REVERSE_PROXY = true;
 // It also reduces your chances of being blocked by What To Mine for too sending many requests.
 module.exports.DISABLED_COINS = [
   // sha-256
-  "crown",
   "unobtanium",
   "zetacoin",
   // scrypt
@@ -50,22 +49,17 @@ module.exports.DISABLED_COINS = [
   // equihash
   "commercium",
   // neoscrypt
-  "crowdcoin",
   "halcyon",
   "phoenixcoin",
   "orbitcoin",
-  "dinero",
-  "simplebank",
   "innova",
   "traid",
   // cryptonight
-  "monerooriginal",
   "karbo",
   "dinastycoin",
   "sumokoin",
   "bytecoin",
   // lyra2rev2
-  "galactrum",
   "straks",
   "hana",
   // daggerhashimoto
