@@ -85,7 +85,7 @@
       button.disabled = true;
       const selectedValue = coinDropdown.value;
       const coin = coins[selectedValue];
-      const price = +nicehash.result.stats[coin.niceHashId].price;
+      const price = +nicehash.result.stats[coin.id].price;
       getRevenueForCoin(coin)
         .then((revenue) => {
           outputResult(coin, price, revenue);
