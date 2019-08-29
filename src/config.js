@@ -87,5 +87,7 @@ module.exports.DISABLED_COINS = [
   "quark",
   // multi algo
   "xmy", // myriad-scrypt, myriad-sha
+  // temporary hack to avoid errors
+  "sia",
 ];
 // module.exports.DISABLED_COINS = []; // uncomment to enable all coins, but you really shouldn't do that.
