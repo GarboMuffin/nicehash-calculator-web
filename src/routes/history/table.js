@@ -1,3 +1,4 @@
+const path = require('path');
 const dataOperations = require("../../data");
 const render = require("../render");
 
@@ -6,7 +7,11 @@ async function getData(req) {
   if (!isFinite(dateParam)) {
     return null;
   }
-  const file = `data/${dateParam}.json`;
+  const dataFolder = 'data';
+  const file = path.join(dataFolder, dateParam + '.json');
+  if (file.indexOf(dataFolder) !== 0) {
+    return null;
+  }
   try {
     var data = await dataOperations.getSavedData(file);
   } catch (e) {
