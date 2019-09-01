@@ -1,5 +1,3 @@
-const fs = require("fs");
-
 const logger = require("./logger");
 const config = require("./config");
 
@@ -24,6 +22,7 @@ config.DISABLED_COINS.forEach((c) => options.coins.push("-" + c));
 
 function getRawData() {
   return new Promise((resolve, reject) => {
+    logger.info("Starting data update");
     const result = [];
 
     options.outputHandler.class = class {
@@ -37,7 +36,7 @@ function getRawData() {
       finished() {
         resolve(result);
       }
-    }
+    };
 
     const calculator = new NiceHashCalculator(options);
     calculator.start()

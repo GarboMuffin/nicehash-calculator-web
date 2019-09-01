@@ -55,11 +55,14 @@ function loadSavedData() {
         setUpdateTimeout(config.REFRESH_TIME - timeSince);
       }
     }
-  }).catch((err) => updateData());
+  }).catch((err) => {
+    logger.warn(`Cannot load saved data: "${err.message}" Site may be unusable until data update completes.`);
+    updateData();
+  });
 }
 
 function updateData() {
-  getData(this).then((data) => {
+  getData().then((data) => {
     state.successiveFailures = 0;
     if (!data || !data.coins || data.coins.length === 0) {
       logger.error("Update returned bad data. Aborting update.");
