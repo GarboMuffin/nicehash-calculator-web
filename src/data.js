@@ -1,11 +1,14 @@
 const fs = require("fs");
 const util = require("util");
 const mkdirp = require("mkdirp");
+const zlib = require("zlib");
 
 const stat = util.promisify(fs.stat);
 const readFile = util.promisify(fs.readFile);
 const writeFile = util.promisify(fs.writeFile);
 const readDir = util.promisify(fs.readdir);
+const gzip = util.promisify(zlib.gzip);
+const unzip = util.promisify(zlib.unzip);
 
 const logger = require("./logger");
 
@@ -21,7 +24,10 @@ async function getSavedData(file = "data.json") {
     throw new Error("File does not exist");
   }
 
-  const contents = await readFile(file);
+  let contents = await readFile(file);
+  if (file.endsWith('.gz')) {
+    contents = await unzip(contents);
+  }
   let data;
   try {
     data = JSON.parse(contents);
@@ -35,8 +41,8 @@ async function getSavedData(file = "data.json") {
 async function listSavedData() {
   let files = await readDir("data");
   return files
-    .filter((file) => file.endsWith(".json"))
-    .map((file) => file.replace(/\.json$/, ""));
+    .filter((file) => file.endsWith(".json.gz"))
+    .map((file) => file.replace(/\.json\.gz$/, ""));
 }
 
 async function saveData(data) {
@@ -44,7 +50,7 @@ async function saveData(data) {
     const stringToWrite = JSON.stringify(data);
     const date = (new Date(data.lastUpdated)).valueOf();
     await writeFile("data.json", stringToWrite);
-    await writeFile(`data/${date}.json`, stringToWrite);
+    await writeFile(`data/${date}.json.gz`, await gzip(stringToWrite));
     logger.info("Saved data");
   } catch (e) {
     logger.error(" > Couldn't save data:");

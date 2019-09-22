@@ -1,6 +1,9 @@
 const dotenv = require("dotenv");
 dotenv.config();
 
+// Start the updater
+require('./updater');
+
 const config = require("./config");
 const logger = require("./logger");
 const app = require("./app");

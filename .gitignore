@@ -5,3 +5,4 @@ logs/
 data.json
 data/
 tsconfig.tsbuildinfo
+.version

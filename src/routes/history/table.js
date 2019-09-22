@@ -8,7 +8,7 @@ async function getData(req) {
     return null;
   }
   const dataFolder = 'data';
-  const file = path.join(dataFolder, dateParam + '.json');
+  const file = path.join(dataFolder, dateParam + '.json.gz');
   if (file.indexOf(dataFolder) !== 0) {
     return null;
   }
