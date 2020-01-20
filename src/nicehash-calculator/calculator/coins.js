@@ -5,7 +5,15 @@ const WhatToMine = require("../apis/whattomine");
 const logger_1 = require("../logger");
 function getAlgorithm(algo) {
     const match = Algorithm_1.Algorithm[algo];
-    return match || null;
+    // bail on no match
+    if (!match)
+        return null;
+    // bail on missing metadata
+    if (!match.niceHash)
+        return null;
+    if (!match.whatToMine)
+        return null;
+    return match;
 }
 function getAdditionalNames(coin) {
     // Due to the switch to using whattomine to know coins we no longer have control over the data
