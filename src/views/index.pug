@@ -23,7 +23,7 @@ block body
     - var minutesPerUpdate = Math.round(refreshTime / 1000 / 60);
     p= "Last update: "
       span.utc-text= date.toISOString() + " (UTC)"
-      |  (updated around every #{minutesPerUpdate} minutes) <a href="history">Historical data</a> is available. You can also try the #[a(href="calculate") calculator].
+      |  (updated around every #{minutesPerUpdate} minutes) <a href="history">Historical data</a> is available.
 
     //- Include an error message for cases where data updates have failed to run.
     if failures > 0
