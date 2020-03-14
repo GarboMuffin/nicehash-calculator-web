@@ -1,3 +1,9 @@
+# NOTE: This project is no longer maintained
+
+https://github.com/GarboMuffin/nicehash-calculator-web/issues/20
+
+The website (nicehash.garbomuffin.com) will remain online at least for a little while. No guarantees.
+
 # [nicehash-calculator-web](https://nicehash.garbomuffin.com)
 
 A website that automatically estimates the profitability of buying hashing power on NiceHash.
