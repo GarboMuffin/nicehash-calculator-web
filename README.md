@@ -2,12 +2,11 @@
 
 https://github.com/GarboMuffin/nicehash-calculator-web/issues/20
 
-The website (nicehash.garbomuffin.com) will remain online at least for a little while. No guarantees.
+The website has been shut down for several years. I no longer own the domain that it was running on.
 
-# [nicehash-calculator-web](https://nicehash.garbomuffin.com)
+# nicehash-calculator-web
 
 A website that automatically estimates the profitability of buying hashing power on NiceHash.
-**If you're just looking for the calculations, then please visit the website: https://nicehash.garbomuffin.com**
 
 My [nicehash-calculator](https://github.com/GarboMuffin/nicehash-calculator) project is responsible for doing the calculations; this project is effectively just a web frontend for its data.
 
